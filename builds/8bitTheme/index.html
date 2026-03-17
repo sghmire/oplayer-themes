@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Classic 8bit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="screen">
+
+        <div id="header">
+            <span>oPlayer</span>
+        </div>
+
+        <ul id="menu">
+            <li class="selected">Music</li>
+            <li>Radio</li>
+            <li>Podcasts</li>
+            <li>Exit</li>
+        </ul>
+
+        <div id="songlist" class="hidden">
+            <ul id="songlist-items"></ul>
+        </div>
+
+        <div id="nowplaying" class="hidden">
+            <div id="trackTitle">Nothing Playing</div>
+            <div id="trackArtist"></div>
+
+            <div id="progress">
+                <div id="bar"></div>
+            </div>
+
+            <div id="time">0:00 / 0:00</div>
+        </div>
+
+    </div>
+
+    <script src="https://app-theme.local/assets/core/oplayer-bridge.js"></script>
+    <script src="theme.js"></script>
+
+</body>
+
+</html>

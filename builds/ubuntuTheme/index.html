@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ubuntu Ambiance Theme</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://app-theme.local/assets/core/oplayer-bridge.js"></script>
+  <script src="theme.js" defer></script>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="traffic">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="title">oPlayer — Ubuntu Ambiance</div>
+    </header>
+
+    <section id="menu-view" class="view">
+      <ul id="menu-list" class="scroll-list">
+        <li>Folders</li>
+        <li>Albums</li>
+        <li>All Songs</li>
+        <li>Now Playing</li>
+        <li>Shuffle: Off</li>
+        <li>Back to iPod Theme</li>
+      </ul>
+    </section>
+
+    <section id="songs-view" class="view hidden">
+      <div id="songs-title" class="section-title">Library</div>
+      <ul id="songs-list" class="scroll-list"></ul>
+      <div id="songs-hint" class="hint">Loading…</div>
+    </section>
+
+    <section id="now-view" class="view hidden">
+      <div class="section-title">Now Playing</div>
+      <div class="now-wrap">
+        <img id="album-art" class="album-art" alt="Album Art" />
+        <div class="now-meta">
+          <div id="track-title" class="track-title">Nothing playing</div>
+          <div id="track-artist" class="track-artist">—</div>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+      <div id="time" class="time">0:00 / 0:00</div>
+    </section>
+
+    <footer class="footer">Scroll: move · Select: open/play · Menu: back</footer>
+  </div>
+</body>
+</html>
