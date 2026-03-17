@@ -30,7 +30,7 @@ Clean, Linux-inspired styling featuring classic orange and dark aubergine accent
 
 ---
 
-## 💻 For Developers: Build Your Own!
+## 💻 Build Your Own - Coming Soon!
 
 Want to design your own custom skin for oPlayer? Because the UI is built entirely with web technologies, you have complete freedom to reshape the player however you want using standard HTML, CSS, and JavaScript.
 
