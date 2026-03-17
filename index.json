@@ -1,0 +1,22 @@
+[
+  {
+    "id": "8bitTheme",
+    "name": "8-Bit Theme",
+    "version": "1.0.0",
+    "url": "https://raw.githubusercontent.com/<org>/oplayer-themes/main/builds/8bitTheme/1.0.0/8bitTheme.zip",
+    "sha256": "<fill-after-upload>",
+    "min_app_version": "1.0.0",
+    "author": "Your Name",
+    "description": "Retro pixel look."
+  },
+  {
+    "id": "ubuntuTheme",
+    "name": "Ubuntu Theme",
+    "version": "1.0.0",
+    "url": "https://raw.githubusercontent.com/<org>/oplayer-themes/main/builds/ubuntuTheme/1.0.0/ubuntuTheme.zip",
+    "sha256": "<fill-after-upload>",
+    "min_app_version": "1.0.0",
+    "author": "Your Name",
+    "description": "Ubuntu-inspired styling."
+  }
+]
