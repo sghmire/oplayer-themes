@@ -1,4 +1,4 @@
-# oPlayer Community Themes (Experimental)
+# oPlayer User Themes (Experimental)
 
 This folder mirrors what you’ll push to GitHub for manual theme downloads. The feature is experimental — use at your own risk.
 
