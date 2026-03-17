@@ -7,7 +7,7 @@ This folder mirrors what you’ll push to GitHub for manual theme downloads. The
 2) In oPlayer: Settings → Themes → + Import New Theme.
 3) Select the ZIP. After install, pick it under “User Themes.”
 
-## GitHub Repo (publish these files there)
+## GitHub Repo
 - Repo URL: [https://github.com/<org>/oplayer-themes](https://github.com/sghmire/oplayer-themes)
 - Machine index (for future auto-fetch): https://raw.githubusercontent.com/<org>/oplayer-themes/main/index.json
 
