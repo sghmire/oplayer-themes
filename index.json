@@ -4,9 +4,9 @@
     "name": "8-Bit Theme",
     "version": "1.0.0",
     "url": "https://raw.githubusercontent.com/<org>/oplayer-themes/main/builds/8bitTheme/1.0.0/8bitTheme.zip",
-    "sha256": "<fill-after-upload>",
+    "sha256": "79729A0AA19E87DD72A32A03164C5E52C3F06CEB5B719F135F56E9977CB3648C",
     "min_app_version": "1.0.0",
-    "author": "Your Name",
+    "author": "GFS",
     "description": "Retro pixel look."
   },
   {
@@ -14,9 +14,9 @@
     "name": "Ubuntu Theme",
     "version": "1.0.0",
     "url": "https://raw.githubusercontent.com/<org>/oplayer-themes/main/builds/ubuntuTheme/1.0.0/ubuntuTheme.zip",
-    "sha256": "<fill-after-upload>",
+    "sha256": "D6813DEDB5F2CB3FD4D558D7EDC01700392C6AD19F90DE524A418844E626294A",
     "min_app_version": "1.0.0",
-    "author": "Your Name",
+    "author": "GFS",
     "description": "Ubuntu-inspired styling."
   }
 ]
