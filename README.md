@@ -29,7 +29,7 @@ Clean, Linux-inspired styling featuring classic orange and dark aubergine accent
 
 
 ###  8bit Theme (v1.0.0)
-Clean, Linux-inspired styling featuring classic orange and dark aubergine accents.
+Retro styled old 8 bit theme from the olden days.
 
 <img src="screenshots/8bitTheme/8bitTheme-preview.jpg" width="320" alt="8bitTheme Screenshot">
 
