@@ -25,7 +25,7 @@ Clean, Linux-inspired styling featuring classic orange and dark aubergine accent
 
 <img src="screenshots/ubuntuTheme/ubuntu-preview.jpg" width="320" alt="Ubuntu Theme Screenshot">
 
-* **Download:** [`ubuntuTheme.zip`](https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/ubuntuTheme/1.0.1/ubuntuTheme.zip)
+* **Download:** [`8bitTheme.zip`](https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/ubuntuTheme/1.0.1/ubuntuTheme.zip)
 
 
 ###  8bit Theme (v1.0.0)
