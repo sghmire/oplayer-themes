@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Kentucky Wildcats</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://app-theme.local/assets/core/oplayer-bridge.js"></script>
+  <script src="theme.js" defer></script>
+</head>
+<body>
+  <div id="screen" style="position:relative;z-index:1;">
+    <!-- Wildcat claw scratch SVG watermark — 3 violent diagonal slashes -->
+    <svg class="watermark" viewBox="0 0 280 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="clawTear" x="-30%" y="-10%" width="160%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="3" result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <filter id="clawGlow" x="-40%" y="-10%" width="180%" height="120%">
+          <feGaussianBlur stdDeviation="5" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+        <filter id="clawRough" x="-20%" y="-5%" width="140%" height="110%">
+          <feTurbulence type="turbulence" baseFrequency="0.065" numOctaves="5" seed="7" result="rough"/>
+          <feDisplacementMap in="SourceGraphic" in2="rough" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </defs>
+
+      <!-- SLASH 1 (left) — deep gouge with ragged torn edges -->
+      <path d="M30 -10 C34 30, 26 55, 38 90 C46 115, 28 140, 40 175 C48 200, 32 230, 44 265 C52 290, 36 320, 46 355 C50 375, 42 395, 48 420"
+            stroke="rgba(255,255,255,0.15)" stroke-width="18" stroke-linecap="round"
+            fill="none" filter="url(#clawTear)"/>
+      <!-- Torn flesh flaps along slash 1 -->
+      <path d="M22 25 L14 18 M18 28 L10 30 M50 80 L58 72 M52 84 L62 82
+              M24 135 L15 130 M20 140 L12 145 M52 195 L60 188 M54 200 L64 198
+              M26 255 L16 250 M22 260 L14 266 M52 315 L62 308 M56 320 L64 322
+              M28 370 L18 365 M24 376 L16 380"
+            stroke="rgba(255,255,255,0.10)" stroke-width="3" stroke-linecap="round"
+            filter="url(#clawRough)"/>
+      <!-- Glow layer for slash 1 -->
+      <path d="M30 -10 C34 30, 26 55, 38 90 C46 115, 28 140, 40 175 C48 200, 32 230, 44 265 C52 290, 36 320, 46 355"
+            stroke="rgba(255,255,255,0.07)" stroke-width="28" stroke-linecap="round"
+            fill="none" filter="url(#clawGlow)"/>
+
+      <!-- SLASH 2 (center) — deepest, widest slash -->
+      <path d="M120 -15 C126 25, 114 50, 128 88 C138 118, 112 148, 130 185 C142 212, 118 242, 134 275 C146 302, 122 332, 138 365 C146 385, 130 400, 140 425"
+            stroke="rgba(255,255,255,0.18)" stroke-width="22" stroke-linecap="round"
+            fill="none" filter="url(#clawTear)"/>
+      <!-- Torn flesh flaps along slash 2 -->
+      <path d="M110 20 L100 12 M108 26 L96 28 M142 75 L152 66 M144 80 L156 78
+              M106 130 L94 124 M104 136 L92 140 M144 190 L156 182 M146 196 L158 194
+              M108 245 L96 240 M106 252 L94 258 M146 305 L158 298 M148 312 L160 310
+              M112 365 L100 360 M108 372 L96 378"
+            stroke="rgba(255,255,255,0.12)" stroke-width="3.5" stroke-linecap="round"
+            filter="url(#clawRough)"/>
+      <!-- Glow layer for slash 2 -->
+      <path d="M120 -15 C126 25, 114 50, 128 88 C138 118, 112 148, 130 185 C142 212, 118 242, 134 275 C146 302, 122 332, 138 365"
+            stroke="rgba(255,255,255,0.08)" stroke-width="34" stroke-linecap="round"
+            fill="none" filter="url(#clawGlow)"/>
+
+      <!-- SLASH 3 (right) — aggressive exit slash -->
+      <path d="M210 -5 C216 35, 204 60, 218 95 C228 122, 206 150, 220 185 C232 210, 210 240, 224 272 C236 298, 214 325, 228 358 C236 378, 222 398, 232 420"
+            stroke="rgba(255,255,255,0.14)" stroke-width="16" stroke-linecap="round"
+            fill="none" filter="url(#clawTear)"/>
+      <!-- Torn flesh flaps along slash 3 -->
+      <path d="M202 30 L192 22 M200 36 L190 38 M232 85 L242 76 M234 90 L246 88
+              M204 142 L192 136 M202 148 L190 154 M234 202 L246 194 M236 208 L248 206
+              M206 262 L194 256 M204 268 L192 274 M236 318 L248 310 M238 324 L250 322"
+            stroke="rgba(255,255,255,0.10)" stroke-width="3" stroke-linecap="round"
+            filter="url(#clawRough)"/>
+      <!-- Glow layer for slash 3 -->
+      <path d="M210 -5 C216 35, 204 60, 218 95 C228 122, 206 150, 220 185 C232 210, 210 240, 224 272 C236 298, 214 325, 228 358"
+            stroke="rgba(255,255,255,0.06)" stroke-width="26" stroke-linecap="round"
+            fill="none" filter="url(#clawGlow)"/>
+
+      <!-- Spatter/debris fragments scattered between slashes -->
+      <circle cx="75" cy="50" r="2" fill="rgba(255,255,255,0.08)"/>
+      <circle cx="170" cy="120" r="1.5" fill="rgba(255,255,255,0.09)"/>
+      <circle cx="80" cy="200" r="2.5" fill="rgba(255,255,255,0.07)"/>
+      <circle cx="175" cy="290" r="1.8" fill="rgba(255,255,255,0.08)"/>
+      <circle cx="85" cy="340" r="2" fill="rgba(255,255,255,0.07)"/>
+      <circle cx="155" cy="45" r="1.2" fill="rgba(255,255,255,0.06)"/>
+      <circle cx="245" cy="160" r="1.8" fill="rgba(255,255,255,0.07)"/>
+      <circle cx="60" cy="280" r="1.5" fill="rgba(255,255,255,0.06)"/>
+      <circle cx="250" cy="350" r="2" fill="rgba(255,255,255,0.05)"/>
+      <path d="M68 155 L72 148 L76 156" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" fill="none"/>
+      <path d="M168 230 L174 222 L178 232" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" fill="none"/>
+      <path d="M240 110 L244 102 L248 112" stroke="rgba(255,255,255,0.06)" stroke-width="1.5" fill="none"/>
+      <path d="M55 380 L60 372 L64 382" stroke="rgba(255,255,255,0.06)" stroke-width="1.5" fill="none"/>
+    </svg>
+
+    <div id="header">
+      <span class="team-name">oPlayer</span>
+    </div>
+
+    <div id="menu" class="view">
+      <ul id="menu-list"></ul>
+    </div>
+
+    <div id="songlist" class="view hidden">
+      <div id="list-header">Music</div>
+      <ul id="song-list"></ul>
+    </div>
+
+    <div id="nowplaying" class="view hidden">
+      <div id="np-art-container">
+        <img id="np-art" src="" alt="" class="hidden">
+        <div id="np-art-placeholder">
+          <svg viewBox="0 0 80 80" fill="none">
+            <rect width="80" height="80" rx="6" fill="#0033A0"/>
+            <!-- Claw scratch texture behind monogram -->
+            <path d="M18 8 C20 22, 16 32, 22 48 C26 58, 18 66, 24 76"
+                  stroke="rgba(255,255,255,0.12)" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <path d="M36 4 C40 20, 34 32, 42 48 C46 58, 38 68, 44 78"
+                  stroke="rgba(255,255,255,0.14)" stroke-width="6" stroke-linecap="round" fill="none"/>
+            <path d="M54 8 C58 22, 52 34, 60 50 C64 60, 56 68, 62 76"
+                  stroke="rgba(255,255,255,0.12)" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <!-- UK monogram — serif style -->
+            <text x="40" y="48" text-anchor="middle" fill="white" font-size="26" font-weight="700"
+                  font-family="Georgia, 'Times New Roman', serif" letter-spacing="2">UK</text>
+            <!-- Thin decorative rule beneath -->
+            <line x1="22" y1="56" x2="58" y2="56" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+          </svg>
+        </div>
+      </div>
+      <div id="np-info">
+        <div id="np-title">Nothing Playing</div>
+        <div id="np-artist"></div>
+      </div>
+      <div id="np-progress">
+        <div id="np-bar"></div>
+      </div>
+      <div id="np-time">0:00 / 0:00</div>
+    </div>
+
+    <div id="settings-view" class="view hidden">
+      <div id="settings-header">Settings</div>
+      <ul id="settings-list"></ul>
+    </div>
+  </div>
+</body>
+</html>

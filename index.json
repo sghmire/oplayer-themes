@@ -18,5 +18,75 @@
     "min_app_version": "1.0.1",
     "author": "GFS",
     "description": "Ubuntu-inspired styling."
+  },
+  {
+    "id": "dukeTheme",
+    "name": "Duke Blue Devils",
+    "version": "1.0.0",
+    "url": "https://raw.githubusercontent.com/<org>/oplayer-themes/main/builds/dukeTheme/1.0.0/dukeTheme.zip",
+    "sha256": "4915402068EAE50F98810D1F5EF35AFC0266299B71783383F051030A5CF08272",
+    "min_app_version": "1.0.0",
+    "author": "oPlayer Themes",
+    "description": "Cameron Indoor atmosphere — dark navy with sharp white contrast."
+  },
+  {
+    "id": "uncTheme",
+    "name": "UNC Tar Heels",
+    "version": "1.0.0",
+    "url": "https://raw.githubusercontent.com/<org>/oplayer-themes/main/builds/uncTheme/1.0.0/uncTheme.zip",
+    "sha256": "351276D43FB554249C3585BF168B92355F4E16BA08A95BBA51B599662D4C712E",
+    "min_app_version": "1.0.0",
+    "author": "oPlayer Themes",
+    "description": "Carolina Blue classic — clean, timeless styling."
+  },
+  {
+    "id": "kentuckyTheme",
+    "name": "Kentucky Wildcats",
+    "version": "1.0.0",
+    "url": "https://raw.githubusercontent.com/<org>/oplayer-themes/main/builds/kentuckyTheme/1.0.0/kentuckyTheme.zip",
+    "sha256": "96075A7123E60E451BBEE5CB30EEC82C5E3B262DFE47C702B51144F5E28F8FC7",
+    "min_app_version": "1.0.0",
+    "author": "oPlayer Themes",
+    "description": "Big Blue Nation — bold royal blue with Rupp Arena energy."
+  },
+  {
+    "id": "realMadridTheme",
+    "name": "Real Madrid",
+    "version": "1.0.0",
+    "url": "https://raw.githubusercontent.com/<org>/oplayer-themes/main/builds/realMadridTheme/1.0.0/realMadridTheme.zip",
+    "sha256": "BB76E9EF70B355E3809565F9FC642CCF97EEC299484CD196096732DC04B835F6",
+    "min_app_version": "1.0.0",
+    "author": "oPlayer Themes",
+    "description": "Hala Madrid — elegant white and gold with royal navy accents."
+  },
+  {
+    "id": "barcelonaTheme",
+    "name": "FC Barcelona",
+    "version": "1.0.0",
+    "url": "https://raw.githubusercontent.com/<org>/oplayer-themes/main/builds/barcelonaTheme/1.0.0/barcelonaTheme.zip",
+    "sha256": "AE8FB393940D3112465372A236CB689D233CDE7DF6D57EA5B5CF034EC21E1605",
+    "min_app_version": "1.0.0",
+    "author": "oPlayer Themes",
+    "description": "Blaugrana pride — deep red and blue with gold accents."
+  },
+  {
+    "id": "manUnitedTheme",
+    "name": "Manchester United",
+    "version": "1.0.0",
+    "url": "https://raw.githubusercontent.com/<org>/oplayer-themes/main/builds/manUnitedTheme/1.0.0/manUnitedTheme.zip",
+    "sha256": "3B8E931FE2A7F5479E5E7632D539E3757E5355F17BE1F434B5C6E7C8BDDA57BF",
+    "min_app_version": "1.0.0",
+    "author": "oPlayer Themes",
+    "description": "Red Devils — bold red and black, Old Trafford matchday energy."
+  },
+  {
+    "id": "chelseaTheme",
+    "name": "Chelsea FC",
+    "version": "1.0.0",
+    "url": "https://raw.githubusercontent.com/<org>/oplayer-themes/main/builds/chelseaTheme/1.0.0/chelseaTheme.zip",
+    "sha256": "C8F3B499D80A67BABA3C0D3AD049EED3438AB9DEB8F900BECFB9D5F0078F21A3",
+    "min_app_version": "1.0.0",
+    "author": "oPlayer Themes",
+    "description": "The Blues — royal blue with clean white and gold trim."
   }
 ]

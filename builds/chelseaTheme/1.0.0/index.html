@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Chelsea FC</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://app-theme.local/assets/core/oplayer-bridge.js"></script>
+  <script src="theme.js" defer></script>
+</head>
+<body>
+  <div id="screen">
+
+    <!-- Lion Rampant watermark — heraldic lion holding staff within shield, Chelsea's defining crest silhouette -->
+    <svg class="watermark" viewBox="0 0 360 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Heraldic shield outline behind the lion — traditional pointed shield at very low opacity -->
+      <path d="M30 40 L30 300 Q30 400 180 470 Q330 400 330 300 L330 40 Z"
+            stroke="rgba(219,161,17,0.025)" stroke-width="5" fill="none"/>
+      <!-- Inner shield line for depth -->
+      <path d="M42 52 L42 296 Q42 390 180 456 Q318 390 318 296 L318 52 Z"
+            stroke="rgba(219,161,17,0.015)" stroke-width="2" fill="none"/>
+
+      <!-- Staff the lion holds -->
+      <line x1="118" y1="52" x2="118" y2="440" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+      <!-- Staff cross-piece at top -->
+      <line x1="100" y1="58" x2="136" y2="58" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+      <line x1="118" y1="42" x2="118" y2="74" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+      <!-- Staff finial -->
+      <circle cx="118" cy="38" r="8" fill="currentColor"/>
+
+      <!-- Pennant / banner hanging from the staff cross-piece -->
+      <path d="M126 60 L134 72 L126 68 L126 60Z" fill="currentColor" opacity="0.7"/>
+      <path d="M128 62 L136 76 L128 71 L128 62Z" fill="currentColor" opacity="0.5"/>
+      <path d="M130 64 L137 80 L130 74 L130 64Z" fill="currentColor" opacity="0.35"/>
+
+      <!-- Lion body — rampant pose (rearing up on hind legs, facing left, holding staff) -->
+      <!-- Head -->
+      <ellipse cx="168" cy="82" rx="32" ry="28" fill="currentColor"/>
+      <!-- Mane — elaborate jagged crown of fur with extra peaks -->
+      <path d="M136 70 Q142 46 152 64 Q156 42 164 56 Q168 38 176 54 Q182 40 190 56 Q196 42 200 62 Q208 48 204 72 Q212 58 206 76"
+            fill="currentColor"/>
+      <!-- Ear -->
+      <ellipse cx="182" cy="58" rx="8" ry="12" fill="currentColor" transform="rotate(-15,182,58)"/>
+      <!-- Snout -->
+      <ellipse cx="148" cy="90" rx="14" ry="10" fill="currentColor"/>
+      <!-- Eye (negative space) -->
+      <circle cx="160" cy="78" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/>
+      <!-- Open jaw -->
+      <path d="M136 92 Q142 104 154 98" stroke="currentColor" stroke-width="3" fill="none"/>
+      <!-- Tongue -->
+      <path d="M140 96 Q136 108 144 106" fill="currentColor"/>
+
+      <!-- Neck / upper chest -->
+      <path d="M170 108 Q190 120 195 150 Q200 180 190 200 L160 200 Q150 180 155 150 Q160 120 170 108Z" fill="currentColor"/>
+
+      <!-- Torso — muscular heraldic body, slightly turned -->
+      <path d="M160 190 Q140 210 145 260 Q148 300 155 330 Q160 360 170 380
+               L220 380 Q230 360 225 330 Q220 300 218 260 Q215 210 200 190 Z" fill="currentColor"/>
+
+      <!-- Front left leg (raised, gripping staff) -->
+      <path d="M155 150 Q140 160 130 180 Q122 195 120 210 L118 220
+               Q115 222 112 218 L110 210 Q108 196 114 182 Q120 168 128 155 Q138 142 155 150Z" fill="currentColor"/>
+      <!-- Front left paw on staff -->
+      <path d="M110 210 Q106 218 108 224 Q112 230 120 228 L122 220 Q118 214 112 212Z" fill="currentColor"/>
+
+      <!-- Front right leg (raised higher, also reaching toward staff) -->
+      <path d="M170 130 Q155 135 142 155 Q132 172 126 190 L124 200
+               Q120 204 116 198 Q114 190 118 172 Q126 148 140 132 Q155 120 170 130Z" fill="currentColor"/>
+      <!-- Front right paw -->
+      <path d="M116 198 Q110 204 112 210 Q116 216 124 212 L126 204 Q122 200 118 200Z" fill="currentColor"/>
+
+      <!-- Hind left leg (standing) -->
+      <path d="M165 360 Q155 380 150 410 Q148 430 152 445
+               L142 455 Q138 460 142 465 L160 465 Q164 462 162 456
+               L168 445 Q172 430 170 410 Q168 390 170 370Z" fill="currentColor"/>
+
+      <!-- Hind right leg (standing, slightly behind) -->
+      <path d="M210 360 Q218 380 222 410 Q224 430 220 445
+               L228 455 Q232 460 228 465 L210 465 Q206 462 208 456
+               L202 445 Q198 430 200 410 Q204 390 205 370Z" fill="currentColor"/>
+
+      <!-- Tail — long, curving upward with tuft -->
+      <path d="M225 330 Q240 310 255 280 Q268 250 272 220 Q276 190 268 170
+               Q262 155 252 150" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="round"/>
+      <!-- Tail tuft -->
+      <path d="M252 150 Q240 140 235 148 Q238 155 248 158 Q258 156 260 148 Q256 140 252 150Z" fill="currentColor"/>
+    </svg>
+
+    <div id="header">
+      <span class="team-name">oPlayer</span>
+    </div>
+
+    <!-- Heraldic ornamental rule — thin decorative gold divider -->
+    <div class="heraldic-rule"></div>
+
+    <div id="menu" class="view">
+      <ul id="menu-list"></ul>
+    </div>
+
+    <div id="songlist" class="view hidden">
+      <div id="list-header">Music</div>
+      <ul id="song-list"></ul>
+    </div>
+
+    <div id="nowplaying" class="view hidden">
+      <div id="np-art-container">
+        <img id="np-art" src="" alt="" class="hidden">
+        <div id="np-art-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="80" height="80" rx="8" fill="#034694"/>
+            <!-- Heraldic diamond lattice pattern — more visible -->
+            <path d="M40 8 L48 16 L40 24 L32 16 Z" fill="rgba(219,161,17,0.14)" stroke="rgba(219,161,17,0.16)" stroke-width="0.5"/>
+            <path d="M40 24 L48 32 L40 40 L32 32 Z" fill="rgba(219,161,17,0.11)" stroke="rgba(219,161,17,0.13)" stroke-width="0.5"/>
+            <path d="M24 16 L32 24 L24 32 L16 24 Z" fill="rgba(219,161,17,0.09)" stroke="rgba(219,161,17,0.10)" stroke-width="0.3"/>
+            <path d="M56 16 L64 24 L56 32 L48 24 Z" fill="rgba(219,161,17,0.09)" stroke="rgba(219,161,17,0.10)" stroke-width="0.3"/>
+            <path d="M40 40 L48 48 L40 56 L32 48 Z" fill="rgba(219,161,17,0.06)" stroke="rgba(219,161,17,0.08)" stroke-width="0.3"/>
+            <path d="M24 32 L32 40 L24 48 L16 40 Z" fill="rgba(219,161,17,0.05)"/>
+            <path d="M56 32 L64 40 L56 48 L48 40 Z" fill="rgba(219,161,17,0.05)"/>
+            <!-- Small shield outline behind CFC text -->
+            <path d="M30 42 L30 56 Q30 64 40 68 Q50 64 50 56 L50 42 Z"
+                  stroke="rgba(219,161,17,0.12)" stroke-width="0.6" fill="none"/>
+            <!-- CFC text -->
+            <text x="40" y="56" text-anchor="middle" fill="#DBA111" font-size="18" font-weight="bold" font-family="'Trebuchet MS', 'Helvetica Neue', sans-serif">CFC</text>
+            <!-- Gold underline -->
+            <line x1="24" y1="62" x2="56" y2="62" stroke="#DBA111" stroke-width="0.8" opacity="0.5"/>
+            <!-- Small lion silhouette below -->
+            <path d="M38 66 Q37 65 37 66.5 Q36.5 68 37.5 69 L38 70 Q38.5 71 39.5 70.5 L40 70.5 Q41 71 41.5 70 L42 69 Q43 68 42.5 66.5 Q42.5 65 41.5 66 Q40.5 64 40 65 Q39 64 38 66Z" fill="#DBA111" opacity="0.4"/>
+          </svg>
+        </div>
+      </div>
+      <div id="np-info">
+        <div id="np-title">Nothing Playing</div>
+        <div id="np-artist"></div>
+      </div>
+      <div id="np-progress">
+        <div id="np-bar"></div>
+      </div>
+      <div id="np-time">0:00 / 0:00</div>
+    </div>
+
+    <div id="settings-view" class="view hidden">
+      <div id="settings-header">Settings</div>
+      <ul id="settings-list"></ul>
+    </div>
+  </div>
+</body>
+</html>

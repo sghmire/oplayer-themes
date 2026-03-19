@@ -1,0 +1,417 @@
+/* ================================================================ */
+/* Real Madrid Theme — Hala Madrid y Nada Mas                      */
+/* Los Blancos: White marble, Royal Navy #002868, Crown Gold #FEBE10 */
+/* LIGHT THEME — the Santiago Bernabeu VIP lounge                  */
+/* Typography: Cormorant Garamond — sharp serifs, regal authority   */
+/* ================================================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ---------------------------------------------------------------- */
+/* Root — polished white marble with warm ivory undertones           */
+/* ---------------------------------------------------------------- */
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: "Cormorant Garamond", "Georgia", "Times New Roman", "Palatino", serif;
+  background: linear-gradient(175deg, #FFFFFF 0%, #FAF9F6 30%, #F5F3EE 60%, #EDE9E3 100%);
+  color: #1C1C2E;
+  user-select: none;
+  position: relative;
+}
+
+/* Marble veining — subtle warm radials that mimic polished stone */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(254,190,16,0.035) 0%, transparent 45%),
+    radial-gradient(ellipse at 80% 70%, rgba(254,190,16,0.025) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 50%, rgba(0,40,104,0.015) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 85%, rgba(218,210,195,0.12) 0%, transparent 35%),
+    radial-gradient(ellipse at 90% 20%, rgba(218,210,195,0.08) 0%, transparent 30%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Very faint vein lines through the marble */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    linear-gradient(155deg, transparent 40%, rgba(210,200,185,0.06) 41%, rgba(210,200,185,0.03) 42%, transparent 43%),
+    linear-gradient(135deg, transparent 55%, rgba(210,200,185,0.05) 56%, rgba(210,200,185,0.02) 57%, transparent 58%),
+    linear-gradient(165deg, transparent 25%, rgba(210,200,185,0.04) 26%, rgba(210,200,185,0.02) 27%, transparent 28%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* Crown watermark — positioned low-right, ghostly elegance         */
+/* ---------------------------------------------------------------- */
+.watermark {
+  position: absolute;
+  bottom: -5px;
+  right: -8px;
+  width: 195px;
+  height: 185px;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* Screen container                                                 */
+/* ---------------------------------------------------------------- */
+#screen {
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure all content layers above watermark */
+#screen > *:not(.watermark) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------------------------------------------------------------- */
+/* Header — deep royal navy with gold crown, regal not sporty       */
+/* ---------------------------------------------------------------- */
+#header {
+  padding: 10px 14px 9px;
+  background: linear-gradient(180deg, #002868 0%, #001E4D 60%, #001840 100%);
+  border-bottom: 3px solid #FEBE10;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 2px 16px rgba(0,40,104,0.20),
+    0 1px 4px rgba(0,0,0,0.10);
+  z-index: 2;
+}
+
+/* Animated gold shimmer line — light traveling across the border */
+#header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: -60%;
+  width: 40%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(254,190,16,0.3) 20%,
+    rgba(254,190,16,0.7) 40%,
+    #FEBE10 50%,
+    rgba(254,190,16,0.7) 60%,
+    rgba(254,190,16,0.3) 80%,
+    transparent 100%
+  );
+  animation: goldShimmer 5s ease-in-out infinite;
+}
+
+@keyframes goldShimmer {
+  0%   { left: -60%; }
+  100% { left: 120%; }
+}
+
+/* Subtle inner glow on header top edge for depth */
+#header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 10%, rgba(254,190,16,0.15) 50%, transparent 90%);
+}
+
+.header-crown {
+  width: 23px;
+  height: 19px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 3px rgba(254,190,16,0.35));
+}
+
+.team-name {
+  font-family: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0,24,64,0.5);
+}
+
+.team-sub {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #FEBE10;
+}
+
+/* ---------------------------------------------------------------- */
+/* Views                                                            */
+/* ---------------------------------------------------------------- */
+.view {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden { display: none !important; }
+
+/* ---------------------------------------------------------------- */
+/* Menu — white marble background, serif typography, regal spacing  */
+/* ---------------------------------------------------------------- */
+#menu-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FCFBF8 100%);
+}
+#menu-list::-webkit-scrollbar { display: none; }
+
+#menu-list li {
+  padding: 11px 18px;
+  font-family: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  border-bottom: 1px solid rgba(0,40,104,0.06);
+  color: #1C1C2E;
+  transition: all 0.25s ease;
+  position: relative;
+  border-left: 4px solid transparent;
+}
+
+/* Selected: navy background, gold left border, gold dot accent */
+#menu-list li.selected {
+  background: linear-gradient(90deg, #002868 0%, #001E4D 100%);
+  color: #FFFFFF;
+  border-left: 4px solid #FEBE10;
+  box-shadow:
+    0 1px 8px rgba(0,40,104,0.18),
+    inset 0 0 0 0.5px rgba(254,190,16,0.1);
+}
+
+/* Gold dot accent on right side of selected item */
+#menu-list li.selected::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FEBE10;
+  box-shadow: 0 0 8px rgba(254,190,16,0.5);
+}
+
+/* ---------------------------------------------------------------- */
+/* Song list                                                        */
+/* ---------------------------------------------------------------- */
+#list-header {
+  padding: 8px 16px;
+  font-family: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #002868 0%, #001E4D 100%);
+  border-bottom: 1px solid rgba(254,190,16,0.25);
+  color: #FEBE10;
+}
+
+#song-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FCFBF8 100%);
+}
+#song-list::-webkit-scrollbar { display: none; }
+
+#song-list li {
+  padding: 8px 16px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(0,40,104,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  color: #1C1C2E;
+  transition: all 0.25s ease;
+  border-left: 3px solid transparent;
+}
+
+#song-list li.selected {
+  background: linear-gradient(90deg, #002868 0%, #001E4D 100%);
+  color: #FFFFFF;
+  border-left: 3px solid #FEBE10;
+  box-shadow: 0 1px 6px rgba(0,40,104,0.12);
+}
+
+#song-list li.selected .item-artist {
+  color: #FEBE10;
+}
+
+.item-name {
+  font-family: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-artist {
+  font-size: 11px;
+  font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  color: #8A8A9A;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------------------------------------------------------------- */
+/* Now Playing — white marble backdrop, gold-bordered art           */
+/* ---------------------------------------------------------------- */
+#nowplaying {
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  gap: 10px;
+  text-align: center;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF9F6 40%, #F5F2EC 100%);
+}
+
+#np-art-container {
+  width: 96px;
+  height: 96px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid #FEBE10;
+  box-shadow:
+    0 6px 24px rgba(0,40,104,0.15),
+    0 0 0 1px rgba(254,190,16,0.2),
+    0 2px 8px rgba(0,0,0,0.06);
+}
+
+#np-art { width: 100%; height: 100%; object-fit: cover; }
+
+#np-art-placeholder {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#np-art-placeholder svg { width: 100%; height: 100%; }
+
+#np-info { width: 100%; }
+
+#np-title {
+  font-family: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1C1C2E;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#np-artist {
+  font-size: 12px;
+  font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  color: #002868;
+  margin-top: 2px;
+  opacity: 0.75;
+}
+
+/* Progress bar — navy to gold gradient, the royal march */
+#np-progress {
+  width: 100%;
+  height: 4px;
+  background: rgba(0,40,104,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+#np-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #002868 0%, #003A8C 40%, #FEBE10 100%);
+  width: 0%;
+  border-radius: 2px;
+  transition: width 0.3s linear;
+  box-shadow: 0 0 6px rgba(254,190,16,0.25);
+}
+
+#np-time {
+  font-size: 10px;
+  font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  color: #AAAAAA;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------- */
+/* Settings                                                         */
+/* ---------------------------------------------------------------- */
+#settings-header {
+  padding: 8px 16px;
+  font-family: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #002868 0%, #001E4D 100%);
+  border-bottom: 1px solid rgba(254,190,16,0.25);
+  color: #FEBE10;
+}
+
+#settings-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FCFBF8 100%);
+}
+#settings-list::-webkit-scrollbar { display: none; }
+
+#settings-list li {
+  padding: 11px 18px;
+  font-family: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
+  font-size: 15px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0,40,104,0.05);
+  color: #1C1C2E;
+  transition: all 0.25s ease;
+  border-left: 4px solid transparent;
+  position: relative;
+}
+
+#settings-list li.selected {
+  background: linear-gradient(90deg, #002868 0%, #001E4D 100%);
+  color: #FFFFFF;
+  border-left: 4px solid #FEBE10;
+  box-shadow: 0 1px 6px rgba(0,40,104,0.12);
+}
+
+/* Gold dot on selected settings item */
+#settings-list li.selected::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FEBE10;
+  box-shadow: 0 0 8px rgba(254,190,16,0.5);
+}

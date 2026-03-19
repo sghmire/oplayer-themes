@@ -1,0 +1,504 @@
+/* ================================================================
+   Chelsea FC oPlayer Theme
+   "Stamford Bridge's Directors' Box"
+   Official Brand: Reflex Blue #034694 | White #FFFFFF | Gold #DBA111
+   Typography: Trebuchet MS / Helvetica Neue
+   Heritage: The Lion Rampant, the Heraldic Shield, Pride of London
+   ================================================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: "Trebuchet MS", "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(168deg,
+    #034694 0%,
+    #033D80 20%,
+    #02306A 45%,
+    #022558 65%,
+    #011A3E 85%,
+    #011230 100%
+  );
+  color: #FFFFFF;
+  user-select: none;
+  position: relative;
+}
+
+/* Heraldic diamond/lattice pattern overlay — subtle cross-hatch reminiscent of shield work */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 18px,
+      rgba(219,161,17,0.03) 18px,
+      rgba(219,161,17,0.03) 19px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 18px,
+      rgba(219,161,17,0.03) 18px,
+      rgba(219,161,17,0.03) 19px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Deep rich blue ambient glow overlays with stronger gold tones */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(219,161,17,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 85%, rgba(3,70,148,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(219,161,17,0.035) 0%, transparent 70%),
+    radial-gradient(ellipse at 75% 20%, rgba(219,161,17,0.025) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ================================================================
+   #screen
+   ================================================================ */
+#screen {
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ================================================================
+   Lion Rampant Watermark
+   Large, dominant, covers ~65% of screen height
+   Visible silhouette — the guardian of Stamford Bridge
+   ================================================================ */
+.watermark {
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  width: 70%;
+  height: 70%;
+  color: rgba(219,161,17,0.07);
+  pointer-events: none;
+  z-index: 0;
+  animation: lionBreathe 6s ease-in-out infinite;
+}
+
+/* Subtle breathing glow on the lion — like the crest lives */
+@keyframes lionBreathe {
+  0%, 100% { opacity: 0.95; filter: brightness(1); }
+  50%      { opacity: 1;    filter: brightness(1.06); }
+}
+
+/* ================================================================
+   Header
+   Reflex blue with gold bottom border + heraldic texture overlay
+   ================================================================ */
+#header {
+  padding: 10px 14px 8px;
+  background: linear-gradient(180deg, #034694 0%, #033A78 50%, #022D60 100%);
+  border-bottom: 2px solid #DBA111;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  box-shadow:
+    0 2px 16px rgba(1,18,48,0.5),
+    inset 0 -1px 0 rgba(219,161,17,0.15);
+}
+
+/* Heraldic cross-hatch texture in the header — like the argyle of heritage clubs */
+#header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 12px,
+      rgba(219,161,17,0.04) 12px,
+      rgba(219,161,17,0.04) 13px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 12px,
+      rgba(219,161,17,0.04) 12px,
+      rgba(219,161,17,0.04) 13px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Gold shimmer sweep across the header bottom border */
+#header::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: -100%;
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(219,161,17,0.2) 20%,
+    rgba(219,161,17,0.9) 45%,
+    #DBA111 50%,
+    rgba(219,161,17,0.9) 55%,
+    rgba(219,161,17,0.2) 80%,
+    transparent 100%
+  );
+  animation: goldShimmer 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes goldShimmer {
+  0%   { left: -60%; }
+  100% { left: 100%; }
+}
+
+/* Small header lion icon */
+.header-lion {
+  width: 22px;
+  height: 24px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
+
+/* Team name — confident Trebuchet, not overly heavy */
+.team-name {
+  font-family: "Trebuchet MS", "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  text-shadow: 0 1px 4px rgba(1,18,48,0.6);
+  position: relative;
+  z-index: 1;
+}
+
+/* "Pride of London" subtitle in gold */
+.team-sub {
+  font-family: "Trebuchet MS", "Helvetica Neue", sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #DBA111;
+  margin-left: auto;
+  align-self: flex-end;
+  padding-bottom: 2px;
+  text-shadow: 0 0 8px rgba(219,161,17,0.3);
+  position: relative;
+  z-index: 1;
+}
+
+/* ================================================================
+   Heraldic ornamental rule — thin decorative divider below header
+   ================================================================ */
+.heraldic-rule {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(219,161,17,0.08) 10%,
+    rgba(219,161,17,0.15) 30%,
+    rgba(219,161,17,0.25) 45%,
+    #DBA111 50%,
+    rgba(219,161,17,0.25) 55%,
+    rgba(219,161,17,0.15) 70%,
+    rgba(219,161,17,0.08) 90%,
+    transparent 100%
+  );
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+/* Diamond centerpiece on the ornamental rule */
+.heraldic-rule::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 5px;
+  height: 5px;
+  background: #DBA111;
+  box-shadow: 0 0 4px rgba(219,161,17,0.4);
+}
+
+/* ================================================================
+   Views
+   ================================================================ */
+.view {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.hidden { display: none !important; }
+
+/* ================================================================
+   Menu
+   Clean, confident — heraldic feel
+   ================================================================ */
+#menu-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+  background: transparent;
+}
+#menu-list::-webkit-scrollbar { display: none; }
+
+#menu-list li {
+  padding: 10px 16px;
+  font-family: "Trebuchet MS", "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: rgba(255,255,255,0.88);
+  border-bottom: 1px solid rgba(219,161,17,0.06);
+  border-left: 4px solid transparent;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* Selected: white background, blue text, gold left border, subtle golden inner glow */
+#menu-list li.selected {
+  background: rgba(255,255,255,0.96);
+  color: #034694;
+  border-left: 4px solid #DBA111;
+  font-weight: 700;
+  box-shadow:
+    0 1px 8px rgba(1,18,48,0.15),
+    inset 0 0 12px rgba(219,161,17,0.06);
+}
+
+/* Gold chevron accent on selected items */
+#menu-list li.selected::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid #DBA111;
+  border-bottom: 2px solid #DBA111;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+/* ================================================================
+   Song List
+   ================================================================ */
+#list-header {
+  padding: 8px 14px;
+  font-family: "Trebuchet MS", "Helvetica Neue", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, rgba(3,70,148,0.7) 0%, rgba(2,48,106,0.5) 100%);
+  border-bottom: 1px solid rgba(219,161,17,0.25);
+  color: #E4B520;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 0 8px rgba(219,161,17,0.15);
+}
+
+#song-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+  background: transparent;
+}
+#song-list::-webkit-scrollbar { display: none; }
+
+#song-list li {
+  padding: 8px 14px;
+  font-family: "Trebuchet MS", "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+  color: rgba(255,255,255,0.88);
+}
+
+/* Selected song: white bg, blue text, gold border, golden inner glow */
+#song-list li.selected {
+  background: rgba(255,255,255,0.96);
+  color: #034694;
+  border-left: 3px solid #DBA111;
+  box-shadow:
+    0 1px 6px rgba(1,18,48,0.1),
+    inset 0 0 12px rgba(219,161,17,0.06);
+}
+
+#song-list li.selected .item-artist {
+  color: #034694;
+  opacity: 0.6;
+}
+
+.item-name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-artist {
+  font-size: 11px;
+  color: rgba(219,161,17,0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ================================================================
+   Now Playing
+   ================================================================ */
+#nowplaying {
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  gap: 10px;
+  text-align: center;
+  background: linear-gradient(180deg,
+    rgba(3,70,148,0.15) 0%,
+    rgba(1,26,62,0.3) 100%
+  );
+}
+
+#np-art-container {
+  width: 96px;
+  height: 96px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #DBA111;
+  box-shadow:
+    0 6px 28px rgba(1,18,48,0.5),
+    0 0 0 1px rgba(219,161,17,0.2),
+    0 0 20px rgba(219,161,17,0.12),
+    0 0 40px rgba(219,161,17,0.06);
+}
+
+#np-art { width: 100%; height: 100%; object-fit: cover; }
+
+#np-art-placeholder {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #034694;
+}
+
+#np-art-placeholder svg { width: 100%; height: 100%; }
+
+#np-info { width: 100%; }
+
+#np-title {
+  font-family: "Trebuchet MS", "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #FFFFFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+#np-artist {
+  font-family: "Trebuchet MS", "Helvetica Neue", sans-serif;
+  font-size: 12px;
+  color: #DBA111;
+  margin-top: 2px;
+  text-shadow: 0 0 6px rgba(219,161,17,0.2);
+}
+
+/* Progress bar: blue-to-gold gradient */
+#np-progress {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+#np-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #034694 0%, #1A5DBF 40%, #DBA111 100%);
+  width: 0%;
+  border-radius: 2px;
+  transition: width 0.3s linear;
+  box-shadow: 0 0 8px rgba(219,161,17,0.25);
+}
+
+#np-time {
+  font-family: "Trebuchet MS", "Helvetica Neue", sans-serif;
+  font-size: 10px;
+  color: rgba(219,161,17,0.45);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ================================================================
+   Settings
+   ================================================================ */
+#settings-header {
+  padding: 8px 14px;
+  font-family: "Trebuchet MS", "Helvetica Neue", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, rgba(3,70,148,0.7) 0%, rgba(2,48,106,0.5) 100%);
+  border-bottom: 1px solid rgba(219,161,17,0.25);
+  color: #E4B520;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 0 8px rgba(219,161,17,0.15);
+}
+
+#settings-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+  background: transparent;
+}
+#settings-list::-webkit-scrollbar { display: none; }
+
+#settings-list li {
+  padding: 10px 16px;
+  font-family: "Trebuchet MS", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: rgba(255,255,255,0.88);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-left: 4px solid transparent;
+  transition: all 0.2s ease;
+}
+
+#settings-list li.selected {
+  background: rgba(255,255,255,0.96);
+  color: #034694;
+  border-left: 4px solid #DBA111;
+  font-weight: 700;
+  box-shadow:
+    0 1px 6px rgba(1,18,48,0.1),
+    inset 0 0 12px rgba(219,161,17,0.06);
+}
