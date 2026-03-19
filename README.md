@@ -2,7 +2,7 @@
 
 Welcome to the official community theme repository for **oPlayer**. This repository hosts experimental, community-driven themes that you can download and install directly into your app to customize your listening experience.
 
-> **⚠️ Disclaimer:** External themes are experimental and considered third-party content. Please install them at your own risk. ⚠️
+> **⚠️ Disclaimer:** External themes are experimental and considered third-party content. Please install them at your own risk. 
 
 ---
 
