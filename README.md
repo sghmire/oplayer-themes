@@ -27,6 +27,14 @@ Clean, Linux-inspired styling featuring classic orange and dark aubergine accent
 
 * **Download:** [`ubuntuTheme.zip`](https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/ubuntuTheme/1.0.1/ubuntuTheme.zip)
 
+
+###  8bit Theme (v1.0.0)
+Clean, Linux-inspired styling featuring classic orange and dark aubergine accents.
+
+<img src="screenshots/ubuntuTheme/8bitTheme-preview.jpg" width="320" alt="8bitTheme Screenshot">
+
+* **Download:** [`ubuntuTheme.zip`](https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/8bitTheme/1.0.0/ubuntuTheme.zip)
+
 ---
 
 ##  Build Your Own - Coming Soon!
