@@ -26,7 +26,7 @@ A nostalgic, retro pixel-art aesthetic for your music player.
 
 ###  Ubuntu Theme (v1.0.0)
 Clean, Linux-inspired styling featuring classic orange and dark aubergine accents.
-* **Download:** [`ubuntuTheme.zip`](https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/ubuntuTheme/1.0.0/ubuntuTheme.zip)
+* **Download:** [`ubuntuTheme.zip`](https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/ubuntuTheme/1.0.1/ubuntuTheme.zip)
 
 ---
 
