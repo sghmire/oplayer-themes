@@ -24,7 +24,7 @@ Installing a custom theme in oPlayer is quick and easy:
 A nostalgic, retro pixel-art aesthetic for your music player.
 * **Download:** [`8bitTheme.zip`](https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/8bitTheme/1.0.0/8bitTheme.zip)
 
-###  Ubuntu Theme (v1.0.0)
+###  Ubuntu Theme (v1.0.1)
 Clean, Linux-inspired styling featuring classic orange and dark aubergine accents.
 * **Download:** [`ubuntuTheme.zip`](https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/ubuntuTheme/1.0.1/ubuntuTheme.zip)
 
