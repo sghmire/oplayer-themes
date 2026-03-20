@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Ubuntu Desktop Theme</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://app-theme.local/assets/core/oplayer-bridge.js"></script>
+  <script src="../../oplayer_controls.js"></script>
+  <script src="theme.js" defer></script>
+</head>
+<body>
+  <!-- Top Status Bar -->
+  <header id="topbar">
+    <div class="topbar-left">
+      <span class="ubuntu-logo">oPlayer</span>
+    </div>
+    <div class="topbar-center" id="clock">
+      Mon 12:00 PM
+    </div>
+    <div class="topbar-right">
+      <svg class="topbar-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c5-5 13-5 18 0l2-2C16.9 4.1 7.1 4.1 1 9zm4 4l2 2c2.8-2.8 7.2-2.8 10 0l2-2C15.1 10.2 8.9 10.2 5 13zm4 4l3 3 3-3c-1.7-1.7-4.3-1.7-6 0z"/></svg>
+      <svg class="topbar-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      <svg class="topbar-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 10v4h2v-4h-2zm-2-4H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm0 14H2V8h16v12zm-14-9h12v6H4v-6z"/></svg>
+    </div>
+  </header>
+
+  <!-- Desktop Area -->
+  <main id="desktop">
+    
+    <!-- Dock (Launcher) -->
+    <nav id="dock">
+      <ul id="dock-list">
+        <!-- Icons populated by JS -->
+      </ul>
+    </nav>
+
+    <!-- Windows Container -->
+    <div id="windows-container">
+      
+      <!-- Nautilus (File Manager) Window -->
+      <div id="window-nautilus" class="window hidden">
+        <div class="titlebar">
+          <div class="window-controls">
+             <div class="btn-close"></div>
+             <div class="btn-min"></div>
+             <div class="btn-max"></div>
+          </div>
+          <div class="window-title" id="nautilus-title">Files</div>
+        </div>
+        <div class="window-body">
+          <div class="sidebar">
+            <ul id="nautilus-sidebar">
+              <li data-target="folders">Folders</li>
+              <li data-target="albums">Albums</li>
+              <li data-target="songs">All Songs</li>
+              <li data-target="radio">Radio</li>
+              <li data-target="podcasts">Podcasts</li>
+            </ul>
+          </div>
+          <div class="main-content">
+            <h2 id="nautilus-header">Folders</h2>
+            <ul id="nautilus-list" class="scroll-list"></ul>
+            <div id="nautilus-hint" class="hint">Loading...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rhythmbox Window -->
+      <div id="window-rhythmbox" class="window hidden">
+        <div class="titlebar">
+          <div class="window-controls">
+             <div class="btn-close"></div>
+             <div class="btn-min"></div>
+             <div class="btn-max"></div>
+          </div>
+          <div class="window-title">Rhythmbox</div>
+        </div>
+        <div class="window-body rhythmbox-body">
+           <img id="album-art" src="" alt="Album Art" class="rhythmbox-art hidden" />
+           <div class="rhythmbox-info">
+             <h2 id="track-title">Nothing playing</h2>
+             <h3 id="track-artist">—</h3>
+             <div class="progress-wrap">
+               <div id="progress-bar" class="progress-bar"></div>
+             </div>
+             <div id="time" class="time">0:00 / 0:00</div>
+           </div>
+        </div>
+      </div>
+
+      <!-- Settings Window -->
+      <div id="window-settings" class="window hidden">
+        <div class="titlebar">
+          <div class="window-controls">
+             <div class="btn-close"></div>
+             <div class="btn-min"></div>
+             <div class="btn-max"></div>
+          </div>
+          <div class="window-title">System Settings</div>
+        </div>
+        <div class="window-body settings-body">
+           <h2 id="settings-header">Settings</h2>
+           <ul id="settings-list" class="scroll-list">
+             <li>Toggle Shuffle</li>
+             <li>Switch to iPod Theme</li>
+           </ul>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>

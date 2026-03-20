@@ -25,7 +25,7 @@ Clean, Linux-inspired styling featuring classic orange and dark aubergine accent
 
 <img src="screenshots/ubuntuTheme/ubuntu-preview.jpg" width="320" alt="Ubuntu Theme Screenshot">
 
-* **Download:** [`ubuntuTheme.zip`](https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/ubuntuTheme/1.0.1/ubuntuTheme.zip)
+* **Download:** [`ubuntuTheme.zip`](https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/ubuntuTheme/ubuntuTheme.zip)
 
 
 ###  8bit Theme (v1.0.0)
@@ -33,7 +33,7 @@ Retro styled old 8 bit theme from the olden days.
 
 <img src="screenshots/8bitTheme/8bitTheme-preview.jpg" width="320" alt="8bitTheme Screenshot">
 
-* **Download:** [`8bitTheme.zip`](https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/8bitTheme/1.0.0/8bitTheme.zip)
+* **Download:** [`8bitTheme.zip`](https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/8bitTheme/8bitTheme.zip)
 
 ---
 
@@ -49,17 +49,18 @@ Once your theme is ready, you can submit a Pull Request following our contributi
 
 ##  Repository Structure (For Maintainers)
 
-To ensure the app can reliably fetch and verify themes in the future, this repository follows a strict versioning structure:
+Only the **latest version** of each theme is kept in the repository. Git history and tags are used for versioning.
 
 ```text
 oplayer-themes/
 ├── builds/
 │   ├── 8bitTheme/
-│   │   └── 1.0.0/
-│   │       └── 8bitTheme.zip
+│   │   ├── src/                   <-- Source code
+│   │   └── 8bitTheme.zip          <-- Distributable
 │   └── ubuntuTheme/
-│       └── 1.0.0/
-│           └── ubuntuTheme.zip
-├── index.json               <-- Master registry for the app
-├── THEME_DEVELOPMENT.md     <-- API documentation for creators
+│       ├── src/                   <-- Source code
+│       └── ubuntuTheme.zip        <-- Distributable
+├── index.json                     <-- Master registry for the app
+├── THEME_DEVELOPMENT.md           <-- API docs for creators
 └── README.md
+```
