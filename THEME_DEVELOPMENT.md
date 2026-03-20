@@ -110,7 +110,8 @@ Most data methods have an `Async` version (e.g., `getSongsPaginatedAsync`) which
 | `Bridge.stop()` | Stops playback. |
 | `Bridge.shuffleAll()` | Shuffles and plays entire library. |
 | `Bridge.toggleShuffle()` / `Bridge.toggleRepeat()` | Toggles playback modes. |
-| `Bridge.isShuffle()` / `Bridge.getRepeatMode()` | Returns current shuffle/repeat state. |
+| `Bridge.isShuffle()` | Returns boolean (or string "true"/"false") shuffle state. |
+| `Bridge.getRepeatMode()` | Returns string ("OFF", "ONE", "ALL"). |
 | `Bridge.setShuffle(bool)` / `Bridge.setRepeatMode(mode)` | Sets shuffle/repeat state explicitly. |
 | `Bridge.sortSongs(criteria)` | Sorts current song list by criteria. |
 

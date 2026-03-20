@@ -16,6 +16,10 @@
   padding: 0;
 }
 
+.hidden {
+  display: none !important;
+}
+
 html {
   width: 100%;
   height: 100%;
@@ -298,6 +302,13 @@ body {
 .scroll-list li.focused-item .list-icon svg {
   fill: #fff !important;
 }
+.opt-value {
+  color: #E95420;
+  font-size: 11px;
+}
+.focused-item .opt-value {
+  color: white;
+}
 
 .hint {
   padding: 10px;
@@ -423,7 +434,55 @@ body {
   width: 50%;
   transition: width 0.15s ease;
 }
+/* Status Indicator (Top Bar Animation) */
+.topbar-center {
+  height: 20px;
+  overflow: hidden;
+  position: relative;
+  min-width: 90px;
+}
 
+#status-container {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 40px; /* 20px clock + 20px loading */
+}
+
+.loading-active #status-container {
+  transform: translateY(-20px);
+}
+
+#clock, #loading-indicator {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+#loading-indicator {
+  gap: 6px;
+  background: rgba(255,255,255,0.1);
+  padding: 0 8px;
+  border-radius: 10px;
+}
+
+.ubuntu-spinner-mini {
+  width: 12px;
+  height: 12px;
+  animation: rotate 1.2s linear infinite;
+}
+
+#loading-status {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
 .volume-osd-pct {
   font-size: 10px;
   color: #ccc;

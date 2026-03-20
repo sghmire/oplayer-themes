@@ -27,6 +27,8 @@ const state = {
   nautilusItems: [],
   nautilusStack: [],
 
+  lastEqName: null,
+
   settingsMode: "ROOT", // ROOT, THEMES, EQ
   settingsIndex: 0,
   settingsOptions: [],
@@ -37,6 +39,16 @@ const state = {
 };
 
 function $(id) { return document.getElementById(id); }
+function show(id) { $(id).classList.remove("hidden"); }
+function hide(id) { $(id).classList.add("hidden"); }
+
+function showLoading(text) {
+  $("loading-status").innerText = text || "Loading...";
+  document.querySelector(".topbar-center").classList.add("loading-active");
+}
+function hideLoading() {
+  document.querySelector(".topbar-center").classList.remove("loading-active");
+}
 
 function ensureVisible(li, container) {
   if (!li || !container) return;
@@ -117,14 +129,14 @@ function openWindow(appId) {
   } else if (app.id === "radio") {
     $("nautilus-title").innerText = "Radio Stations";
     state.nautilusType = "radio";
-    state.nautilusSidebarIndex = 3; // Radio
+    state.nautilusSidebarIndex = 0; // Radio
     state.focus = "NAUTILUS_SIDEBAR";
     renderNautilusSidebar();
     openNautilusSidebarItem();
   } else if (app.id === "podcasts") {
     $("nautilus-title").innerText = "Podcasts";
     state.nautilusType = "podcasts";
-    state.nautilusSidebarIndex = 4; // Podcasts
+    state.nautilusSidebarIndex = 0; // Podcasts
     state.focus = "NAUTILUS_SIDEBAR";
     renderNautilusSidebar();
     openNautilusSidebarItem();
@@ -150,18 +162,28 @@ function closeWindow() {
 }
 
 // === NAUTILUS LOGIC ===
-const SIDEBAR_ITEMS = [
+const SIDEBAR_ITEMS_MUSIC = [
   { name: "Folders", key: "folders" },
   { name: "Albums", key: "albums" },
-  { name: "All Songs", key: "songs" },
-  { name: "Radio", key: "radio" },
+  { name: "All Songs", key: "songs" }
+];
+const SIDEBAR_ITEMS_RADIO = [
+  { name: "Radio", key: "radio" }
+];
+const SIDEBAR_ITEMS_PODCASTS = [
   { name: "Podcasts", key: "podcasts" }
 ];
+
+function getSidebarItems() {
+  if (state.nautilusType === "radio") return SIDEBAR_ITEMS_RADIO;
+  if (state.nautilusType === "podcasts") return SIDEBAR_ITEMS_PODCASTS;
+  return SIDEBAR_ITEMS_MUSIC;
+}
 
 function renderNautilusSidebar() {
   const ul = $("nautilus-sidebar");
   ul.innerHTML = "";
-  SIDEBAR_ITEMS.forEach((item, i) => {
+  getSidebarItems().forEach((item, i) => {
     const li = document.createElement("li");
     li.innerText = item.name;
     if (i === state.nautilusSidebarIndex && state.focus === "NAUTILUS_SIDEBAR") {
@@ -173,7 +195,7 @@ function renderNautilusSidebar() {
 }
 
 async function openNautilusSidebarItem() {
-  const item = SIDEBAR_ITEMS[state.nautilusSidebarIndex];
+  const item = getSidebarItems()[state.nautilusSidebarIndex];
   $("nautilus-header").innerText = item.name;
   state.nautilusMainIndex = 0;
   state.nautilusItems = [];
@@ -257,7 +279,7 @@ async function selectNautilusMainContent() {
   const item = state.nautilusItems[state.nautilusMainIndex];
   if (!item) return;
 
-  const key = SIDEBAR_ITEMS[state.nautilusSidebarIndex].key;
+  const key = getSidebarItems()[state.nautilusSidebarIndex].key;
   
   if (item.isDirectory && key === "folders") {
     // Navigate into folder
@@ -278,30 +300,75 @@ async function selectNautilusMainContent() {
     return;
   }
   
+  if (key === "albums" && state.nautilusStack.length === 1) {
+    // Navigate into album
+    const id = item.id || item.name;
+    state.nautilusStack.push(id);
+    $("nautilus-header").innerText = "Album: " + item.name;
+    $("nautilus-hint").innerText = "Loading...";
+    state.nautilusItems = [];
+    state.nautilusMainIndex = 0;
+    renderNautilusList();
+    
+    try {
+      const rows = await Bridge.getSongsByAlbumAsync(id);
+      state.nautilusItems = normalizeRows(rows);
+      $("nautilus-hint").innerText = state.nautilusItems.length + " tracks";
+    } catch (e) { $("nautilus-hint").innerText = "Error"; }
+    renderNautilusList();
+    return;
+  }
+  
+  if (key === "podcasts" && state.nautilusStack.length === 1) {
+    // Navigate into podcast
+    const id = item.id || item.name;
+    state.nautilusStack.push(id);
+    $("nautilus-header").innerText = "Podcast: " + item.name;
+    $("nautilus-hint").innerText = "Loading...";
+    state.nautilusItems = [];
+    state.nautilusMainIndex = 0;
+    renderNautilusList();
+    
+    try {
+      const rows = await Bridge.getPodcastEpisodesAsync(id);
+      state.nautilusItems = normalizeRows(rows);
+      $("nautilus-hint").innerText = state.nautilusItems.length + " episodes";
+    } catch (e) { $("nautilus-hint").innerText = "Error"; }
+    renderNautilusList();
+    return;
+  }
+  
   // Play item
-  if (key === "albums") Bridge.playAlbum(item.id || item.name, 0, false);
+  if (key === "albums") Bridge.playAlbum(state.nautilusStack[1], state.nautilusMainIndex, false);
   else if (key === "songs" || key === "folders") Bridge.playSong(item.id);
   else if (key === "radio") Bridge.playRadio(item.id);
-  else if (key === "podcasts") Bridge.playEpisode(item.id); // Or podcast? Just a demo.
+  else if (key === "podcasts") Bridge.playEpisode(item.id);
   
   // Open Rhythmbox after play
   openWindow("nowplaying");
 }
 
 function backNautilusMainContent() {
-  const key = SIDEBAR_ITEMS[state.nautilusSidebarIndex].key;
-  if (key === "folders" && state.nautilusStack.length > 1) {
+  const key = getSidebarItems()[state.nautilusSidebarIndex].key;
+  
+  if (state.nautilusStack.length > 1) {
     state.nautilusStack.pop();
-    const path = state.nautilusStack[state.nautilusStack.length - 1];
-    $("nautilus-header").innerText = path === "ROOT" ? "Folders" : "Folders: " + path;
-    Bridge.getFolderListingAsync(path).then(rows => {
-      state.nautilusItems = normalizeRows(rows);
-      state.nautilusMainIndex = 0;
-      $("nautilus-hint").innerText = state.nautilusItems.length + " items";
-      renderNautilusList();
-    });
+    const top = state.nautilusStack[state.nautilusStack.length - 1];
+    
+    if (key === "folders") {
+      $("nautilus-header").innerText = top === "ROOT" ? "Folders" : "Folders: " + top;
+      Bridge.getFolderListingAsync(top).then(rows => {
+        state.nautilusItems = normalizeRows(rows);
+        state.nautilusMainIndex = 0;
+        $("nautilus-hint").innerText = state.nautilusItems.length + " items";
+        renderNautilusList();
+      });
+    } else if (key === "albums" || key === "podcasts") {
+      openNautilusSidebarItem();
+    }
     return;
   }
+  
   // Otherwise switch back to sidebar
   state.focus = "NAUTILUS_SIDEBAR";
   renderNautilusSidebar();
@@ -310,7 +377,8 @@ function backNautilusMainContent() {
 
 // === SETTINGS LOGIC ===
 const SETTINGS_ROOT = [
-  { name: "Toggle Shuffle", action: "shuffle" },
+  { name: "Shuffle", action: "shuffle" },
+  { name: "Repeat", action: "repeat" },
   { name: "Switch Theme", action: "themes" },
   { name: "Equalizer Presets", action: "eq" },
   { name: "Refresh Library", action: "refresh" },
@@ -319,14 +387,39 @@ const SETTINGS_ROOT = [
   { name: "System Info", action: "info" }
 ];
 
-async function loadSettingsMenu(mode) {
+async function loadSettingsMenu(mode, preserveIndex) {
   state.settingsMode = mode;
-  state.settingsIndex = 0;
+  if (!preserveIndex) state.settingsIndex = 0;
   state.settingsOptions = [];
   
   if (mode === "ROOT") {
     $("settings-header").innerText = "Settings";
-    state.settingsOptions = SETTINGS_ROOT;
+    
+    // Direct Bridge.call to bypass wrapper name mismatches or stale properties
+    const rawShuffle = Bridge.call('isShuffle');
+    const isShuffle = (rawShuffle === true || rawShuffle === "true") ? "On" : "Off";
+    
+    const sleepActive = Bridge.getSleepTimerMinutes ? Bridge.getSleepTimerMinutes() : 0;
+    
+    let repeatLabel = "Off";
+    const rep = typeof Bridge.getRepeatMode === 'function' ? Bridge.getRepeatMode() : Bridge.call('getRepeatMode');
+    if (rep === "ONE" || rep === 1) repeatLabel = "One";
+    else if (rep === "ALL" || rep === 2) repeatLabel = "All";
+
+    let eqName = state.lastEqName || "Auto";
+    if (Bridge.getSettings) {
+      let s = Bridge.getSettings();
+      if (typeof s === 'string') try { s = JSON.parse(s); } catch(e) {}
+      if (s && s.eq_preset) eqName = s.eq_preset;
+    }
+    
+    state.settingsOptions = SETTINGS_ROOT.map(opt => {
+      if (opt.action === "shuffle") return { ...opt, subValue: isShuffle };
+      if (opt.action === "repeat") return { ...opt, subValue: repeatLabel };
+      if (opt.action === "sleep") return { ...opt, subValue: sleepActive > 0 ? `${sleepActive}m` : "Off" };
+      if (opt.action === "eq") return { ...opt, subValue: eqName };
+      return opt;
+    });
   } else if (mode === "THEMES") {
     $("settings-header").innerText = "Settings > Themes";
     try {
@@ -338,16 +431,38 @@ async function loadSettingsMenu(mode) {
   } else if (mode === "EQ") {
     $("settings-header").innerText = "Settings > Equalizer";
     try {
-      const eqRaw = typeof Bridge.getEqPresets === "function" ? Bridge.getEqPresets() : [];
-      let parsed = typeof eqRaw === 'string' ? JSON.parse(eqRaw) : eqRaw;
-      // Fallback if empty array (simulator uses Async)
-      if ((!parsed || parsed.length === 0) && typeof Bridge.getEqPresetsAsync === "function") {
-          const asyncRaw = await Bridge.getEqPresetsAsync();
-          parsed = typeof asyncRaw === 'string' ? JSON.parse(asyncRaw) : asyncRaw;
+      let eqRaw = typeof Bridge.getEqPresets === "function" ? Bridge.getEqPresets() : [];
+      if ((!eqRaw || eqRaw.length === 0) && typeof Bridge.getEqPresetsAsync === "function") {
+          eqRaw = await Bridge.getEqPresetsAsync();
       }
+      let parsed = typeof eqRaw === 'string' ? JSON.parse(eqRaw) : eqRaw;
       const eqArray = Array.isArray(parsed) ? parsed : [];
-      state.settingsOptions = eqArray.map((pre, i) => ({ name: pre, action: "apply_eq", index: i }));
+      state.settingsOptions = eqArray.map((pre, i) => {
+          const name = (typeof pre === 'object' && pre !== null) ? (pre.name || pre.title || "Preset " + (i+1)) : pre;
+          return { name: name, action: "apply_eq", index: i };
+      });
     } catch(e) { state.settingsOptions = []; }
+  } else if (mode === "INFO") {
+    $("settings-header").innerText = "Settings > Info";
+    const ver = Bridge.getAppVersion ? Bridge.getAppVersion() : "1.0.0";
+    const batt = Bridge.getBatteryLevel ? Bridge.getBatteryLevel() + "%" : "Unknown";
+    const songs = Bridge.getSongCount ? Bridge.getSongCount() : "0";
+    state.settingsOptions = [
+      { name: "oPlayer Version", subValue: ver },
+      { name: "Battery Level", subValue: batt },
+      { name: "Library Size", subValue: songs + " songs" },
+      { name: "Theme Version", subValue: "1.0.4" }
+    ];
+  } else if (mode === "SLEEP") {
+    $("settings-header").innerText = "Settings > Sleep Timer";
+    state.settingsOptions = [
+      { name: "Off", action: "set_sleep", value: 0 },
+      { name: "15 Minutes", action: "set_sleep", value: 15 },
+      { name: "30 Minutes", action: "set_sleep", value: 30 },
+      { name: "45 Minutes", action: "set_sleep", value: 45 },
+      { name: "1 Hour", action: "set_sleep", value: 60 },
+      { name: "2 Hours", action: "set_sleep", value: 120 }
+    ];
   }
   
   renderSettings();
@@ -359,7 +474,15 @@ function renderSettings() {
   if (!state.settingsOptions) return;
   state.settingsOptions.forEach((opt, i) => {
     const li = document.createElement("li");
-    li.innerText = opt.name;
+    li.style.display = "flex";
+    li.style.justifyContent = "space-between";
+    li.style.alignItems = "center";
+    
+    let html = `<span class="opt-name">${opt.name}</span>`;
+    if (opt.subValue) {
+      html += `<span class="opt-value">${opt.subValue}</span>`;
+    }
+    li.innerHTML = html;
     if (i === state.settingsIndex && state.focus === "SETTINGS") {
       li.classList.add("focused-item");
       setTimeout(() => ensureVisible(li, ul), 0);
@@ -386,26 +509,43 @@ function selectSettings() {
   if (!opt) return;
 
   if (state.settingsMode === "ROOT") {
-    if (opt.action === "shuffle") { Bridge.toggleShuffle(); }
+    if (opt.action === "shuffle") { 
+      Bridge.call('toggleShuffle'); 
+      loadSettingsMenu("ROOT", true);
+    }
+    else if (opt.action === "repeat") {
+      Bridge.call('toggleRepeat');
+      loadSettingsMenu("ROOT", true);
+    }
     else if (opt.action === "themes") { loadSettingsMenu("THEMES"); }
     else if (opt.action === "eq") { loadSettingsMenu("EQ"); }
-    else if (opt.action === "refresh") { if(Bridge.refreshLibrary) Bridge.refreshLibrary(); }
-    else if (opt.action === "import") { if(Bridge.requestImportTheme) Bridge.requestImportTheme(); }
-    else if (opt.action === "sleep") {
-      const min = prompt("Enter sleep timer minutes:", "30");
-      if (min && !isNaN(min) && Bridge.setSleepTimer) Bridge.setSleepTimer(parseInt(min));
+    else if (opt.action === "refresh") { 
+      showLoading("Refreshing library...");
+      if (Bridge.refreshLibrary) Bridge.refreshLibrary();
+      setTimeout(hideLoading, 3000);
     }
-    else if (opt.action === "info") {
-      const v = typeof Bridge.getAppVersion === 'function' ? Bridge.getAppVersion() : "Unknown";
-      alert("oPlayer Version: " + v);
+    else if (opt.action === "import") { 
+      showLoading("Preparing import...");
+      if (Bridge.requestImportTheme) Bridge.requestImportTheme();
+      setTimeout(hideLoading, 5000);
     }
+    else if (opt.action === "sleep") { loadSettingsMenu("SLEEP"); }
+    else if (opt.action === "info") { loadSettingsMenu("INFO"); }
   } else if (state.settingsMode === "THEMES") {
     if (opt.action === "apply_theme" && Bridge.setTheme) {
+      showLoading("Switching theme...");
       Bridge.setTheme(opt.name);
     }
   } else if (state.settingsMode === "EQ") {
     if (opt.action === "apply_eq" && Bridge.useEqPreset) {
       Bridge.useEqPreset(opt.index);
+      state.lastEqName = opt.name;
+      loadSettingsMenu("ROOT");
+    }
+  } else if (state.settingsMode === "SLEEP") {
+    if (opt.action === "set_sleep") {
+      Bridge.setSleepTimer(opt.value);
+      loadSettingsMenu("ROOT");
     }
   }
 }
@@ -419,18 +559,16 @@ function backSettings() {
 }
 
 // === RHYTHMBOX LOGIC ===
+const DEFAULT_ALBUM_ART = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg viewBox="-4 -4 32 32" fill="#888" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>');
+
 function updateNowPlaying(playback, track) {
   if (track) {
     state.nowTrack = track;
     $("track-title").innerText = track.title || "Unknown Title";
     $("track-artist").innerText = track.artist || "Unknown Artist";
     const art = $("album-art");
-    if (track.art) {
-      art.src = track.art;
-      art.classList.remove("hidden");
-    } else {
-      art.classList.add("hidden");
-    }
+    art.src = track.art ? track.art : DEFAULT_ALBUM_ART;
+    art.classList.remove("hidden");
   }
   if (playback) state.nowPlayback = playback;
   
@@ -463,8 +601,12 @@ function startNowPlayingTicker() {
       state.nowPlayback.position += 1000;
       updateNowPlaying(state.nowPlayback, null);
     }
-    refreshNowPlayingFromBridge();
   }, 1000);
+
+  // Sync with bridge periodically (slower) to prevent drift without overriding the smooth ticker
+  setInterval(() => {
+    refreshNowPlayingFromBridge();
+  }, 5000);
 }
 
 // === VOLUME OSD ===
@@ -501,7 +643,7 @@ function handleScroll(d) {
     state.dockIndex = clamp(state.dockIndex + d, APPS.length);
     renderDock();
   } else if (state.focus === "NAUTILUS_SIDEBAR") {
-    state.nautilusSidebarIndex = clamp(state.nautilusSidebarIndex + d, SIDEBAR_ITEMS.length);
+    state.nautilusSidebarIndex = clamp(state.nautilusSidebarIndex + d, getSidebarItems().length);
     renderNautilusSidebar();
   } else if (state.focus === "NAUTILUS_MAIN") {
     state.nautilusMainIndex = clamp(state.nautilusMainIndex + d, state.nautilusItems.length);
@@ -509,6 +651,13 @@ function handleScroll(d) {
   } else if (state.focus === "SETTINGS") {
     state.settingsIndex = clamp(state.settingsIndex + d, state.settingsOptions.length);
     updateSettingsHighlight();
+  } else if (state.focus === "RHYTHMBOX") {
+    if (state.nowPlayback && state.nowPlayback.duration) {
+      const seekDelta = d * 5000; // 5 seconds per tick
+      state.nowPlayback.position = clamp(state.nowPlayback.position + seekDelta, state.nowPlayback.duration);
+      if (Bridge.seekTo) Bridge.seekTo(state.nowPlayback.position);
+      updateNowPlaying(state.nowPlayback, null);
+    }
   }
 }
 
