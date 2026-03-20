@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Manchester United</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
+  <script src="https://app-theme.local/assets/core/oplayer-bridge.js"></script>
+  <script src="theme.js" defer></script>
+</head>
+<body>
+  <div id="screen" style="position:relative;z-index:1;">
+    <!-- Devil's Trident watermark — menacing, sharp, aggressive, with heat haze -->
+    <svg class="watermark" viewBox="0 0 220 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Heat/fire haze around prong tips — low opacity orange-red glow -->
+      <ellipse cx="110" cy="18" rx="22" ry="18" fill="rgba(218,41,28,0.04)"/>
+      <ellipse cx="110" cy="14" rx="14" ry="12" fill="rgba(255,80,20,0.03)"/>
+      <ellipse cx="35" cy="24" rx="18" ry="16" fill="rgba(218,41,28,0.04)"/>
+      <ellipse cx="35" cy="20" rx="12" ry="10" fill="rgba(255,80,20,0.03)"/>
+      <ellipse cx="185" cy="24" rx="18" ry="16" fill="rgba(218,41,28,0.04)"/>
+      <ellipse cx="185" cy="20" rx="12" ry="10" fill="rgba(255,80,20,0.03)"/>
+
+      <!-- Fire wisps rising from tips -->
+      <path d="M110,12 Q108,4 110,0 Q112,4 110,12" fill="rgba(251,225,34,0.04)"/>
+      <path d="M106,18 Q103,8 106,2 Q108,10 106,18" fill="rgba(218,41,28,0.03)"/>
+      <path d="M114,18 Q117,8 114,2 Q112,10 114,18" fill="rgba(218,41,28,0.03)"/>
+      <path d="M35,22 Q32,12 35,4 Q37,12 35,22" fill="rgba(251,225,34,0.03)"/>
+      <path d="M185,22 Q182,12 185,4 Q187,12 185,22" fill="rgba(251,225,34,0.03)"/>
+
+      <!-- Main shaft — thick, powerful -->
+      <rect x="103" y="130" width="14" height="200" rx="2" fill="rgba(218,41,28,0.09)"/>
+      <!-- Shaft base spike -->
+      <polygon points="110,340 98,328 122,328" fill="rgba(218,41,28,0.08)"/>
+      <!-- Shaft base secondary spike -->
+      <polygon points="110,345 102,335 118,335" fill="rgba(218,41,28,0.05)"/>
+
+      <!-- Cross guard — angular, aggressive, wider -->
+      <polygon points="55,140 165,140 160,128 60,128" fill="rgba(218,41,28,0.07)"/>
+      <!-- Cross guard end spikes — left -->
+      <polygon points="55,140 48,136 58,128" fill="rgba(218,41,28,0.09)"/>
+      <!-- Cross guard end spikes — right -->
+      <polygon points="165,140 172,136 162,128" fill="rgba(218,41,28,0.09)"/>
+      <!-- Cross guard center diamond -->
+      <polygon points="110,123 122,134 110,145 98,134" fill="rgba(218,41,28,0.10)"/>
+      <!-- Cross guard inner diamonds -->
+      <polygon points="80,130 88,135 80,140 72,135" fill="rgba(218,41,28,0.06)"/>
+      <polygon points="140,130 148,135 140,140 132,135" fill="rgba(218,41,28,0.06)"/>
+
+      <!-- Center prong — tallest, sharpest, more serrated -->
+      <polygon points="103,130 117,130 114,35 110,6 106,35" fill="rgba(218,41,28,0.09)"/>
+      <!-- Center prong razor tip — taller, sharper -->
+      <polygon points="110,6 104,38 116,38" fill="rgba(218,41,28,0.13)"/>
+      <!-- Center prong tip needle -->
+      <polygon points="110,6 108,18 112,18" fill="rgba(218,41,28,0.14)"/>
+
+      <!-- Center prong barbs — larger, more aggressive -->
+      <polygon points="103,62 86,74 103,82" fill="rgba(218,41,28,0.08)"/>
+      <polygon points="117,62 134,74 117,82" fill="rgba(218,41,28,0.08)"/>
+      <!-- Center prong secondary barbs — higher up -->
+      <polygon points="105,44 94,52 105,58" fill="rgba(218,41,28,0.06)"/>
+      <polygon points="115,44 126,52 115,58" fill="rgba(218,41,28,0.06)"/>
+      <!-- Center prong lower barbs -->
+      <polygon points="103,90 92,98 103,104" fill="rgba(218,41,28,0.05)"/>
+      <polygon points="117,90 128,98 117,104" fill="rgba(218,41,28,0.05)"/>
+      <!-- Center prong serration teeth -->
+      <polygon points="103,72 98,76 103,80" fill="rgba(218,41,28,0.06)"/>
+      <polygon points="117,72 122,76 117,80" fill="rgba(218,41,28,0.06)"/>
+      <polygon points="103,50 99,54 103,58" fill="rgba(218,41,28,0.05)"/>
+      <polygon points="117,50 121,54 117,58" fill="rgba(218,41,28,0.05)"/>
+
+      <!-- Left prong — curved outward, menacing, thicker -->
+      <path d="M60,135 L50,88 L38,52 L30,16" stroke="rgba(218,41,28,0.09)" stroke-width="14" stroke-linecap="butt" fill="none"/>
+      <!-- Left prong sharp tip — more aggressive -->
+      <polygon points="30,16 18,10 24,36 36,40" fill="rgba(218,41,28,0.12)"/>
+      <!-- Left prong tip needle -->
+      <polygon points="30,16 22,14 26,28" fill="rgba(218,41,28,0.13)"/>
+      <!-- Left prong outer barb -->
+      <polygon points="38,52 24,44 32,60" fill="rgba(218,41,28,0.07)"/>
+      <!-- Left prong inner barb -->
+      <polygon points="50,76 64,66 56,86" fill="rgba(218,41,28,0.07)"/>
+      <!-- Left prong serration teeth -->
+      <polygon points="44,64 36,58 40,72" fill="rgba(218,41,28,0.06)"/>
+      <polygon points="48,82 42,78 46,90" fill="rgba(218,41,28,0.05)"/>
+      <!-- Left prong upper barb -->
+      <polygon points="34,38 22,32 30,48" fill="rgba(218,41,28,0.06)"/>
+
+      <!-- Right prong — curved outward, menacing, thicker -->
+      <path d="M160,135 L170,88 L182,52 L190,16" stroke="rgba(218,41,28,0.09)" stroke-width="14" stroke-linecap="butt" fill="none"/>
+      <!-- Right prong sharp tip — more aggressive -->
+      <polygon points="190,16 202,10 196,36 184,40" fill="rgba(218,41,28,0.12)"/>
+      <!-- Right prong tip needle -->
+      <polygon points="190,16 198,14 194,28" fill="rgba(218,41,28,0.13)"/>
+      <!-- Right prong outer barb -->
+      <polygon points="182,52 196,44 188,60" fill="rgba(218,41,28,0.07)"/>
+      <!-- Right prong inner barb -->
+      <polygon points="170,76 156,66 164,86" fill="rgba(218,41,28,0.07)"/>
+      <!-- Right prong serration teeth -->
+      <polygon points="176,64 184,58 180,72" fill="rgba(218,41,28,0.06)"/>
+      <polygon points="172,82 178,78 174,90" fill="rgba(218,41,28,0.05)"/>
+      <!-- Right prong upper barb -->
+      <polygon points="186,38 198,32 190,48" fill="rgba(218,41,28,0.06)"/>
+
+      <!-- Decorative serrations on shaft — more pronounced -->
+      <polygon points="103,160 88,170 103,180" fill="rgba(218,41,28,0.06)"/>
+      <polygon points="117,160 132,170 117,180" fill="rgba(218,41,28,0.06)"/>
+      <polygon points="103,195 90,205 103,215" fill="rgba(218,41,28,0.05)"/>
+      <polygon points="117,195 130,205 117,215" fill="rgba(218,41,28,0.05)"/>
+      <polygon points="103,230 92,240 103,250" fill="rgba(218,41,28,0.04)"/>
+      <polygon points="117,230 128,240 117,250" fill="rgba(218,41,28,0.04)"/>
+      <polygon points="103,265 94,273 103,281" fill="rgba(218,41,28,0.03)"/>
+      <polygon points="117,265 126,273 117,281" fill="rgba(218,41,28,0.03)"/>
+    </svg>
+
+    <div id="header">
+      <span class="team-name">oPlayer</span>
+    </div>
+
+    <div id="menu" class="view">
+      <ul id="menu-list"></ul>
+    </div>
+
+    <div id="songlist" class="view hidden">
+      <div id="list-header">Music</div>
+      <ul id="song-list"></ul>
+    </div>
+
+    <div id="nowplaying" class="view hidden">
+      <div id="np-art-container">
+        <img id="np-art" src="" alt="" class="hidden">
+        <div id="np-art-placeholder">
+          <svg viewBox="0 0 80 80" fill="none">
+            <rect width="80" height="80" rx="6" fill="#DA291C"/>
+            <!-- Mini trident in placeholder — refined -->
+            <line x1="40" y1="54" x2="40" y2="28" stroke="#FBE122" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="40" y1="28" x2="40" y2="14" stroke="#FBE122" stroke-width="2" stroke-linecap="round"/>
+            <path d="M40,28 L28,16" stroke="#FBE122" stroke-width="2" stroke-linecap="round"/>
+            <path d="M40,28 L52,16" stroke="#FBE122" stroke-width="2" stroke-linecap="round"/>
+            <!-- Cross guard -->
+            <line x1="28" y1="30" x2="52" y2="30" stroke="#FBE122" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+            <!-- Small barbs on prongs -->
+            <path d="M34,22 L30,24" stroke="#FBE122" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+            <path d="M46,22 L50,24" stroke="#FBE122" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+            <path d="M38,20 L36,22" stroke="#FBE122" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+            <path d="M42,20 L44,22" stroke="#FBE122" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+            <!-- MUFC text -->
+            <text x="40" y="68" text-anchor="middle" fill="#FBE122" font-size="10" font-weight="bold" font-family="'Source Sans 3','Helvetica Neue',sans-serif" letter-spacing="2">MUFC</text>
+          </svg>
+        </div>
+      </div>
+      <div id="np-info">
+        <div id="np-title">Nothing Playing</div>
+        <div id="np-artist"></div>
+      </div>
+      <div id="np-progress">
+        <div id="np-bar"></div>
+      </div>
+      <div id="np-time">0:00 / 0:00</div>
+    </div>
+
+    <div id="settings-view" class="view hidden">
+      <div id="settings-header">Settings</div>
+      <ul id="settings-list"></ul>
+    </div>
+  </div>
+</body>
+</html>

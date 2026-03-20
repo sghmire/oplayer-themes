@@ -1,0 +1,426 @@
+/* ================================================================ */
+/* FC Barcelona Theme — Blaugrana                                   */
+/* "Mes que un club" — Camp Nou matchday under lights               */
+/* Garnet #A50044 | Blue #004D98 | Gold #EDBB00                    */
+/* Typography: DM Sans (Interstate-like bold sans-serif)            */
+/* ================================================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* -------------------------------------------------- */
+/* Animations                                         */
+/* -------------------------------------------------- */
+@keyframes headerGlow {
+  0%   { box-shadow: 0 2px 10px rgba(237,187,0,0.12); }
+  50%  { box-shadow: 0 2px 24px rgba(237,187,0,0.5), 0 0 48px rgba(237,187,0,0.10); }
+  100% { box-shadow: 0 2px 10px rgba(237,187,0,0.12); }
+}
+
+@keyframes goldSweep {
+  0%   { left: -60%; }
+  100% { left: 110%; }
+}
+
+/* -------------------------------------------------- */
+/* Root — dark pitch-night background                 */
+/* -------------------------------------------------- */
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: 'DM Sans', "Helvetica Neue", "Interstate", "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(180deg, #10061A 0%, #0C0412 40%, #080210 100%);
+  color: #F0EDE8;
+  user-select: none;
+  position: relative;
+}
+
+/* Subtle stadium-light radial glow */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 25% 15%, rgba(165,0,68,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 85%, rgba(0,77,152,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(237,187,0,0.02) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* -------------------------------------------------- */
+/* Shield/crest watermark — centered behind content   */
+/* -------------------------------------------------- */
+.watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72%;
+  max-width: 280px;
+  height: auto;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* -------------------------------------------------- */
+/* #screen — bold vertical Blaugrana stripes           */
+/* -------------------------------------------------- */
+#screen {
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(0,77,152,0.22) 0px,
+      rgba(0,77,152,0.22) 24px,
+      rgba(165,0,68,0.22) 24px,
+      rgba(165,0,68,0.22) 48px
+    );
+}
+
+/* All content above the watermark */
+#screen > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* -------------------------------------------------- */
+/* Header — garnet-to-blue gradient, gold border      */
+/* Pulsing gold glow, shimmer sweep                   */
+/* -------------------------------------------------- */
+#header {
+  padding: 10px 14px 8px;
+  background: linear-gradient(90deg,
+    #A50044 0%,
+    #8A003A 25%,
+    #4A0050 50%,
+    #003A75 75%,
+    #004D98 100%);
+  border-bottom: 3px solid #EDBB00;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: headerGlow 3s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+/* Gold shimmer sweep across the header border */
+#header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: -60%;
+  width: 50%;
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(237,187,0,0.5) 30%,
+    #EDBB00 50%,
+    rgba(237,187,0,0.5) 70%,
+    transparent 100%);
+  animation: goldSweep 5s ease-in-out infinite;
+}
+
+/* Header crest icon */
+.header-crest {
+  width: 20px;
+  height: 24px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 4px rgba(237,187,0,0.5));
+}
+
+.team-name {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  text-shadow: 0 1px 6px rgba(237,187,0,0.2), 0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* -------------------------------------------------- */
+/* Senyera accent bar — Catalan flag identity stripe   */
+/* Horizontal red/yellow stripes below header          */
+/* -------------------------------------------------- */
+.senyera-bar {
+  height: 6px;
+  flex-shrink: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    #EDBB00 0px,
+    #EDBB00 1.5px,
+    #A50044 1.5px,
+    #A50044 3px,
+    #EDBB00 3px,
+    #EDBB00 4.5px,
+    #A50044 4.5px,
+    #A50044 6px
+  );
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+/* -------------------------------------------------- */
+/* Views                                              */
+/* -------------------------------------------------- */
+.view { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+.hidden { display: none !important; }
+
+/* -------------------------------------------------- */
+/* Menu                                               */
+/* -------------------------------------------------- */
+#menu-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+}
+#menu-list::-webkit-scrollbar { display: none; }
+
+#menu-list li {
+  padding: 11px 16px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(237,187,0,0.06);
+  color: rgba(240,237,232,0.85);
+  transition: background 0.2s ease, color 0.2s ease, border-left 0.2s ease;
+  position: relative;
+}
+
+#menu-list li.selected {
+  background: linear-gradient(90deg, rgba(0,77,152,0.75) 0%, rgba(165,0,68,0.75) 100%);
+  color: #EDBB00;
+  border-left: 4px solid #EDBB00;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  box-shadow: inset 0 0 20px rgba(237,187,0,0.04);
+}
+
+/* Gold diamond accent on selected items */
+#menu-list li.selected::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 5px;
+  height: 5px;
+  background: #EDBB00;
+  box-shadow: 0 0 6px rgba(237,187,0,0.5);
+}
+
+/* -------------------------------------------------- */
+/* Song list                                          */
+/* -------------------------------------------------- */
+#list-header {
+  padding: 8px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, rgba(165,0,68,0.55), rgba(0,77,152,0.55));
+  border-bottom: 1px solid rgba(237,187,0,0.2);
+  color: #EDBB00;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+#song-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+}
+#song-list::-webkit-scrollbar { display: none; }
+
+#song-list li {
+  padding: 8px 14px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  color: rgba(240,237,232,0.88);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+#song-list li.selected {
+  background: linear-gradient(90deg, rgba(0,77,152,0.8) 0%, rgba(165,0,68,0.8) 100%);
+  color: #EDBB00;
+  border-left: 4px solid #EDBB00;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+#song-list li.selected .item-artist {
+  color: #EDBB00;
+  opacity: 1;
+}
+
+.item-name {
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-artist {
+  font-size: 11px;
+  color: rgba(237,187,0,0.55);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* -------------------------------------------------- */
+/* Now Playing — Camp Nou atmosphere                   */
+/* -------------------------------------------------- */
+#nowplaying {
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  gap: 10px;
+  text-align: center;
+  background: linear-gradient(180deg,
+    rgba(10,4,16,0.3) 0%,
+    rgba(165,0,68,0.06) 50%,
+    rgba(0,77,152,0.06) 100%);
+}
+
+#np-art-container {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 6px 28px rgba(165,0,68,0.35),
+    0 0 16px rgba(0,77,152,0.2),
+    inset 0 0 0 1px rgba(237,187,0,0.12);
+  border: 2px solid #EDBB00;
+}
+
+#np-art { width: 100%; height: 100%; object-fit: cover; }
+
+#np-art-placeholder {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #004D98 0%, #A50044 100%);
+}
+
+#np-art-placeholder svg { width: 100%; height: 100%; }
+
+/* Tiny Senyera stripe below album art */
+.np-senyera {
+  width: 80px;
+  height: 4px;
+  border-radius: 2px;
+  margin-top: -2px;
+  background: repeating-linear-gradient(
+    180deg,
+    #EDBB00 0px,
+    #EDBB00 1px,
+    #A50044 1px,
+    #A50044 2px,
+    #EDBB00 2px,
+    #EDBB00 3px,
+    #A50044 3px,
+    #A50044 4px
+  );
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+#np-info { width: 100%; }
+
+#np-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #F0EDE8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+
+#np-artist {
+  font-size: 12px;
+  color: #EDBB00;
+  margin-top: 2px;
+  opacity: 0.85;
+}
+
+/* -------------------------------------------------- */
+/* Progress bar — garnet through blue gradient         */
+/* -------------------------------------------------- */
+#np-progress {
+  width: 100%;
+  height: 5px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+#np-bar {
+  height: 100%;
+  background: linear-gradient(90deg,
+    #A50044 0%,
+    #8A003A 30%,
+    #4A0050 50%,
+    #003A75 75%,
+    #004D98 100%);
+  width: 0%;
+  border-radius: 3px;
+  transition: width 0.3s linear;
+  box-shadow: 0 0 8px rgba(237,187,0,0.25);
+}
+
+#np-time {
+  font-size: 10px;
+  color: rgba(237,187,0,0.45);
+  font-variant-numeric: tabular-nums;
+}
+
+/* -------------------------------------------------- */
+/* Settings                                           */
+/* -------------------------------------------------- */
+#settings-header {
+  padding: 8px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, rgba(165,0,68,0.55), rgba(0,77,152,0.55));
+  border-bottom: 1px solid rgba(237,187,0,0.2);
+  color: #EDBB00;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+#settings-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+}
+#settings-list::-webkit-scrollbar { display: none; }
+
+#settings-list li {
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: rgba(240,237,232,0.85);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+#settings-list li.selected {
+  background: linear-gradient(90deg, rgba(0,77,152,0.75) 0%, rgba(165,0,68,0.75) 100%);
+  color: #EDBB00;
+  border-left: 4px solid #EDBB00;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}

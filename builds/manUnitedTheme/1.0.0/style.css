@@ -1,0 +1,418 @@
+/* === Manchester United Theme === */
+/* Red Devils — Walking through the tunnel at Old Trafford onto the pitch */
+/* Brand: United Red #DA291C (PMS 485 C) | United Yellow #FBE122 (PMS 107 C) | Black #000000 */
+/* Typography: Source Sans 3 (body) | Helvetica Neue (fallback) */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: "Source Sans 3", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background:
+    /* Diagonal heritage stripe pattern — Man United kit DNA */
+    repeating-linear-gradient(
+      -45deg,
+      rgba(218,41,28,0.04) 0px,
+      rgba(218,41,28,0.04) 2px,
+      transparent 2px,
+      transparent 14px
+    ),
+    /* Deep, rich red-black gradient with theatrical depth */
+    radial-gradient(ellipse 140% 80% at 50% -10%, rgba(139,0,0,0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 70% at 50% 110%, rgba(139,0,0,0.20) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 50% at 15% 50%, rgba(218,41,28,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 50%, rgba(218,41,28,0.06) 0%, transparent 60%),
+    linear-gradient(180deg, #0F0000 0%, #0A0000 30%, #080000 60%, #0D0101 100%);
+  color: #FFFFFF;
+  user-select: none;
+  position: relative;
+}
+
+/* ── Dramatic Old Trafford tunnel lighting ── */
+/* Layered red theatrical glow — stadium floodlights bleeding through the players' tunnel */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse 120% 60% at 50% 0%, rgba(218,41,28,0.22) 0%, transparent 65%),
+    radial-gradient(ellipse 80% 50% at 20% 100%, rgba(218,41,28,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 50% at 80% 100%, rgba(218,41,28,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(139,0,0,0.06) 0%, transparent 70%),
+    /* Floodlight shafts cutting through from above */
+    conic-gradient(from 170deg at 50% -5%, transparent 44%, rgba(218,41,28,0.04) 46%, rgba(218,41,28,0.07) 50%, rgba(218,41,28,0.04) 54%, transparent 56%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Pulsing red heartbeat glow — the heartbeat of Old Trafford, more dramatic */
+body::before {
+  content: '';
+  position: fixed;
+  top: -30%; left: -30%;
+  width: 160%; height: 160%;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(218,41,28,0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 70%, rgba(139,0,0,0.08) 0%, transparent 45%);
+  animation: oldTraffordPulse 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes oldTraffordPulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+/* ── Devil's Trident watermark — larger, more dominant ── */
+.watermark {
+  position: absolute;
+  bottom: -25px;
+  right: -20px;
+  width: 260px;
+  height: 400px;
+  opacity: 1; /* opacity controlled per-element in SVG fills at 4-14% */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Screen container ── */
+#screen {
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Header — commanding red with yellow stripe, more dramatic ── */
+#header {
+  padding: 10px 14px 8px;
+  background: linear-gradient(180deg, #D12518 0%, #B71A1A 50%, #9B1212 100%);
+  border-bottom: 4px solid #FBE122;
+  box-shadow:
+    0 6px 30px rgba(218,41,28,0.65),
+    0 2px 12px rgba(0,0,0,0.5),
+    0 1px 0 rgba(251,225,34,0.35) inset,
+    0 -1px 6px rgba(139,0,0,0.4) inset;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle diagonal texture in header */
+#header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    rgba(0,0,0,0.06) 8px,
+    rgba(0,0,0,0.06) 9px
+  );
+  pointer-events: none;
+}
+
+/* Yellow shimmer across the bottom stripe */
+#header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: -100%;
+  width: 60%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent 0%, rgba(251,225,34,0.4) 30%, #FBE122 50%, rgba(251,225,34,0.4) 70%, transparent 100%);
+  animation: yellowShimmer 3.5s ease-in-out infinite;
+}
+
+@keyframes yellowShimmer {
+  0%   { left: -60%; }
+  100% { left: 100%; }
+}
+
+/* Header trident icon */
+.header-trident {
+  width: 20px;
+  height: 25px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.3));
+  position: relative;
+  z-index: 1;
+}
+
+.team-name {
+  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 1;
+}
+
+.team-sub {
+  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #FBE122;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+/* ── Views ── */
+.view { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+.hidden { display: none !important; }
+
+/* ── Menu ── */
+#menu-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #0D0000 0%, #0A0000 100%);
+}
+#menu-list::-webkit-scrollbar { display: none; }
+
+#menu-list li {
+  padding: 11px 16px;
+  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  border-bottom: 1px solid rgba(218,41,28,0.10);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* Yellow left accent — hidden until selected */
+#menu-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 0px;
+  background: #FBE122;
+  transition: width 0.2s ease;
+}
+
+#menu-list li.selected {
+  background: linear-gradient(90deg, #DA291C 0%, #B71A1A 70%, rgba(139,0,0,0.9) 100%);
+  color: #FBE122;
+  border-bottom-color: rgba(218,41,28,0.25);
+  box-shadow:
+    inset 0 0 35px rgba(0,0,0,0.3),
+    0 0 25px rgba(218,41,28,0.45),
+    0 0 50px rgba(218,41,28,0.15);
+}
+
+#menu-list li.selected::before {
+  width: 4px;
+}
+
+/* Yellow chevron on selected item */
+#menu-list li.selected::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid #FBE122;
+  border-bottom: 2px solid #FBE122;
+  transform: translateY(-50%) rotate(-45deg);
+  opacity: 0.8;
+}
+
+/* ── Song List ── */
+#list-header {
+  padding: 8px 14px;
+  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #DA291C 0%, #B71A1A 100%);
+  border-bottom: 2px solid rgba(251,225,34,0.4);
+  color: #FBE122;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+#song-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+  background: #0D0000;
+}
+#song-list::-webkit-scrollbar { display: none; }
+
+#song-list li {
+  padding: 8px 14px;
+  font-size: 13px;
+  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+  border-bottom: 1px solid rgba(218,41,28,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  color: rgba(255,255,255,0.88);
+  transition: all 0.2s ease;
+}
+
+#song-list li.selected {
+  background: linear-gradient(90deg, #DA291C 0%, #B71A1A 80%, rgba(139,0,0,0.85) 100%);
+  color: #FBE122;
+  border-left: 4px solid #FBE122;
+  box-shadow: 0 0 18px rgba(218,41,28,0.35);
+}
+
+#song-list li.selected .item-artist {
+  color: rgba(251,225,34,0.85);
+}
+
+.item-name {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-artist {
+  font-size: 11px;
+  color: rgba(218,41,28,0.55);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Now Playing ── */
+#nowplaying {
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  gap: 10px;
+  text-align: center;
+  background: linear-gradient(180deg, #0D0000 0%, #100000 50%, #0D0000 100%);
+}
+
+#np-art-container {
+  width: 104px;
+  height: 104px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid #DA291C;
+  box-shadow:
+    0 8px 36px rgba(218,41,28,0.55),
+    0 0 0 1px rgba(251,225,34,0.25),
+    0 0 50px rgba(218,41,28,0.25),
+    0 0 80px rgba(139,0,0,0.15);
+}
+
+#np-art { width: 100%; height: 100%; object-fit: cover; }
+
+#np-art-placeholder {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0D0000;
+}
+
+#np-art-placeholder svg { width: 100%; height: 100%; }
+
+#np-info { width: 100%; }
+
+#np-title {
+  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 8px rgba(218,41,28,0.4);
+}
+
+#np-artist {
+  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+  font-size: 12px;
+  color: #FBE122;
+  margin-top: 2px;
+  letter-spacing: 0.5px;
+}
+
+/* Progress bar — solid red with red glow shadow */
+#np-progress {
+  width: 100%;
+  height: 5px;
+  background: rgba(218,41,28,0.15);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+#np-bar {
+  height: 100%;
+  background: #DA291C;
+  width: 0%;
+  border-radius: 3px;
+  transition: width 0.3s linear;
+  box-shadow: 0 0 10px rgba(218,41,28,0.6), 0 0 20px rgba(218,41,28,0.3);
+}
+
+#np-time {
+  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+  font-size: 10px;
+  color: rgba(251,225,34,0.5);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 1px;
+}
+
+/* ── Settings ── */
+#settings-header {
+  padding: 8px 14px;
+  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #DA291C 0%, #B71A1A 100%);
+  border-bottom: 2px solid rgba(251,225,34,0.4);
+  color: #FBE122;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+#settings-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+  background: #0D0000;
+}
+#settings-list::-webkit-scrollbar { display: none; }
+
+#settings-list li {
+  padding: 10px 16px;
+  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  border-bottom: 1px solid rgba(218,41,28,0.08);
+  transition: all 0.2s ease;
+}
+
+#settings-list li.selected {
+  background: linear-gradient(90deg, #DA291C 0%, #B71A1A 80%, rgba(139,0,0,0.85) 100%);
+  color: #FBE122;
+  border-left: 4px solid #FBE122;
+  box-shadow: 0 0 18px rgba(218,41,28,0.35);
+}

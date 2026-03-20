@@ -1,0 +1,441 @@
+/* === Kentucky Wildcats Theme === */
+/* Big Blue Nation — Mercury serif tradition meets wildcat aggression */
+/* Brand: Wildcat Blue #0033A0 (PMS 286 C), White, Black */
+/* Typography: Georgia (Mercury fallback) + "Helvetica Neue" (Avenir fallback) */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: Georgia, "Times New Roman", "Mercury Display A", serif;
+  background:
+    radial-gradient(ellipse at 40% 10%, #003399 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 90%, #001A5C 0%, transparent 50%),
+    linear-gradient(180deg, #002880 0%, #001650 40%, #000C30 75%, #000818 100%);
+  color: #FFFFFF;
+  user-select: none;
+  position: relative;
+}
+
+/* Hardwood court texture overlay — vertical wood-grain lines */
+html::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 8px,
+      rgba(0,20,80,0.07) 8px,
+      rgba(0,20,80,0.07) 9px,
+      transparent 9px,
+      transparent 14px,
+      rgba(255,255,255,0.015) 14px,
+      rgba(255,255,255,0.015) 15px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 23px,
+      rgba(0,30,100,0.04) 23px,
+      rgba(0,30,100,0.04) 24px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Hardwood court plank grain — horizontal plank seams + vertical grain */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 38px,
+      rgba(255,255,255,0.018) 38px,
+      rgba(255,255,255,0.018) 39px,
+      transparent 39px,
+      transparent 42px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 5px,
+      rgba(255,255,255,0.008) 5px,
+      rgba(255,255,255,0.008) 6px,
+      transparent 6px,
+      transparent 11px,
+      rgba(0,20,80,0.03) 11px,
+      rgba(0,20,80,0.03) 12px
+    ),
+    repeating-linear-gradient(
+      2deg,
+      transparent,
+      transparent 18px,
+      rgba(255,255,255,0.005) 18px,
+      rgba(255,255,255,0.005) 19px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Rupp Arena court-side lighting — overhead + lower bounce */
+body::after {
+  content: '';
+  position: fixed;
+  top: -30%; left: -30%;
+  width: 160%; height: 160%;
+  background:
+    radial-gradient(ellipse at 50% 12%, rgba(0,51,160,0.25) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 95%, rgba(0,40,128,0.15) 0%, transparent 45%),
+    radial-gradient(ellipse at 20% 50%, rgba(0,51,160,0.06) 0%, transparent 40%),
+    radial-gradient(ellipse at 80% 50%, rgba(0,51,160,0.06) 0%, transparent 40%);
+  animation: blueAmbience 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes blueAmbience {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+/* Claw scratch watermark — positioned behind content */
+.watermark {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#screen {
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Header ── */
+/* Bold serif "oPlayer" — thick white bottom border, blue gradient */
+#header {
+  padding: 10px 14px 9px;
+  background: linear-gradient(180deg, #0033A0 0%, #002278 50%, #001B60 100%);
+  border-bottom: 4px solid #FFFFFF;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 4px 20px rgba(0,51,160,0.55),
+    0 1px 0 rgba(255,255,255,0.15) inset;
+}
+
+/* Glowing white shimmer along header border */
+#header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: -100%;
+  width: 60%;
+  height: 4px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255,255,255,0.5) 30%,
+    rgba(255,255,255,0.9) 50%,
+    rgba(255,255,255,0.5) 70%,
+    transparent 100%);
+  animation: whiteShimmer 4.5s ease-in-out infinite;
+}
+
+@keyframes whiteShimmer {
+  0%   { left: -60%; }
+  100% { left: 100%; }
+}
+
+.team-name {
+  font-family: Georgia, "Times New Roman", "Mercury Display A", serif;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  text-shadow:
+    0 1px 6px rgba(0,30,100,0.6),
+    0 0 20px rgba(255,255,255,0.08);
+}
+
+/* ── Views ── */
+.view { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+.hidden { display: none !important; }
+
+/* ── Menu ── */
+#menu-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+}
+#menu-list::-webkit-scrollbar { display: none; }
+
+#menu-list li {
+  padding: 11px 16px;
+  font-family: Georgia, "Times New Roman", "Mercury Display A", serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.85);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* Selected: inverted — white bg with faint scratch texture, Wildcat Blue text, strong glow */
+#menu-list li.selected {
+  background:
+    repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 6px,
+      rgba(0,51,160,0.03) 6px,
+      rgba(0,51,160,0.03) 7px,
+      transparent 7px,
+      transparent 11px,
+      rgba(0,51,160,0.02) 11px,
+      rgba(0,51,160,0.02) 12px
+    ),
+    #FFFFFF;
+  color: #0033A0;
+  box-shadow:
+    0 0 22px rgba(255,255,255,0.35),
+    0 0 44px rgba(0,51,160,0.12),
+    0 0 6px rgba(255,255,255,0.4);
+}
+
+/* Glowing left accent on selected items */
+#menu-list li.selected::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: #0033A0;
+  box-shadow:
+    0 0 8px rgba(0,51,160,0.6),
+    0 0 16px rgba(0,51,160,0.3);
+}
+
+/* ── Song list ── */
+#list-header {
+  padding: 8px 14px;
+  font-family: "Helvetica Neue", Helvetica, "Avenir Next", Avenir, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: rgba(0,51,160,0.45);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.55);
+}
+
+#song-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+}
+#song-list::-webkit-scrollbar { display: none; }
+
+#song-list li {
+  padding: 9px 14px;
+  font-family: "Helvetica Neue", Helvetica, "Avenir Next", Avenir, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  color: rgba(255,255,255,0.88);
+  transition: all 0.2s ease;
+}
+
+#song-list li.selected {
+  background:
+    repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 6px,
+      rgba(0,51,160,0.03) 6px,
+      rgba(0,51,160,0.03) 7px,
+      transparent 7px,
+      transparent 11px,
+      rgba(0,51,160,0.02) 11px,
+      rgba(0,51,160,0.02) 12px
+    ),
+    #FFFFFF;
+  color: #0033A0;
+  box-shadow:
+    0 0 20px rgba(255,255,255,0.3),
+    0 0 38px rgba(0,51,160,0.12),
+    0 0 6px rgba(255,255,255,0.4);
+}
+
+#song-list li.selected .item-artist {
+  color: #0033A0;
+  opacity: 0.6;
+}
+
+.item-name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-artist {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Now Playing ── */
+#nowplaying {
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  gap: 10px;
+  text-align: center;
+}
+
+#np-art-container {
+  width: 100px;
+  height: 100px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 3px solid rgba(255,255,255,0.7);
+  box-shadow:
+    0 6px 28px rgba(0,51,160,0.5),
+    0 0 0 1px rgba(255,255,255,0.2),
+    0 0 16px rgba(0,51,160,0.3);
+}
+
+#np-art { width: 100%; height: 100%; object-fit: cover; }
+
+#np-art-placeholder {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#np-art-placeholder svg { width: 100%; height: 100%; }
+
+#np-info { width: 100%; }
+
+#np-title {
+  font-family: Georgia, "Times New Roman", "Mercury Display A", serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 6px rgba(0,30,100,0.4);
+}
+
+#np-artist {
+  font-family: "Helvetica Neue", Helvetica, "Avenir Next", Avenir, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.5);
+  margin-top: 2px;
+}
+
+/* Progress bar: white with blue glow */
+#np-progress {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.10);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+#np-bar {
+  height: 100%;
+  background: #FFFFFF;
+  width: 0%;
+  border-radius: 2px;
+  transition: width 0.3s linear;
+  box-shadow:
+    0 0 8px rgba(255,255,255,0.6),
+    0 0 18px rgba(0,51,160,0.4),
+    0 0 3px rgba(255,255,255,0.8);
+}
+
+#np-time {
+  font-family: "Helvetica Neue", Helvetica, "Avenir Next", Avenir, Arial, sans-serif;
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Settings ── */
+#settings-header {
+  padding: 8px 14px;
+  font-family: "Helvetica Neue", Helvetica, "Avenir Next", Avenir, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: rgba(0,51,160,0.45);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.55);
+}
+
+#settings-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+}
+#settings-list::-webkit-scrollbar { display: none; }
+
+#settings-list li {
+  padding: 11px 16px;
+  font-family: Georgia, "Times New Roman", "Mercury Display A", serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.85);
+  transition: all 0.2s ease;
+}
+
+#settings-list li.selected {
+  background:
+    repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 6px,
+      rgba(0,51,160,0.03) 6px,
+      rgba(0,51,160,0.03) 7px,
+      transparent 7px,
+      transparent 11px,
+      rgba(0,51,160,0.02) 11px,
+      rgba(0,51,160,0.02) 12px
+    ),
+    #FFFFFF;
+  color: #0033A0;
+  box-shadow:
+    0 0 20px rgba(255,255,255,0.3),
+    0 0 38px rgba(0,51,160,0.12),
+    0 0 6px rgba(255,255,255,0.4);
+}

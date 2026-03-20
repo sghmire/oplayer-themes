@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Duke Blue Devils</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
+  <script src="https://app-theme.local/assets/core/oplayer-bridge.js"></script>
+  <script src="theme.js" defer></script>
+</head>
+<body>
+  <div id="screen" style="position:relative;z-index:1;">
+    <!-- Gothic cathedral window watermark (inside #screen for Android WebView z-index) -->
+    <svg class="watermark" viewBox="0 0 280 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer gothic pointed arch — main cathedral frame -->
+      <path d="M30 380 L30 170 Q30 70 140 20 Q250 70 250 170 L250 380"
+            stroke="rgba(0,83,155,0.10)"
+            stroke-width="3.5"
+            fill="none"/>
+      <!-- Outer arch fill — very faint depth -->
+      <path d="M30 380 L30 170 Q30 70 140 20 Q250 70 250 170 L250 380 Z"
+            fill="rgba(0,83,155,0.015)"/>
+
+      <!-- Inner pointed arch -->
+      <path d="M50 380 L50 180 Q50 95 140 50 Q230 95 230 180 L230 380"
+            stroke="rgba(0,83,155,0.08)"
+            stroke-width="2.5"
+            fill="none"/>
+
+      <!-- Center lancet window — the main cathedral window -->
+      <path d="M85 360 L85 200 Q85 130 140 90 Q195 130 195 200 L195 360"
+            fill="rgba(0,83,155,0.035)"
+            stroke="rgba(0,83,155,0.09)"
+            stroke-width="2"/>
+
+      <!-- Left flanking lancet — smaller pointed arch -->
+      <path d="M45 360 L45 220 Q45 170 67 150 Q90 170 90 220 L90 360"
+            fill="rgba(0,83,155,0.02)"
+            stroke="rgba(0,83,155,0.07)"
+            stroke-width="1.5"/>
+
+      <!-- Right flanking lancet — smaller pointed arch -->
+      <path d="M190 360 L190 220 Q190 170 213 150 Q235 170 235 220 L235 360"
+            fill="rgba(0,83,155,0.02)"
+            stroke="rgba(0,83,155,0.07)"
+            stroke-width="1.5"/>
+
+      <!-- Trefoil at apex — three-lobed gothic detail -->
+      <circle cx="140" cy="108" r="14" fill="rgba(0,83,155,0.025)" stroke="rgba(0,83,155,0.08)" stroke-width="1.5"/>
+      <circle cx="127" cy="121" r="11" fill="rgba(0,83,155,0.02)" stroke="rgba(0,83,155,0.07)" stroke-width="1.2"/>
+      <circle cx="153" cy="121" r="11" fill="rgba(0,83,155,0.02)" stroke="rgba(0,83,155,0.07)" stroke-width="1.2"/>
+
+      <!-- Quatrefoil pattern above trefoil — four-lobed ornament -->
+      <circle cx="140" cy="80" r="7" fill="none" stroke="rgba(0,83,155,0.06)" stroke-width="1"/>
+      <circle cx="133" cy="87" r="5" fill="none" stroke="rgba(0,83,155,0.05)" stroke-width="0.8"/>
+      <circle cx="147" cy="87" r="5" fill="none" stroke="rgba(0,83,155,0.05)" stroke-width="0.8"/>
+      <circle cx="133" cy="73" r="5" fill="none" stroke="rgba(0,83,155,0.05)" stroke-width="0.8"/>
+      <circle cx="147" cy="73" r="5" fill="none" stroke="rgba(0,83,155,0.05)" stroke-width="0.8"/>
+
+      <!-- Horizontal stone band lines — every ~35px for masonry feel -->
+      <line x1="30" y1="175" x2="250" y2="175" stroke="rgba(0,83,155,0.06)" stroke-width="1"/>
+      <line x1="30" y1="210" x2="250" y2="210" stroke="rgba(0,83,155,0.05)" stroke-width="1"/>
+      <line x1="30" y1="245" x2="250" y2="245" stroke="rgba(0,83,155,0.06)" stroke-width="1"/>
+      <line x1="30" y1="280" x2="250" y2="280" stroke="rgba(0,83,155,0.05)" stroke-width="1"/>
+      <line x1="30" y1="315" x2="250" y2="315" stroke="rgba(0,83,155,0.06)" stroke-width="1"/>
+      <line x1="30" y1="350" x2="250" y2="350" stroke="rgba(0,83,155,0.05)" stroke-width="1"/>
+
+      <!-- Cross details in stone bands -->
+      <!-- Cross at band 210 -->
+      <line x1="140" y1="200" x2="140" y2="220" stroke="rgba(0,83,155,0.05)" stroke-width="1"/>
+      <line x1="133" y1="210" x2="147" y2="210" stroke="rgba(0,83,155,0.05)" stroke-width="1"/>
+      <!-- Small rosette at band 280 -->
+      <circle cx="140" cy="280" r="6" fill="none" stroke="rgba(0,83,155,0.05)" stroke-width="0.8"/>
+      <circle cx="140" cy="280" r="3" fill="rgba(0,83,155,0.03)" stroke="none"/>
+      <!-- Cross at band 350 -->
+      <line x1="140" y1="341" x2="140" y2="359" stroke="rgba(0,83,155,0.05)" stroke-width="1"/>
+      <line x1="133" y1="350" x2="147" y2="350" stroke="rgba(0,83,155,0.05)" stroke-width="1"/>
+
+      <!-- Diamond details along center axis -->
+      <path d="M140 155 L148 168 L140 181 L132 168 Z" fill="rgba(0,83,155,0.04)" stroke="rgba(0,83,155,0.06)" stroke-width="0.8"/>
+      <path d="M140 230 L146 240 L140 250 L134 240 Z" fill="rgba(0,83,155,0.035)" stroke="rgba(0,83,155,0.05)" stroke-width="0.8"/>
+      <path d="M140 295 L145 303 L140 311 L135 303 Z" fill="rgba(0,83,155,0.03)" stroke="rgba(0,83,155,0.045)" stroke-width="0.8"/>
+
+      <!-- Gothic buttress lines — left side -->
+      <line x1="30" y1="380" x2="15" y2="280" stroke="rgba(0,83,155,0.06)" stroke-width="1.5"/>
+      <line x1="15" y1="280" x2="30" y2="250" stroke="rgba(0,83,155,0.05)" stroke-width="1.2"/>
+      <line x1="30" y1="310" x2="18" y2="230" stroke="rgba(0,83,155,0.04)" stroke-width="1"/>
+
+      <!-- Gothic buttress lines — right side -->
+      <line x1="250" y1="380" x2="265" y2="280" stroke="rgba(0,83,155,0.06)" stroke-width="1.5"/>
+      <line x1="265" y1="280" x2="250" y2="250" stroke="rgba(0,83,155,0.05)" stroke-width="1.2"/>
+      <line x1="250" y1="310" x2="262" y2="230" stroke="rgba(0,83,155,0.04)" stroke-width="1"/>
+
+      <!-- Pointed arch tracery inside main lancet — subdivision lines -->
+      <path d="M110 340 L110 230 Q110 175 140 145"
+            stroke="rgba(0,83,155,0.04)" stroke-width="1" fill="none"/>
+      <path d="M170 340 L170 230 Q170 175 140 145"
+            stroke="rgba(0,83,155,0.04)" stroke-width="1" fill="none"/>
+
+      <!-- Small rosettes in flanking lancets -->
+      <circle cx="67" cy="200" r="5" fill="none" stroke="rgba(0,83,155,0.05)" stroke-width="0.8"/>
+      <circle cx="67" cy="200" r="2.5" fill="rgba(0,83,155,0.03)"/>
+      <circle cx="213" cy="200" r="5" fill="none" stroke="rgba(0,83,155,0.05)" stroke-width="0.8"/>
+      <circle cx="213" cy="200" r="2.5" fill="rgba(0,83,155,0.03)"/>
+
+      <!-- Sill/base horizontal bar -->
+      <line x1="25" y1="375" x2="255" y2="375" stroke="rgba(0,83,155,0.07)" stroke-width="2"/>
+      <line x1="25" y1="380" x2="255" y2="380" stroke="rgba(0,83,155,0.05)" stroke-width="1.5"/>
+    </svg>
+
+    <div id="header">
+      <span class="team-name">oPlayer</span>
+    </div>
+
+    <div id="menu" class="view">
+      <ul id="menu-list"></ul>
+    </div>
+
+    <div id="songlist" class="view hidden">
+      <div id="list-header">Music</div>
+      <ul id="song-list"></ul>
+    </div>
+
+    <div id="nowplaying" class="view hidden">
+      <div id="np-art-container">
+        <img id="np-art" src="" alt="" class="hidden">
+        <div id="np-art-placeholder">
+          <svg viewBox="0 0 80 80" fill="none">
+            <rect width="80" height="80" rx="6" fill="#012169"/>
+            <!-- Miniature gothic arch — more detailed -->
+            <path d="M25 65 L25 35 Q25 18 40 12 Q55 18 55 35 L55 65"
+                  stroke="rgba(255,255,255,0.22)"
+                  stroke-width="1.5"
+                  fill="none"/>
+            <!-- Inner arch detail -->
+            <path d="M29 62 L29 38 Q29 23 40 16 Q51 23 51 38 L51 62"
+                  stroke="rgba(255,255,255,0.12)"
+                  stroke-width="0.8"
+                  fill="none"/>
+            <!-- Tiny trefoil above the arch -->
+            <circle cx="40" cy="20" r="3" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.7"/>
+            <circle cx="37" cy="23" r="2.2" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="0.6"/>
+            <circle cx="43" cy="23" r="2.2" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="0.6"/>
+            <!-- Serif D -->
+            <text x="40" y="52" text-anchor="middle"
+                  fill="rgba(255,255,255,0.7)"
+                  font-family="Georgia, serif"
+                  font-size="22" font-weight="bold">D</text>
+            <!-- Decorative line -->
+            <line x1="28" y1="60" x2="52" y2="60"
+                  stroke="rgba(0,83,155,0.5)" stroke-width="0.8"/>
+          </svg>
+        </div>
+      </div>
+      <div id="np-info">
+        <div id="np-title">Nothing Playing</div>
+        <div id="np-artist"></div>
+      </div>
+      <div id="np-progress">
+        <div id="np-bar"></div>
+      </div>
+      <div id="np-time">0:00 / 0:00</div>
+    </div>
+
+    <div id="settings-view" class="view hidden">
+      <div id="settings-header">Settings</div>
+      <ul id="settings-list"></ul>
+    </div>
+  </div>
+</body>
+</html>

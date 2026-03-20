@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>UNC Tar Heels</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://app-theme.local/assets/core/oplayer-bridge.js"></script>
+  <script src="theme.js" defer></script>
+</head>
+<body>
+  <div id="screen" style="position:relative;z-index:1;">
+    <!-- SVG watermark: interlocking NC monogram with argyle frame -->
+    <svg class="watermark" viewBox="0 0 280 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Argyle diamond lattice surrounding the NC -->
+      <path d="M70 0 L140 85 L70 170 L0 85 Z"
+            fill="rgba(75,156,211,0.06)" stroke="rgba(75,156,211,0.10)" stroke-width="1"/>
+      <path d="M210 0 L280 85 L210 170 L140 85 Z"
+            fill="rgba(75,156,211,0.04)" stroke="rgba(75,156,211,0.08)" stroke-width="1"/>
+      <path d="M140 85 L210 170 L140 255 L70 170 Z"
+            fill="rgba(75,156,211,0.07)" stroke="rgba(75,156,211,0.11)" stroke-width="1"/>
+      <path d="M70 170 L140 255 L70 340 L0 255 Z"
+            fill="rgba(75,156,211,0.04)" stroke="rgba(75,156,211,0.08)" stroke-width="1"/>
+      <path d="M210 170 L280 255 L210 340 L140 255 Z"
+            fill="rgba(75,156,211,0.05)" stroke="rgba(75,156,211,0.09)" stroke-width="1"/>
+      <!-- Thin argyle crossing stitch lines -->
+      <line x1="0" y1="0" x2="280" y2="340" stroke="rgba(255,255,255,0.05)" stroke-width="0.7" stroke-dasharray="4,6"/>
+      <line x1="280" y1="0" x2="0" y2="340" stroke="rgba(255,255,255,0.05)" stroke-width="0.7" stroke-dasharray="4,6"/>
+      <line x1="140" y1="0" x2="280" y2="170" stroke="rgba(255,255,255,0.04)" stroke-width="0.7" stroke-dasharray="4,6"/>
+      <line x1="0" y1="170" x2="140" y2="340" stroke="rgba(255,255,255,0.04)" stroke-width="0.7" stroke-dasharray="4,6"/>
+      <line x1="140" y1="0" x2="0" y2="170" stroke="rgba(255,255,255,0.04)" stroke-width="0.7" stroke-dasharray="4,6"/>
+      <line x1="280" y1="170" x2="140" y2="340" stroke="rgba(255,255,255,0.04)" stroke-width="0.7" stroke-dasharray="4,6"/>
+      <!-- Interlocking NC monogram -->
+      <g transform="translate(88,115)" opacity="0.13">
+        <!-- Letter N -->
+        <path d="M0 80 L0 0 L8 0 L52 64 L52 0 L60 0 L60 80 L52 80 L8 16 L8 80 Z"
+              fill="#4B9CD3" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+        <!-- Letter C overlapping -->
+        <path d="M44 28 C44 12, 58 0, 78 0 C90 0, 100 5, 104 12 L98 20 C94 14, 88 10, 78 10
+                 C63 10, 54 20, 54 40 C54 60, 63 70, 78 70 C88 70, 94 66, 98 60 L104 68
+                 C100 75, 90 80, 78 80 C58 80, 44 68, 44 52 Z"
+              fill="#4B9CD3" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+      </g>
+    </svg>
+
+    <div id="header">
+      <span class="team-name">oPlayer</span>
+    </div>
+
+    <div id="menu" class="view">
+      <ul id="menu-list"></ul>
+    </div>
+
+    <div id="songlist" class="view hidden">
+      <div id="list-header">Music</div>
+      <ul id="song-list"></ul>
+    </div>
+
+    <div id="nowplaying" class="view hidden">
+      <div id="np-art-container">
+        <img id="np-art" src="" alt="" class="hidden">
+        <div id="np-art-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="80" height="80" rx="8" fill="#13294B"/>
+            <!-- Argyle background pattern -->
+            <path d="M20 0 L40 20 L20 40 L0 20 Z" fill="rgba(75,156,211,0.22)" stroke="rgba(75,156,211,0.35)" stroke-width="0.5"/>
+            <path d="M60 0 L80 20 L60 40 L40 20 Z" fill="rgba(75,156,211,0.14)" stroke="rgba(75,156,211,0.25)" stroke-width="0.5"/>
+            <path d="M40 20 L60 40 L40 60 L20 40 Z" fill="rgba(75,156,211,0.18)" stroke="rgba(75,156,211,0.30)" stroke-width="0.5"/>
+            <path d="M20 40 L40 60 L20 80 L0 60 Z" fill="rgba(75,156,211,0.12)" stroke="rgba(75,156,211,0.22)" stroke-width="0.5"/>
+            <path d="M60 40 L80 60 L60 80 L40 60 Z" fill="rgba(75,156,211,0.10)" stroke="rgba(75,156,211,0.20)" stroke-width="0.5"/>
+            <!-- Stitch lines -->
+            <line x1="0" y1="0" x2="80" y2="80" stroke="rgba(255,255,255,0.08)" stroke-width="0.4"/>
+            <line x1="80" y1="0" x2="0" y2="80" stroke="rgba(255,255,255,0.08)" stroke-width="0.4"/>
+            <!-- NC monogram -->
+            <text x="40" y="48" text-anchor="middle" fill="#4B9CD3" font-size="22" font-weight="900"
+                  font-family="'Helvetica Neue', 'Arial Black', Helvetica, sans-serif"
+                  letter-spacing="-2">NC</text>
+            <!-- Thin rule under text -->
+            <line x1="22" y1="54" x2="58" y2="54" stroke="#4B9CD3" stroke-width="0.8" opacity="0.5"/>
+          </svg>
+        </div>
+      </div>
+      <div id="np-info">
+        <div id="np-title">Nothing Playing</div>
+        <div id="np-artist"></div>
+      </div>
+      <div id="np-progress">
+        <div id="np-bar"></div>
+      </div>
+      <div id="np-time">0:00 / 0:00</div>
+    </div>
+
+    <div id="settings-view" class="view hidden">
+      <div id="settings-header">Settings</div>
+      <ul id="settings-list"></ul>
+    </div>
+  </div>
+</body>
+</html>

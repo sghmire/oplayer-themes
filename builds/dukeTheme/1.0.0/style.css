@@ -1,0 +1,385 @@
+/* === Duke Blue Devils Theme === */
+/* Cameron Cathedral — gothic serif elegance, Duke Navy & Royal Blue, midnight stone library */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: 'EB Garamond', Georgia, "Times New Roman", Garamond, serif;
+  background:
+    /* Stone masonry texture — horizontal mortar joints */
+    repeating-linear-gradient(
+      0deg,
+      rgba(0,83,155,0.04) 0px,
+      rgba(0,83,155,0.04) 1px,
+      transparent 1px,
+      transparent 38px
+    ),
+    /* Stone masonry texture — vertical mortar joints, offset for brick pattern */
+    repeating-linear-gradient(
+      90deg,
+      rgba(0,83,155,0.03) 0px,
+      rgba(0,83,155,0.03) 1px,
+      transparent 1px,
+      transparent 72px
+    ),
+    /* Staggered vertical joints for second row of blocks */
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 36px,
+      rgba(0,83,155,0.025) 36px,
+      rgba(0,83,155,0.025) 37px,
+      transparent 37px,
+      transparent 108px
+    ),
+    /* Base dark navy gradient */
+    radial-gradient(ellipse at 50% 30%, #011a4a 0%, #012169 20%, #010e2c 60%, #050811 100%);
+  color: #E8E4DF;
+  user-select: none;
+  position: relative;
+}
+
+/* Warm candlelight glow — like twilight filtering through chapel windows */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    /* Upper-left warm candlelight */
+    radial-gradient(ellipse at 40% 15%, rgba(0,83,155,0.10) 0%, transparent 50%),
+    /* Gold/amber candlelight wash — like candelabras on stone walls */
+    radial-gradient(ellipse at 50% 40%, rgba(180,160,120,0.03) 0%, transparent 40%),
+    /* Secondary amber glow — lower candle */
+    radial-gradient(ellipse at 35% 70%, rgba(180,155,100,0.025) 0%, transparent 35%),
+    /* Cool moonlight from above-right */
+    radial-gradient(ellipse at 70% 10%, rgba(0,83,155,0.06) 0%, transparent 40%),
+    /* Lower chapel depth */
+    radial-gradient(ellipse at 60% 85%, rgba(1,33,105,0.08) 0%, transparent 45%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Gothic arch watermark — larger, centered-bottom, commanding presence */
+.watermark {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  height: 340px;
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#screen {
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Header ---- */
+/* Deep navy with stone texture — the entrance to Cameron Cathedral */
+#header {
+  padding: 11px 14px 9px;
+  background:
+    /* Faint stone texture in header */
+    repeating-linear-gradient(
+      0deg,
+      rgba(0,83,155,0.03) 0px,
+      rgba(0,83,155,0.03) 1px,
+      transparent 1px,
+      transparent 12px
+    ),
+    linear-gradient(180deg, #012169 0%, #010d30 100%);
+  border-bottom: 1px solid rgba(0,83,155,0.35);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 3px 16px rgba(1,33,105,0.5);
+}
+
+/* Refined accent line — slightly more visible, Royal Blue authority */
+#header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(0,83,155,0.55) 15%,
+    rgba(0,83,155,0.8) 50%,
+    rgba(0,83,155,0.55) 85%,
+    transparent 100%);
+}
+
+.header-icon {
+  width: 22px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.team-name {
+  font-family: 'EB Garamond', Georgia, "Times New Roman", Garamond, serif;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  font-style: normal;
+  text-shadow: 0 1px 6px rgba(1,33,105,0.6);
+}
+
+/* ---- Views ---- */
+.view { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+.hidden { display: none !important; }
+
+/* ---- Menu ---- */
+#menu-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+  background: linear-gradient(180deg, rgba(1,33,105,0.15) 0%, transparent 100%);
+}
+#menu-list::-webkit-scrollbar { display: none; }
+
+#menu-list li {
+  padding: 12px 18px;
+  font-family: 'EB Garamond', Georgia, "Times New Roman", Garamond, serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  border-bottom: 1px solid rgba(0,83,155,0.08);
+  color: rgba(232,228,223,0.85);
+  transition: background 0.25s ease, color 0.25s ease;
+  position: relative;
+}
+
+#menu-list li.selected {
+  background:
+    /* Faint stone texture overlay on selected state */
+    repeating-linear-gradient(
+      0deg,
+      rgba(0,83,155,0.025) 0px,
+      rgba(0,83,155,0.025) 1px,
+      transparent 1px,
+      transparent 10px
+    ),
+    linear-gradient(90deg, #FFFFFF 0%, #F0EDE8 100%);
+  color: #012169;
+  box-shadow: 0 1px 12px rgba(1,33,105,0.25);
+}
+
+/* Elegant left bar on selection — Royal Blue */
+#menu-list li.selected::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: #00539B;
+}
+
+/* Serif chevron — slightly more prominent */
+#menu-list li.selected::after {
+  content: '\203A';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 22px;
+  color: #00539B;
+  font-family: 'EB Garamond', Georgia, serif;
+  line-height: 1;
+  font-weight: 700;
+  text-shadow: 0 0 4px rgba(0,83,155,0.2);
+}
+
+/* ---- Song list ---- */
+#list-header {
+  padding: 8px 16px;
+  font-family: 'EB Garamond', Georgia, "Times New Roman", Garamond, serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, rgba(1,33,105,0.4), rgba(0,83,155,0.2));
+  border-bottom: 1px solid rgba(0,83,155,0.2);
+  color: rgba(232,228,223,0.55);
+}
+
+#song-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+}
+#song-list::-webkit-scrollbar { display: none; }
+
+#song-list li {
+  padding: 9px 16px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(0,83,155,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: rgba(232,228,223,0.9);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+#song-list li.selected {
+  background: linear-gradient(90deg, #FFFFFF 0%, #F0EDE8 100%);
+  color: #012169;
+}
+
+#song-list li.selected .item-artist {
+  color: #00539B;
+}
+
+.item-name {
+  font-family: 'EB Garamond', Georgia, "Times New Roman", Garamond, serif;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-artist {
+  font-family: 'EB Garamond', Georgia, "Times New Roman", serif;
+  font-size: 11px;
+  color: rgba(232,228,223,0.35);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---- Now Playing ---- */
+#nowplaying {
+  align-items: center;
+  justify-content: center;
+  padding: 18px 16px;
+  gap: 12px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(1,33,105,0.1) 0%, transparent 100%);
+}
+
+/* Double border: outer navy frame, inner Royal Blue accent — ornate like a chapel frame */
+#np-art-container {
+  width: 100px;
+  height: 100px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow:
+    0 8px 28px rgba(1,33,105,0.5),
+    0 0 0 1.5px rgba(0,83,155,0.5),
+    0 0 0 3.5px rgba(1,33,105,0.6),
+    0 0 0 4.5px rgba(0,83,155,0.3);
+  border: 1.5px solid rgba(0,83,155,0.4);
+}
+
+#np-art { width: 100%; height: 100%; object-fit: cover; }
+
+#np-art-placeholder {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#np-art-placeholder svg { width: 100%; height: 100%; }
+
+#np-info { width: 100%; }
+
+#np-title {
+  font-family: 'EB Garamond', Georgia, "Times New Roman", Garamond, serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #F0EDE8;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 4px rgba(1,33,105,0.4);
+}
+
+#np-artist {
+  font-family: 'EB Garamond', Georgia, "Times New Roman", serif;
+  font-size: 12px;
+  color: rgba(0,83,155,0.7);
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#np-progress {
+  width: 100%;
+  height: 3px;
+  background: rgba(0,83,155,0.15);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 2px;
+}
+
+#np-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #00539B, #E8E4DF);
+  width: 0%;
+  border-radius: 2px;
+  transition: width 0.3s linear;
+  box-shadow: 0 0 6px rgba(0,83,155,0.4);
+}
+
+#np-time {
+  font-family: 'EB Garamond', Georgia, "Times New Roman", serif;
+  font-size: 10px;
+  color: rgba(232,228,223,0.3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Settings ---- */
+#settings-header {
+  padding: 8px 16px;
+  font-family: 'EB Garamond', Georgia, "Times New Roman", Garamond, serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, rgba(1,33,105,0.4), rgba(0,83,155,0.2));
+  border-bottom: 1px solid rgba(0,83,155,0.2);
+  color: rgba(232,228,223,0.55);
+}
+
+#settings-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+}
+#settings-list::-webkit-scrollbar { display: none; }
+
+#settings-list li {
+  padding: 11px 18px;
+  font-family: 'EB Garamond', Georgia, "Times New Roman", Garamond, serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(0,83,155,0.06);
+  color: rgba(232,228,223,0.85);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+#settings-list li.selected {
+  background: linear-gradient(90deg, #FFFFFF 0%, #F0EDE8 100%);
+  color: #012169;
+}
+
+#settings-list li.selected::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: #00539B;
+}
