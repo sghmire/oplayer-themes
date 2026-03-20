@@ -210,7 +210,7 @@ body {
 
 /* Nautilus Layout */
 .sidebar {
-  width: 90px;
+  width: 60px;
   background: var(--sidebar-bg);
   border-right: 1px solid #ccc;
 }
@@ -240,6 +240,7 @@ body {
   display: flex;
   flex-direction: column;
   background: #fff;
+  overflow: hidden;
 }
 
 .main-content h2 {
@@ -247,12 +248,15 @@ body {
   font-size: 13px;
   border-bottom: 1px solid #eee;
   background: #fafafa;
+  position: relative;
+  z-index: 1;
 }
 
 .scroll-list {
   list-style: none;
   overflow-y: auto;
   flex: 1;
+  position: relative;
 }
 .scroll-list::-webkit-scrollbar { display: none; }
 
@@ -368,4 +372,61 @@ body {
   padding: 6px 10px;
   font-size: 13px;
   border-bottom: 1px solid #eee;
+}
+
+/* Volume OSD Overlay */
+.volume-osd {
+  position: fixed;
+  top: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.volume-osd.hidden {
+  opacity: 0;
+}
+
+.volume-osd-inner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(30, 30, 30, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 5px 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.volume-osd-icon {
+  width: 14px;
+  height: 14px;
+  color: #ddd;
+  flex-shrink: 0;
+}
+
+.volume-osd-bar-wrap {
+  width: 80px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.volume-osd-fill {
+  height: 100%;
+  background: var(--selection-bg);
+  border-radius: 3px;
+  width: 50%;
+  transition: width 0.15s ease;
+}
+
+.volume-osd-pct {
+  font-size: 10px;
+  color: #ccc;
+  min-width: 24px;
+  text-align: right;
 }

@@ -64,6 +64,7 @@ window.addEventListener("DOMContentLoaded", () => {
   renderDock();
   startClock();
   startNowPlayingTicker();
+  startVolumeWatcher();
   refreshNowPlayingFromBridge();
   
   // Default Nautilus sidebar items depending on type
@@ -239,6 +240,19 @@ function renderNautilusList() {
   });
 }
 
+function updateNautilusHighlight() {
+  const ul = $("nautilus-list");
+  const items = ul.children;
+  for (let i = 0; i < items.length; i++) {
+    if (i === state.nautilusMainIndex) {
+      items[i].classList.add("focused-item");
+      ensureVisible(items[i], ul);
+    } else {
+      items[i].classList.remove("focused-item");
+    }
+  }
+}
+
 async function selectNautilusMainContent() {
   const item = state.nautilusItems[state.nautilusMainIndex];
   if (!item) return;
@@ -354,6 +368,19 @@ function renderSettings() {
   });
 }
 
+function updateSettingsHighlight() {
+  const ul = $("settings-list");
+  const items = ul.children;
+  for (let i = 0; i < items.length; i++) {
+    if (i === state.settingsIndex) {
+      items[i].classList.add("focused-item");
+      ensureVisible(items[i], ul);
+    } else {
+      items[i].classList.remove("focused-item");
+    }
+  }
+}
+
 function selectSettings() {
   const opt = state.settingsOptions[state.settingsIndex];
   if (!opt) return;
@@ -440,9 +467,36 @@ function startNowPlayingTicker() {
   }, 1000);
 }
 
+// === VOLUME OSD ===
+let volumeOsdTimer = null;
+let lastKnownVolume = -1;
+
+function showVolumeOSD(vol) {
+  const osd = $("volume-osd");
+  const fill = $("volume-osd-fill");
+  const pct = $("volume-osd-pct");
+  if (!osd || !fill || !pct) return;
+  fill.style.width = vol + "%";
+  pct.innerText = vol + "%";
+  osd.classList.remove("hidden");
+  clearTimeout(volumeOsdTimer);
+  volumeOsdTimer = setTimeout(() => osd.classList.add("hidden"), 1200);
+}
+
+function startVolumeWatcher() {
+  if (Bridge.getVolume) lastKnownVolume = Bridge.getVolume();
+  setInterval(() => {
+    if (!Bridge.getVolume) return;
+    const vol = Bridge.getVolume();
+    if (vol !== lastKnownVolume) {
+      lastKnownVolume = vol;
+      showVolumeOSD(vol);
+    }
+  }, 300);
+}
+
 // === GLOBAL INPUT HOOKS ===
 function handleScroll(d) {
-  Bridge.triggerHaptic("tick");
   if (state.focus === "DOCK") {
     state.dockIndex = clamp(state.dockIndex + d, APPS.length);
     renderDock();
@@ -451,10 +505,10 @@ function handleScroll(d) {
     renderNautilusSidebar();
   } else if (state.focus === "NAUTILUS_MAIN") {
     state.nautilusMainIndex = clamp(state.nautilusMainIndex + d, state.nautilusItems.length);
-    renderNautilusList();
+    updateNautilusHighlight();
   } else if (state.focus === "SETTINGS") {
     state.settingsIndex = clamp(state.settingsIndex + d, state.settingsOptions.length);
-    renderSettings();
+    updateSettingsHighlight();
   }
 }
 

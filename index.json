@@ -14,7 +14,7 @@
     "name": "Ubuntu Theme",
     "version": "1.0.2",
     "url": "https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/ubuntuTheme/ubuntuTheme.zip",
-    "sha256": "D6813DEDB5F2CB3FD4D558D7EDC01700392C6AD19F90DE524A418844E626294A",
+    "sha256": "9A3D6527309FCCF3381E803F5999658866D051CB68BAC88A785729DF711D06C8",
     "min_app_version": "1.0.1",
     "author": "GFS",
     "description": "Ubuntu-inspired styling."
