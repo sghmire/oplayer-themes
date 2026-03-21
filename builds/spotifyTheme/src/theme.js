@@ -431,6 +431,8 @@ function openSearch() {
   $("search-bar").classList.add("active");
   updateMiniPlayer();
   $("search-query").focus();
+  if (Bridge.setInputMode) Bridge.setInputMode(true);
+  if (Bridge.showKeyboard) Bridge.showKeyboard();
 }
 
 function handleSearchInput(text) {
@@ -488,6 +490,7 @@ function selectSearchResult() {
   const item = state.search.results[state.search.index];
   if (!item) return;
   if (Bridge.hideKeyboard) Bridge.hideKeyboard();
+  if (Bridge.setInputMode) Bridge.setInputMode(false);
 
   if (item._type === "song") {
     Bridge.playSong(item.id);
@@ -632,10 +635,20 @@ async function loadSettingsMenu(mode, preserveIndex) {
     if (rep === "ONE" || rep === 1) repeatLabel = "One";
     else if (rep === "ALL" || rep === 2) repeatLabel = "All";
     const sleepMin = Bridge.getSleepTimerMinutes ? Bridge.getSleepTimerMinutes() : 0;
+    let eqLabel = "";
+    try {
+      const rawEq = Bridge.getEqPresets ? Bridge.getEqPresets() : "[]";
+      const eqPresets = typeof rawEq === "string" ? JSON.parse(rawEq) : rawEq;
+      const activeEq = Bridge.getActiveEqPreset ? Bridge.getActiveEqPreset() : -1;
+      if (activeEq >= 0 && eqPresets[activeEq]) {
+        eqLabel = typeof eqPresets[activeEq] === "object" ? (eqPresets[activeEq].name || "") : eqPresets[activeEq];
+      }
+    } catch (e) {}
 
     state.settings.options = SETTINGS_ROOT.map(o => {
       if (o.action === "shuffle") return { ...o, subValue: isShuffle };
       if (o.action === "repeat") return { ...o, subValue: repeatLabel };
+      if (o.action === "eq") return { ...o, subValue: eqLabel || "Default" };
       if (o.action === "sleep") return { ...o, subValue: sleepMin > 0 ? sleepMin + "m" : "Off" };
       return o;
     });
@@ -662,6 +675,7 @@ async function loadSettingsMenu(mode, preserveIndex) {
       { name: "Off", action: "set_sleep", value: 0 },
       { name: "15 Minutes", action: "set_sleep", value: 15 },
       { name: "30 Minutes", action: "set_sleep", value: 30 },
+      { name: "45 Minutes", action: "set_sleep", value: 45 },
       { name: "1 Hour", action: "set_sleep", value: 60 },
       { name: "2 Hours", action: "set_sleep", value: 120 }
     ];
@@ -669,12 +683,17 @@ async function loadSettingsMenu(mode, preserveIndex) {
     $("settings-header").innerText = "About";
     const ver = Bridge.getAppVersion ? Bridge.getAppVersion() : "?";
     const songs = Bridge.getSongCount ? Bridge.getSongCount() : "?";
-    const bat = Bridge.getBatteryLevel ? Bridge.getBatteryLevel() + "%" : "?";
+    const bat = Bridge.getBatteryLevel ? Bridge.getBatteryLevel() : "?";
+    const charging = Bridge.isCharging && Bridge.isCharging() ? " +" : "";
+    const device = Bridge.getDeviceModel ? Bridge.getDeviceModel() : "?";
+    const osVer = Bridge.getOSVersion ? Bridge.getOSVersion() : "?";
     state.settings.options = [
+      { name: "Device", subValue: device },
+      { name: "OS Version", subValue: osVer },
       { name: "oPlayer Version", subValue: ver },
       { name: "Theme", subValue: "Spotify Green 1.0.0" },
       { name: "Library", subValue: songs + " songs" },
-      { name: "Battery", subValue: bat }
+      { name: "Battery", subValue: bat + "%" + charging }
     ];
   }
   renderSettings();
@@ -810,7 +829,7 @@ function handleScroll(delta) {
 }
 
 function handleSelect() {
-  Bridge.triggerHaptic("tick");
+  Bridge.triggerHaptic("click");
 
   if (state.view === "HOME") {
     const item = HOME_MENU[HOME_SELECTABLE[state.homeIndex]];
@@ -874,6 +893,7 @@ function handleBack() {
 
   if (state.view === "SEARCH") {
     if (Bridge.hideKeyboard) Bridge.hideKeyboard();
+    if (Bridge.setInputMode) Bridge.setInputMode(false);
     renderHome();
     return;
   }

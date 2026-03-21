@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>oPlayer Themes</title>
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --card: #1c1c1c;
+      --border: #2a2a2a;
+      --accent: #00D2B2;
+      --text: #e8e8e8;
+      --muted: #888;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 60px 20px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .header h1 span { color: var(--accent); }
+
+    .header p {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 0.95rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Themes Grid */
+    .themes {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+
+    .card-img {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+      display: block;
+      background: #111;
+    }
+
+    .card-body {
+      padding: 16px;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .card-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: #aaa;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      background: rgba(0, 210, 178, 0.1);
+      color: var(--accent);
+      border-radius: 20px;
+      border: 1px solid rgba(0, 210, 178, 0.2);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 8px 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--bg);
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      cursor: pointer;
+    }
+
+    .btn:hover { opacity: 0.85; }
+
+    /* Install Section */
+    .install {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 40px 20px 20px;
+      text-align: center;
+    }
+
+    .install h2 {
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+
+    .steps {
+      text-align: left;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+    }
+
+    .steps ol {
+      padding-left: 20px;
+    }
+
+    .steps li {
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+
+    .steps li strong { color: var(--text); }
+
+    /* Dev Section */
+    .dev {
+      text-align: center;
+      padding: 30px 20px;
+      border-top: 1px solid var(--border);
+      margin-top: 20px;
+    }
+
+    .dev p {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+
+    .dev a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .dev a:hover { text-decoration: underline; }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.75rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1><span>o</span>Player Themes</h1>
+    <p>Community-built visual themes for oPlayer. Download a .zip, import it in the app, and transform your player.</p>
+  </div>
+
+  <div class="themes" id="themes"></div>
+
+  <div class="install">
+    <h2>How to Install</h2>
+    <div class="steps">
+      <ol>
+        <li>Download the <strong>.zip</strong> file (do not unzip)</li>
+        <li>Open oPlayer &rarr; <strong>Settings</strong> &rarr; <strong>Themes</strong></li>
+        <li>Turn on <strong>Enable External Themes</strong></li>
+        <li>Tap <strong>Import New Theme</strong> and select the .zip</li>
+        <li>Select your new theme from the list to apply</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="dev">
+    <p>Want to build your own theme? oPlayer themes are standard HTML, CSS, and JavaScript.</p>
+    <a href="THEME_DEVELOPMENT.md">Theme Development Guide &rarr;</a>
+  </div>
+
+  <div class="footer">
+    oPlayer Community Themes &middot; <a href="https://github.com/sghmire/oplayer-themes" style="color:#555">GitHub</a>
+  </div>
+
+  <script>
+    const themes = [
+      {
+        name: "Spotify Green",
+        version: "1.0.0",
+        author: "oPlayer Community",
+        description: "Modern dark theme inspired by Spotify. Green-on-dark palette, categorized home screen, mini-player with animated EQ, Now Playing with gradient background, lyrics, and search.",
+        image: "screenshots/spotifyTheme/spotify-home.jpg",
+        download: "https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/spotifyTheme/spotifyTheme.zip",
+        tags: ["Dark", "Lyrics", "Search", "Mini Player"]
+      },
+      {
+        name: "Ubuntu",
+        version: "1.0.4",
+        author: "GFS",
+        description: "Linux-inspired desktop styling with Ubuntu orange and aubergine accents. Dock-based launcher, Nautilus-style file explorer, Rhythmbox Now Playing, and full settings panel.",
+        image: "screenshots/ubuntuTheme/ubuntu-preview.jpg",
+        download: "https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/ubuntuTheme/ubuntuTheme.zip",
+        tags: ["Dark", "Desktop", "Dock", "Explorer"]
+      },
+      {
+        name: "8-Bit iPod",
+        version: "1.1.0",
+        author: "GFS",
+        description: "Retro iPod Classic with Game Boy 8-bit pixel aesthetics. Green LCD palette, scanline overlay, hierarchical menus, and chunky monospace pixels.",
+        image: "screenshots/8bitTheme/8bitTheme-preview.jpg",
+        download: "https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/8bitTheme/8bitTheme.zip",
+        tags: ["Retro", "Pixel Art", "Game Boy", "LCD"]
+      }
+    ];
+
+    const container = document.getElementById('themes');
+    themes.forEach(t => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img class="card-img" src="${t.image}" alt="${t.name}" loading="lazy" />
+        <div class="card-body">
+          <div class="card-title">${t.name}</div>
+          <div class="card-meta">v${t.version} &middot; by ${t.author}</div>
+          <div class="card-desc">${t.description}</div>
+          <div class="card-tags">${t.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
+          <a class="btn" href="${t.download}" download>Download .zip</a>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  </script>
+
+</body>
+</html>
