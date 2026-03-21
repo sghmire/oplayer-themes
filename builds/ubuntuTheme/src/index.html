@@ -48,26 +48,59 @@
     <!-- Windows Container -->
     <div id="windows-container">
       
-      <!-- Nautilus (File Manager) Window -->
-      <div id="window-nautilus" class="window hidden">
+      <!-- Music Explorer Window -->
+      <div id="window-music" class="window hidden">
         <div class="titlebar">
           <div class="window-controls">
-             <div class="btn-close"></div>
+             <div class="btn-close" onclick="closeWindow('music')"></div>
              <div class="btn-min"></div>
              <div class="btn-max"></div>
           </div>
-          <div class="window-title" id="nautilus-title">Files</div>
+          <div class="window-title" id="music-title">Music Explorer</div>
         </div>
         <div class="window-body">
-          <div class="sidebar">
-            <ul id="nautilus-sidebar">
-              <!-- Icons populated by JS -->
-            </ul>
-          </div>
           <div class="main-content">
-            <h2 id="nautilus-header">Folders</h2>
-            <ul id="nautilus-list" class="scroll-list"></ul>
-            <div id="nautilus-hint" class="hint">Loading...</div>
+            <h2 id="music-header">Music</h2>
+            <ul id="music-list" class="scroll-list"></ul>
+            <div id="music-hint" class="hint">Loading...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Radio Stations Window -->
+      <div id="window-radio" class="window hidden">
+        <div class="titlebar">
+          <div class="window-controls">
+             <div class="btn-close" onclick="closeWindow('radio')"></div>
+             <div class="btn-min"></div>
+             <div class="btn-max"></div>
+          </div>
+          <div class="window-title" id="radio-title">Radio Stations</div>
+        </div>
+        <div class="window-body">
+          <div class="main-content">
+            <h2 id="radio-header">Stations</h2>
+            <ul id="radio-list" class="scroll-list"></ul>
+            <div id="radio-hint" class="hint">Loading...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Podcasts Window -->
+      <div id="window-podcasts" class="window hidden">
+        <div class="titlebar">
+          <div class="window-controls">
+             <div class="btn-close" onclick="closeWindow('podcasts')"></div>
+             <div class="btn-min"></div>
+             <div class="btn-max"></div>
+          </div>
+          <div class="window-title" id="podcasts-title">Podcasts</div>
+        </div>
+        <div class="window-body">
+          <div class="main-content">
+            <h2 id="podcasts-header">Podcasts</h2>
+            <ul id="podcasts-list" class="scroll-list"></ul>
+            <div id="podcasts-hint" class="hint">Loading...</div>
           </div>
         </div>
       </div>

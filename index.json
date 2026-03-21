@@ -12,9 +12,9 @@
   {
     "id": "ubuntuTheme",
     "name": "Ubuntu Theme",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "url": "https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/ubuntuTheme/ubuntuTheme.zip",
-    "sha256": "4A4D1D294E7665FDCFFFCB85F39E2F8719B87336422D2FC45A406FE6B78E8B80",
+    "sha256": "300591ea1a5a77885a2a9619af0189a1f83c094c5036bf008a6e741b12373d79",
     "min_app_version": "1.0.1",
     "author": "GFS",
     "description": "Ubuntu-inspired styling."

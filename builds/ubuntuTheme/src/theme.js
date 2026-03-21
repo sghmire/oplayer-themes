@@ -4,14 +4,14 @@ const ICONS = {
   podcasts: '<svg viewBox="0 0 24 24" fill="#dfdfdf"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>',
   nowplaying: '<svg viewBox="0 0 24 24" fill="#f05e2f"><circle cx="12" cy="12" r="10"/><path fill="#fff" d="M10 8l6 4-6 4z"/></svg>',
   settings: '<svg viewBox="0 0 24 24" fill="#a0a0a0"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.58 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>',
-  folder: '<svg viewBox="0 0 24 24" fill="#E95420"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>',
+  folder: '<svg viewBox="0 0 24 24"><path fill="#E95420" d="M20 18H4V8h16v10z"/><path fill="#F47421" d="M4 6h6l2 2h8v10H4V6z"/></svg>',
   file: '<svg viewBox="0 0 24 24" fill="#666"><path d="M6 2c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>'
 };
 
 const APPS = [
-  { id: "music", name: "Music", icon: ICONS.music, window: "window-nautilus" },
-  { id: "radio", name: "Radio", icon: ICONS.radio, window: "window-nautilus" },
-  { id: "podcasts", name: "Podcasts", icon: ICONS.podcasts, window: "window-nautilus" },
+  { id: "music", name: "Music", icon: ICONS.music, window: "window-music" },
+  { id: "radio", name: "Radio", icon: ICONS.radio, window: "window-radio" },
+  { id: "podcasts", name: "Podcasts", icon: ICONS.podcasts, window: "window-podcasts" },
   { id: "nowplaying", name: "Now Playing", icon: ICONS.nowplaying, window: "window-rhythmbox" },
   { id: "settings", name: "Settings", icon: ICONS.settings, window: "window-settings" }
 ];
@@ -20,12 +20,15 @@ const state = {
   focus: "DOCK", // DOCK, NAUTILUS_SIDEBAR, NAUTILUS_MAIN, SETTINGS, RHYTHMBOX
   dockIndex: 0,
   activeWindowId: null,
+  openedWindowIds: [], // Track all windows that should have a dock dot
 
-  nautilusType: "music",
-  nautilusSidebarIndex: 0,
-  nautilusMainIndex: 0,
-  nautilusItems: [],
-  nautilusStack: [],
+  // Independent explorer states
+  explorer: {
+    music: { sidebarIndex: 0, mainIndex: 0, items: [], stack: [], header: "Folders" },
+    radio: { sidebarIndex: 0, mainIndex: 0, items: [], stack: [], header: "Stations" },
+    podcasts: { sidebarIndex: 0, mainIndex: 0, items: [], stack: [], header: "Podcasts" }
+  },
+  currentAppId: "music", // The app currently being viewed/focused
 
   lastEqName: null,
 
@@ -78,9 +81,6 @@ window.addEventListener("DOMContentLoaded", () => {
   startNowPlayingTicker();
   startVolumeWatcher();
   refreshNowPlayingFromBridge();
-  
-  // Default Nautilus sidebar items depending on type
-  renderNautilusSidebar();
 });
 
 function startClock() {
@@ -101,7 +101,10 @@ function renderDock() {
     li.innerHTML = app.icon;
     li.title = app.name;
     if (i === state.dockIndex && state.focus === "DOCK") li.classList.add("focused");
-    if (app.window === state.activeWindowId) li.classList.add("active");
+    // Glow dot if window is opened
+    if (state.openedWindowIds.includes(app.window)) li.classList.add("active");
+    // Pulse/Outline if focused
+    if (app.window === state.activeWindowId) li.classList.add("focused-app");
     ul.appendChild(li);
   });
 }
@@ -110,8 +113,12 @@ function openWindow(appId) {
   const app = APPS.find(a => a.id === appId);
   if (!app) return;
 
-  // Hide all windows
-  document.querySelectorAll(".window").forEach(w => w.classList.add("hidden"));
+  // Add to opened list
+  if (!state.openedWindowIds.includes(app.window)) {
+    state.openedWindowIds.push(app.window);
+  }
+
+  // De-focus all windows
   document.querySelectorAll(".window").forEach(w => w.classList.remove("focused-window"));
   
   const win = $(app.window);
@@ -119,27 +126,11 @@ function openWindow(appId) {
   win.classList.add("focused-window");
   
   state.activeWindowId = app.window;
+  state.currentAppId = app.id;
 
-  if (app.id === "music") {
-    $("nautilus-title").innerText = "Music Explorer";
-    state.nautilusType = "music";
-    state.nautilusSidebarIndex = 0;
-    state.focus = "NAUTILUS_SIDEBAR";
-    renderNautilusSidebar();
-  } else if (app.id === "radio") {
-    $("nautilus-title").innerText = "Radio Stations";
-    state.nautilusType = "radio";
-    state.nautilusSidebarIndex = 0; // Radio
-    state.focus = "NAUTILUS_SIDEBAR";
-    renderNautilusSidebar();
-    openNautilusSidebarItem();
-  } else if (app.id === "podcasts") {
-    $("nautilus-title").innerText = "Podcasts";
-    state.nautilusType = "podcasts";
-    state.nautilusSidebarIndex = 0; // Podcasts
-    state.focus = "NAUTILUS_SIDEBAR";
-    renderNautilusSidebar();
-    openNautilusSidebarItem();
+  if (app.id === "music" || app.id === "radio" || app.id === "podcasts") {
+    state.focus = "NAUTILUS_MAIN";
+    initializeExplorer(app.id);
   } else if (app.id === "nowplaying") {
     state.focus = "RHYTHMBOX";
     refreshNowPlayingFromBridge();
@@ -151,122 +142,82 @@ function openWindow(appId) {
   renderDock();
 }
 
-function closeWindow() {
-  if (state.activeWindowId) {
-    const win = $(state.activeWindowId);
-    if (win) win.classList.add("hidden");
+function closeWindow(appId) {
+  const targetId = appId || state.currentAppId;
+  const app = APPS.find(a => a.id === targetId);
+  if (!app) return;
+
+  const win = $(app.window);
+  if (win) {
+    win.classList.add("hidden");
+    win.classList.remove("focused-window");
   }
-  state.activeWindowId = null;
-  state.focus = "DOCK";
+
+  state.openedWindowIds = state.openedWindowIds.filter(id => id !== app.window);
+  
+  if (state.activeWindowId === app.window) {
+    state.activeWindowId = null;
+    state.focus = "DOCK";
+  }
+  
   renderDock();
 }
 
-// === NAUTILUS LOGIC ===
-const SIDEBAR_ITEMS_MUSIC = [
-  { name: "Folders", key: "folders" },
-  { name: "Albums", key: "albums" },
-  { name: "All Songs", key: "songs" }
-];
-const SIDEBAR_ITEMS_RADIO = [
-  { name: "Radio", key: "radio" }
-];
-const SIDEBAR_ITEMS_PODCASTS = [
-  { name: "Podcasts", key: "podcasts" }
+// === EXPLORER LOGIC ===
+const MUSIC_CATEGORIES = [
+  { name: "Folders", key: "folders", type: "category" },
+  { name: "Albums", key: "albums", type: "category" },
+  { name: "All Songs", key: "songs", type: "category" }
 ];
 
-function getSidebarItems() {
-  if (state.nautilusType === "radio") return SIDEBAR_ITEMS_RADIO;
-  if (state.nautilusType === "podcasts") return SIDEBAR_ITEMS_PODCASTS;
-  return SIDEBAR_ITEMS_MUSIC;
-}
-
-function renderNautilusSidebar() {
-  const ul = $("nautilus-sidebar");
-  ul.innerHTML = "";
-  getSidebarItems().forEach((item, i) => {
-    const li = document.createElement("li");
-    li.innerText = item.name;
-    if (i === state.nautilusSidebarIndex && state.focus === "NAUTILUS_SIDEBAR") {
-      li.classList.add("selected-sidebar");
-      setTimeout(() => ensureVisible(li, ul), 0);
-    }
-    ul.appendChild(li);
-  });
-}
-
-async function openNautilusSidebarItem() {
-  const item = getSidebarItems()[state.nautilusSidebarIndex];
-  $("nautilus-header").innerText = item.name;
-  state.nautilusMainIndex = 0;
-  state.nautilusItems = [];
-  state.nautilusStack = ["ROOT"];
-  state.focus = "NAUTILUS_MAIN";
+function initializeExplorer(appId) {
+  const exp = state.explorer[appId];
+  exp.stack = ["ROOT"];
+  exp.mainIndex = 0;
   
-  $("nautilus-hint").innerText = "Loading...";
-  renderNautilusList();
-  renderNautilusSidebar();
+  if (appId === "music") {
+    exp.items = MUSIC_CATEGORIES;
+    exp.header = "Music";
+    renderNautilusMainContent(appId);
+  } else if (appId === "radio") {
+    exp.header = "Radio Stations";
+    fetchExplorerData(appId, "radio");
+  } else if (appId === "podcasts") {
+    exp.header = "Podcasts";
+    fetchExplorerData(appId, "podcasts");
+  }
+}
 
+async function fetchExplorerData(appId, type, path) {
+  const exp = state.explorer[appId];
+  exp.mainIndex = 0;
+  $(appId + "-hint").innerText = "Loading...";
+  renderNautilusMainContent(appId);
+  
   try {
-    if (item.key === "folders") {
-      const rows = await Bridge.getFolderListingAsync("ROOT");
-      state.nautilusItems = normalizeRows(rows);
-    } else if (item.key === "albums") {
-      const rows = await Bridge.getAlbumsPaginatedAsync(0, 200, null);
-      state.nautilusItems = normalizeRows(rows);
-    } else if (item.key === "songs") {
-      const rows = await Bridge.getSongsPaginatedAsync(0, 200);
-      state.nautilusItems = normalizeRows(rows);
-    } else if (item.key === "radio") {
-      const rows = await Bridge.getRadioStationsAsync();
-      state.nautilusItems = normalizeRows(rows);
-    } else if (item.key === "podcasts") {
-      const rows = await Bridge.getPodcastsAsync();
-      state.nautilusItems = normalizeRows(rows);
-    }
-    $("nautilus-hint").innerText = state.nautilusItems.length + " items";
-  } catch (e) {
-    $("nautilus-hint").innerText = "Error loading";
-  }
-  renderNautilusList();
-}
-
-function normalizeRows(payload) {
-  const rows = Array.isArray(payload) ? payload : (payload && Array.isArray(payload.items) ? payload.items : []);
-  return rows.map((row) => ({
-    ...row,
-    isDirectory: row.type === "folder" || row.isDirectory === true,
-    name: row.name || row.title || row.path || "Untitled"
-  }));
-}
-
-function renderNautilusList() {
-  const ul = $("nautilus-list");
-  ul.innerHTML = "";
-  if (!state.nautilusItems || state.nautilusItems.length === 0) {
-    return;
-  }
-  
-  state.nautilusItems.forEach((item, i) => {
-    const li = document.createElement("li");
-    const iconStr = item.isDirectory ? ICONS.folder : (item.artist ? ICONS.music : ICONS.file);
-    let html = `<span class="list-icon">${iconStr}</span> <span class="list-text">${item.name}`;
-    if (item.artist) html += ` — <span class="list-artist">${item.artist}</span>`;
-    html += `</span>`;
-    li.innerHTML = html;
+    let rows = [];
+    if (type === "folders") rows = await Bridge.getFolderListingAsync(path || "ROOT");
+    else if (type === "albums") rows = await Bridge.getAlbumsPaginatedAsync(0, 200, null);
+    else if (type === "songs") rows = await Bridge.getSongsPaginatedAsync(0, 200);
+    else if (type === "radio") rows = await Bridge.getRadioStationsAsync();
+    else if (type === "podcasts") rows = await Bridge.getPodcastsAsync();
     
-    if (i === state.nautilusMainIndex && state.focus === "NAUTILUS_MAIN") {
-      li.classList.add("focused-item");
-      setTimeout(() => ensureVisible(li, ul), 0);
-    }
-    ul.appendChild(li);
-  });
+    exp.items = normalizeRows(rows);
+    $(appId + "-hint").innerText = exp.items.length + (type === "songs" ? " tracks" : " items");
+  } catch (e) {
+    $(appId + "-hint").innerText = "Error loading";
+  }
+  renderNautilusMainContent(appId);
 }
 
-function updateNautilusHighlight() {
-  const ul = $("nautilus-list");
+function updateNautilusHighlight(appId) {
+  const id = appId || state.currentAppId;
+  const exp = state.explorer[id];
+  const ul = $(id + "-list");
+  if (!ul) return;
   const items = ul.children;
   for (let i = 0; i < items.length; i++) {
-    if (i === state.nautilusMainIndex) {
+    if (i === exp.mainIndex) {
       items[i].classList.add("focused-item");
       ensureVisible(items[i], ul);
     } else {
@@ -275,104 +226,212 @@ function updateNautilusHighlight() {
   }
 }
 
-async function selectNautilusMainContent() {
-  const item = state.nautilusItems[state.nautilusMainIndex];
+function renderNautilusMainContent(appId) {
+  const id = appId || state.currentAppId;
+  const exp = state.explorer[id];
+  const ul = $(id + "-list");
+  if (!ul) return;
+  ul.innerHTML = "";
+
+  const context = exp.stack[1] || (id === "radio" ? "radio" : (id === "podcasts" ? "podcasts" : "folders"));
+
+  // Grid for: root categories, folders (directories only), albums, podcasts top-level
+  // List for: songs, songs_by_album, radio, episodes_by_podcast, mixed folder contents
+  const isRootCategories = exp.stack.length === 1 && id === "music";
+  const hasFiles = exp.items.some(item => !item.isDirectory && item.type !== "category");
+  const isGridView = isRootCategories
+    || (context === "folders" && !hasFiles)
+    || (context === "albums" && exp.stack.length === 2)
+    || (id === "podcasts" && exp.stack.length === 1);
+
+  if (isGridView) ul.classList.add("grid-view");
+  else ul.classList.remove("grid-view");
+
+  exp.items.forEach((item, i) => {
+    const li = document.createElement("li");
+
+    if (isGridView) {
+      let icon;
+      if (item.type === "category") {
+        if (item.key === "folders") icon = ICONS.folder;
+        else if (item.key === "albums") icon = ICONS.music;
+        else icon = ICONS.music; // "All Songs" category
+      } else if (context === "folders") {
+        icon = ICONS.folder;
+      } else if (context === "albums") {
+        icon = (item.art) ? `<img src="${item.art}" class="grid-art" />` : ICONS.music;
+      } else if (id === "podcasts") {
+        icon = (item.art) ? `<img src="${item.art}" class="grid-art" />` : ICONS.podcasts;
+      } else {
+        icon = ICONS.folder;
+      }
+      li.innerHTML = `<div class="item-icon">${icon}</div><div class="item-name" title="${item.name}">${item.name}</div>`;
+    } else {
+      let iconStr;
+      if (id === "radio") {
+        iconStr = ICONS.radio;
+      } else if (id === "podcasts") {
+        iconStr = ICONS.podcasts;
+      } else if (context === "folders") {
+        iconStr = item.isDirectory ? ICONS.folder : ICONS.music;
+      } else {
+        // songs, songs_by_album, and any other music list
+        iconStr = ICONS.music;
+      }
+      let html = `<span class="list-icon">${iconStr}</span> <span class="list-text" title="${item.name}">${item.name}`;
+      if (item.artist) html += ` — <span class="list-artist">${item.artist}</span>`;
+      html += `</span>`;
+      li.innerHTML = html;
+    }
+
+    if (i === exp.mainIndex && state.focus === "NAUTILUS_MAIN" && state.currentAppId === id) {
+      li.classList.add("focused-item");
+      setTimeout(() => ensureVisible(li, ul), 0);
+    }
+    ul.appendChild(li);
+  });
+  $(id + "-header").innerText = exp.header || "Explorer";
+}
+
+function normalizeRows(payload) {
+  const rows = Array.isArray(payload) ? payload : (payload && Array.isArray(payload.items) ? payload.items : []);
+  return rows.map((row) => {
+    let name = row.name || row.title || row.album;
+    if (!name && row.path) {
+      const parts = row.path.split("/");
+      name = parts.pop() || parts.pop(); // handle trailing slash
+    }
+    return {
+      ...row,
+      isDirectory: row.type === "folder" || row.isDirectory === true || row.type === "album" || row.type === "podcast",
+      name: name || "Untitled"
+    };
+  });
+}
+
+async function fetchExplorerData(appId, type, path) {
+  const exp = state.explorer[appId];
+  exp.mainIndex = 0;
+  $(appId + "-hint").innerText = "Loading...";
+  renderNautilusMainContent(appId);
+  
+  try {
+    let rows = [];
+    if (type === "folders") rows = await Bridge.getFolderListingAsync(path || "ROOT");
+    else if (type === "albums") rows = await Bridge.getAlbumsPaginatedAsync(0, 200, null);
+    else if (type === "songs") rows = await Bridge.getSongsPaginatedAsync(0, 200);
+    else if (type === "radio") rows = await Bridge.getRadioStationsAsync();
+    else if (type === "podcasts") rows = await Bridge.getPodcastsAsync();
+    else if (type === "songs_by_album") rows = await Bridge.getSongsByAlbumAsync(path);
+    else if (type === "episodes_by_podcast") rows = await Bridge.getPodcastEpisodesAsync(path);
+    
+    exp.items = normalizeRows(rows);
+    let unit = "items";
+    if (type === "songs" || type === "songs_by_album") unit = "tracks";
+    else if (type === "episodes_by_podcast") unit = "episodes";
+    $(appId + "-hint").innerText = exp.items.length + " " + unit;
+  } catch (e) {
+    $(appId + "-hint").innerText = "Error loading";
+  }
+  renderNautilusMainContent(appId);
+}
+
+async function selectNautilusMainContent(appId) {
+  const id = appId || state.currentAppId;
+  const exp = state.explorer[id];
+  const item = exp.items[exp.mainIndex];
   if (!item) return;
 
-  const key = getSidebarItems()[state.nautilusSidebarIndex].key;
-  
-  if (item.isDirectory && key === "folders") {
-    // Navigate into folder
+  // 1. Root Category Selection
+  if (item.type === "category") {
+    exp.stack.push(item.key);
+    exp.header = item.name;
+    fetchExplorerData(id, item.key);
+    return;
+  }
+
+  // 2. Identify current context from stack
+  const context = exp.stack[1] || (id === "radio" ? "radio" : (id === "podcasts" ? "podcasts" : "folders"));
+
+  // 3. Navigation (Folders)
+  if (item.isDirectory && context === "folders") {
     const path = item.path || item.name;
-    state.nautilusStack.push(path);
-    $("nautilus-header").innerText = "Folders: " + path;
-    $("nautilus-hint").innerText = "Loading...";
-    state.nautilusItems = [];
-    state.nautilusMainIndex = 0;
-    renderNautilusList();
-    
-    try {
-      const rows = await Bridge.getFolderListingAsync(path);
-      state.nautilusItems = normalizeRows(rows);
-      $("nautilus-hint").innerText = state.nautilusItems.length + " items";
-    } catch (e) { $("nautilus-hint").innerText = "Error"; }
-    renderNautilusList();
+    exp.stack.push(path);
+    exp.header = "Folders: " + path;
+    fetchExplorerData(id, "folders", path);
     return;
   }
   
-  if (key === "albums" && state.nautilusStack.length === 1) {
-    // Navigate into album
-    const id = item.id || item.name;
-    state.nautilusStack.push(id);
-    $("nautilus-header").innerText = "Album: " + item.name;
-    $("nautilus-hint").innerText = "Loading...";
-    state.nautilusItems = [];
-    state.nautilusMainIndex = 0;
-    renderNautilusList();
-    
-    try {
-      const rows = await Bridge.getSongsByAlbumAsync(id);
-      state.nautilusItems = normalizeRows(rows);
-      $("nautilus-hint").innerText = state.nautilusItems.length + " tracks";
-    } catch (e) { $("nautilus-hint").innerText = "Error"; }
-    renderNautilusList();
+  // 4. Navigation (Albums)
+  if (exp.stack.length === 2 && context === "albums") {
+    const albumId = item.id || item.name;
+    exp.stack.push(albumId);
+    exp.header = "Album: " + item.name;
+    fetchExplorerData(id, "songs_by_album", albumId);
     return;
   }
-  
-  if (key === "podcasts" && state.nautilusStack.length === 1) {
-    // Navigate into podcast
-    const id = item.id || item.name;
-    state.nautilusStack.push(id);
-    $("nautilus-header").innerText = "Podcast: " + item.name;
-    $("nautilus-hint").innerText = "Loading...";
-    state.nautilusItems = [];
-    state.nautilusMainIndex = 0;
-    renderNautilusList();
-    
-    try {
-      const rows = await Bridge.getPodcastEpisodesAsync(id);
-      state.nautilusItems = normalizeRows(rows);
-      $("nautilus-hint").innerText = state.nautilusItems.length + " episodes";
-    } catch (e) { $("nautilus-hint").innerText = "Error"; }
-    renderNautilusList();
+
+  // 5. Navigation (Podcasts — top-level list drills into episodes)
+  if (id === "podcasts" && exp.stack.length === 1) {
+    const podId = item.id || item.name;
+    exp.stack.push(podId);
+    exp.header = "Podcast: " + item.name;
+    fetchExplorerData(id, "episodes_by_podcast", podId);
     return;
   }
-  
-  // Play item
-  if (key === "albums") Bridge.playAlbum(state.nautilusStack[1], state.nautilusMainIndex, false);
-  else if (key === "songs" || key === "folders") Bridge.playSong(item.id);
-  else if (key === "radio") Bridge.playRadio(item.id);
-  else if (key === "podcasts") Bridge.playEpisode(item.id);
-  
-  // Open Rhythmbox after play
+
+  // 5. Playback — then open Now Playing
+  if (id === "radio") {
+    Bridge.playRadio(item.id);
+  } else if (item.path || item.id) {
+    if (context === "albums" || context === "songs_by_album") {
+      const albumContext = exp.stack[2] || item.id;
+      Bridge.playAlbum(albumContext, exp.mainIndex, false);
+    } else if (id === "podcasts") {
+      Bridge.playEpisode(item.id);
+    } else {
+      Bridge.playSong(item.id);
+    }
+  }
+  // Hide source explorer but preserve its state for back navigation
+  const sourceApp = APPS.find(a => a.id === id);
+  if (sourceApp) {
+    const win = $(sourceApp.window);
+    if (win) { win.classList.add("hidden"); win.classList.remove("focused-window"); }
+  }
+  state.rhythmboxSource = id;
   openWindow("nowplaying");
 }
 
-function backNautilusMainContent() {
-  const key = getSidebarItems()[state.nautilusSidebarIndex].key;
+async function backNautilusMainContent(appId) {
+  const id = appId || state.currentAppId;
+  const exp = state.explorer[id];
   
-  if (state.nautilusStack.length > 1) {
-    state.nautilusStack.pop();
-    const top = state.nautilusStack[state.nautilusStack.length - 1];
+  if (exp.stack.length > 1) {
+    exp.stack.pop();
+    const parent = exp.stack[exp.stack.length - 1];
     
-    if (key === "folders") {
-      $("nautilus-header").innerText = top === "ROOT" ? "Folders" : "Folders: " + top;
-      Bridge.getFolderListingAsync(top).then(rows => {
-        state.nautilusItems = normalizeRows(rows);
-        state.nautilusMainIndex = 0;
-        $("nautilus-hint").innerText = state.nautilusItems.length + " items";
-        renderNautilusList();
-      });
-    } else if (key === "albums" || key === "podcasts") {
-      openNautilusSidebarItem();
+    if (parent === "ROOT") {
+       initializeExplorer(id);
+       return;
     }
-    return;
+
+    // Determine type for fetch
+    const context = exp.stack[1];
+    
+    // Refresh view
+    if (context === "folders") {
+       const bridgePath = (parent === "folders") ? "ROOT" : parent;
+       exp.header = (parent === "folders") ? "Folders" : "Folders: " + parent;
+       fetchExplorerData(id, "folders", bridgePath);
+    } else {
+       // Back to top level of the category (Albums or Podcasts)
+       exp.header = context === "albums" ? "Albums" : "Podcasts";
+       fetchExplorerData(id, context);
+    }
+  } else {
+    closeWindow(id);
   }
-  
-  // Otherwise switch back to sidebar
-  state.focus = "NAUTILUS_SIDEBAR";
-  renderNautilusSidebar();
-  renderNautilusList(); // removes focus highlight from list
 }
 
 // === SETTINGS LOGIC ===
@@ -431,27 +490,28 @@ async function loadSettingsMenu(mode, preserveIndex) {
   } else if (mode === "EQ") {
     $("settings-header").innerText = "Settings > Equalizer";
     try {
-      let eqRaw = typeof Bridge.getEqPresets === "function" ? Bridge.getEqPresets() : [];
-      if ((!eqRaw || eqRaw.length === 0) && typeof Bridge.getEqPresetsAsync === "function") {
-          eqRaw = await Bridge.getEqPresetsAsync();
-      }
-      let parsed = typeof eqRaw === 'string' ? JSON.parse(eqRaw) : eqRaw;
-      const eqArray = Array.isArray(parsed) ? parsed : [];
-      state.settingsOptions = eqArray.map((pre, i) => {
-          const name = (typeof pre === 'object' && pre !== null) ? (pre.name || pre.title || "Preset " + (i+1)) : pre;
-          return { name: name, action: "apply_eq", index: i };
+      const eqRaw = Bridge.getEqPresets ? Bridge.getEqPresets() : "[]";
+      const presets = typeof eqRaw === 'string' ? JSON.parse(eqRaw) : eqRaw;
+      state.settingsOptions = presets.map((p, i) => {
+        const name = (typeof p === 'object' && p !== null) ? (p.name || p.title || "Preset " + (i+1)) : p;
+        return { name: name, action: "apply_eq", index: i };
       });
     } catch(e) { state.settingsOptions = []; }
   } else if (mode === "INFO") {
-    $("settings-header").innerText = "Settings > Info";
-    const ver = Bridge.getAppVersion ? Bridge.getAppVersion() : "1.0.0";
-    const batt = Bridge.getBatteryLevel ? Bridge.getBatteryLevel() + "%" : "Unknown";
+    $("settings-header").innerText = "Settings > System Info";
+    const ver = Bridge.getAppVersion ? Bridge.getAppVersion() : "1.0.3";
+    const model = Bridge.getDeviceModel ? Bridge.getDeviceModel() : "Linux Device";
+    const battery = Bridge.getBatteryLevel ? Bridge.getBatteryLevel() + "%" : "100%";
+    const isCharging = Bridge.isCharging && Bridge.isCharging() ? " (Charging)" : "";
     const songs = Bridge.getSongCount ? Bridge.getSongCount() : "0";
+    
     state.settingsOptions = [
+      { name: "Device Model", subValue: model },
+      { name: "OS Version", subValue: "Android 13 (Ubuntu Edition)" },
       { name: "oPlayer Version", subValue: ver },
-      { name: "Battery Level", subValue: batt },
-      { name: "Library Size", subValue: songs + " songs" },
-      { name: "Theme Version", subValue: "1.0.4" }
+      { name: "Theme Version", subValue: "1.0.4" },
+      { name: "Battery", subValue: battery + isCharging },
+      { name: "Library Size", subValue: songs + " songs" }
     ];
   } else if (mode === "SLEEP") {
     $("settings-header").innerText = "Settings > Sleep Timer";
@@ -639,21 +699,21 @@ function startVolumeWatcher() {
 
 // === GLOBAL INPUT HOOKS ===
 function handleScroll(d) {
+  const id = state.currentAppId;
+  const exp = state.explorer[id];
+  
   if (state.focus === "DOCK") {
     state.dockIndex = clamp(state.dockIndex + d, APPS.length);
     renderDock();
-  } else if (state.focus === "NAUTILUS_SIDEBAR") {
-    state.nautilusSidebarIndex = clamp(state.nautilusSidebarIndex + d, getSidebarItems().length);
-    renderNautilusSidebar();
   } else if (state.focus === "NAUTILUS_MAIN") {
-    state.nautilusMainIndex = clamp(state.nautilusMainIndex + d, state.nautilusItems.length);
-    updateNautilusHighlight();
+    exp.mainIndex = clamp(exp.mainIndex + d, exp.items.length);
+    updateNautilusHighlight(id);
   } else if (state.focus === "SETTINGS") {
     state.settingsIndex = clamp(state.settingsIndex + d, state.settingsOptions.length);
     updateSettingsHighlight();
   } else if (state.focus === "RHYTHMBOX") {
     if (state.nowPlayback && state.nowPlayback.duration) {
-      const seekDelta = d * 5000; // 5 seconds per tick
+      const seekDelta = d * 5000;
       state.nowPlayback.position = clamp(state.nowPlayback.position + seekDelta, state.nowPlayback.duration);
       if (Bridge.seekTo) Bridge.seekTo(state.nowPlayback.position);
       updateNowPlaying(state.nowPlayback, null);
@@ -662,14 +722,13 @@ function handleScroll(d) {
 }
 
 function handleSelect() {
+  const id = state.currentAppId;
   Bridge.triggerHaptic("heavy");
   if (state.focus === "DOCK") {
     const app = APPS[state.dockIndex];
     openWindow(app.id);
-  } else if (state.focus === "NAUTILUS_SIDEBAR") {
-    openNautilusSidebarItem();
   } else if (state.focus === "NAUTILUS_MAIN") {
-    selectNautilusMainContent();
+    selectNautilusMainContent(id);
   } else if (state.focus === "SETTINGS") {
     selectSettings();
   } else if (state.focus === "RHYTHMBOX") {
@@ -678,14 +737,37 @@ function handleSelect() {
 }
 
 function handleBack() {
+  const id = state.currentAppId;
   if (state.focus === "DOCK") return;
   
   if (state.focus === "NAUTILUS_MAIN") {
-    backNautilusMainContent();
+    backNautilusMainContent(id);
   } else if (state.focus === "SETTINGS") {
     backSettings();
-  } else if (state.focus === "NAUTILUS_SIDEBAR" || state.focus === "RHYTHMBOX") {
-    closeWindow();
+  } else if (state.focus === "RHYTHMBOX") {
+    // Close Rhythmbox and return to source explorer
+    const rbWin = $("window-rhythmbox");
+    if (rbWin) { rbWin.classList.add("hidden"); rbWin.classList.remove("focused-window"); }
+    state.openedWindowIds = state.openedWindowIds.filter(w => w !== "window-rhythmbox");
+
+    const srcId = state.rhythmboxSource;
+    if (srcId) {
+      const srcApp = APPS.find(a => a.id === srcId);
+      if (srcApp) {
+        const win = $(srcApp.window);
+        if (win) { win.classList.remove("hidden"); win.classList.add("focused-window"); }
+        state.activeWindowId = srcApp.window;
+        state.currentAppId = srcId;
+        state.focus = "NAUTILUS_MAIN";
+        state.rhythmboxSource = null;
+        renderDock();
+        return;
+      }
+    }
+    state.activeWindowId = null;
+    state.focus = "DOCK";
+    state.rhythmboxSource = null;
+    renderDock();
   }
 }
 
@@ -695,8 +777,7 @@ function handleLeft() {
 }
 
 function handleRight() {
-  if (state.focus === "NAUTILUS_SIDEBAR") handleSelect();
-  else Bridge.next();
+  Bridge.next();
 }
 
 window.handleScroll = handleScroll;
