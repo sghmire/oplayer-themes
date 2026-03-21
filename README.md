@@ -60,10 +60,24 @@ Clean, Linux-inspired desktop styling featuring classic Ubuntu orange and dark a
 
 ---
 
-### 8-Bit Theme (v1.0.0)
-Retro styled theme with an old-school 8-bit pixel aesthetic from the olden days. Simple menu-driven interface for browsing and playing music.
+### 8-Bit iPod (v1.1.0)
+A retro iPod Classic experience with Game Boy 8-bit pixel aesthetics. Features the iconic green LCD palette, hierarchical menu navigation, scrolling lists with scrollbar, and a full Now Playing screen — all rendered in chunky monospace pixels with scanline overlay.
 
-<img src="screenshots/8bitTheme/8bitTheme-preview.jpg" width="240" alt="8-Bit Theme Screenshot">
+<img src="screenshots/8bitTheme/8bitTheme-preview.jpg" width="240" alt="8-Bit iPod Theme Screenshot">
+
+**Features:**
+- Classic iPod-style hierarchical menu navigation
+- Game Boy green LCD color palette with scanline overlay
+- Music browsing: All Songs, Albums, Artists, Playlists, Genres
+- Recently Played, Most Played, and Favorites
+- Podcasts with episode drill-down
+- Radio stations
+- Now Playing with pixel art frame, progress bar, and controls
+- Settings: Shuffle, Repeat, EQ presets, Sleep Timer, Themes
+- Volume OSD overlay
+- Scrollbar for long lists
+- Battery indicator and play status in header
+- Long-press for quick Now Playing access
 
 * **Download:** [`8bitTheme.zip`](https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/8bitTheme/8bitTheme.zip)
 

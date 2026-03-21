@@ -8,17 +8,53 @@
 <script src="../builds/8bitTheme/src/theme.js" defer></script>
 </head>
 <body>
-  <div id="header"><span id="title">8-BIT PLAYER</span></div>
-  <div id="menu">
-    <ul><li>Music</li><li>Now Playing</li><li>Exit</li></ul>
-  </div>
-  <div id="songlist" class="hidden">
-    <ul id="songlist-items"></ul>
-  </div>
-  <div id="nowplaying" class="hidden">
-    <div id="trackTitle">---</div>
-    <div id="trackArtist">---</div>
-    <div id="progressContainer"><div id="bar"></div></div>
-    <div id="time">0:00 / 0:00</div>
-  </div>
+    <div id="screen">
+        <div id="header">
+            <div id="header-left">
+                <span id="play-icon" class="hidden">&#9835;</span>
+                <span id="header-title">oPlayer</span>
+            </div>
+            <div id="header-right">
+                <span id="battery"></span>
+            </div>
+        </div>
+        <div id="content">
+            <div id="list-view">
+                <ul id="list-items"></ul>
+                <div id="scrollbar" class="hidden">
+                    <div id="scrollbar-thumb"></div>
+                </div>
+            </div>
+            <div id="np-view" class="hidden">
+                <div id="np-art-frame">
+                    <img id="np-art-img" class="hidden" alt="">
+                    <span id="np-art-icon">&#9835;</span>
+                </div>
+                <div id="np-title">---</div>
+                <div id="np-artist">---</div>
+                <div id="np-album">---</div>
+                <div id="np-progress-wrap">
+                    <div id="np-bar-bg"><div id="np-bar-fill"></div></div>
+                </div>
+                <div id="np-times">
+                    <span id="np-time-cur">0:00</span>
+                    <span id="np-time-tot">0:00</span>
+                </div>
+                <div id="np-controls">
+                    <span id="np-prev">&#9664;&#9664;</span>
+                    <span id="np-play">&#9654;</span>
+                    <span id="np-next">&#9654;&#9654;</span>
+                </div>
+                <div id="np-modes">
+                    <span id="np-shuffle">Shuffle:Off</span>
+                    <span id="np-repeat">Repeat:Off</span>
+                </div>
+            </div>
+            <div id="volume-osd" class="hidden">
+                <div id="vol-label">Volume</div>
+                <div id="vol-bar-bg"><div id="vol-bar-fill"></div></div>
+                <div id="vol-pct">50%</div>
+            </div>
+        </div>
+    </div>
 </body></html>

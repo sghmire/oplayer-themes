@@ -1,73 +1,336 @@
-body {
+/* ═══════════════════════════════════════════════════════
+   8-Bit iPod Classic Theme — Monochrome LCD Palette
+   ═══════════════════════════════════════════════════════ */
+
+* {
     margin: 0;
-    background: #0f380f;
-    color: #9bbc0f;
-    font-family: "Courier New", monospace;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: unset;
+    image-rendering: pixelated;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #1A1A1A;
+    font-family: "Courier New", "Courier", monospace;
+    font-size: 14px;
+}
+
+body {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
 }
 
 #screen {
-    padding: 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #E8E8E8;
+    color: #1A1A1A;
+    overflow: hidden;
 }
 
+/* ── Scanline overlay ── */
+#content::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+        transparent, transparent 3px,
+        rgba(0, 0, 0, 0.03) 3px,
+        rgba(0, 0, 0, 0.03) 6px
+    );
+    pointer-events: none;
+    z-index: 50;
+}
+
+/* ── Header ── */
 #header {
-    font-size: 20px;
-    margin-bottom: 10px;
+    height: 32px;
+    background: #2A2A2A;
+    color: #E8E8E8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    font-size: 13px;
+    font-weight: bold;
+    border-bottom: 2px solid #1A1A1A;
+    flex-shrink: 0;
 }
 
-#menu {
-    list-style: none;
-    padding: 0;
+#header-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    flex: 1;
 }
 
-#menu li {
-    padding: 8px;
-    border-bottom: 1px solid #306230;
+#play-icon {
+    font-size: 11px;
+    animation: blink 1.2s step-start infinite;
 }
 
-.selected {
-    background: #306230;
-    color: #e0f8cf;
+@keyframes blink {
+    50% { opacity: 0.3; }
 }
 
-#nowplaying {
-    margin-top: 20px;
-}
-
-.hidden {
-    display: none;
-}
-
-#progress {
-    margin-top: 10px;
-    height: 8px;
-    background: #306230;
-}
-
-#bar {
-    height: 8px;
-    width: 0%;
-    background: #e0f8cf;
-}
-
-#time {
-    margin-top: 5px;
-    font-size: 12px;
-}
-
-#songlist {
-    margin-top: 10px;
-}
-
-#songlist-items {
-    list-style: none;
-    padding: 0;
-}
-
-#songlist-items li {
-    padding: 6px;
-    border-bottom: 1px solid #306230;
-    font-size: 14px;
+#header-title {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+#header-right {
+    font-size: 11px;
+    flex-shrink: 0;
+    margin-left: 8px;
+}
+
+/* ── Content area ── */
+#content {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ── List View ── */
+#list-view {
+    height: 100%;
+    display: flex;
+}
+
+#list-items {
+    flex: 1;
+    list-style: none;
+    overflow: hidden;
+}
+
+#list-items li {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 14px;
+    cursor: default;
+}
+
+#list-items li.selected {
+    background: #2A2A2A;
+    color: #E8E8E8;
+}
+
+.item-label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.item-value {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-left: 8px;
+    flex-shrink: 0;
+}
+
+#list-items li.selected .item-value {
+    opacity: 1;
+}
+
+.item-arrow {
+    margin-left: 8px;
+    font-size: 10px;
+    flex-shrink: 0;
+}
+
+/* ── Scrollbar ── */
+#scrollbar {
+    width: 6px;
+    background: #D0D0D0;
+    position: relative;
+    flex-shrink: 0;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#scrollbar-thumb {
+    width: 6px;
+    background: #4A4A4A;
+    position: absolute;
+    min-height: 12px;
+}
+
+/* ── Now Playing ── */
+#np-view {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    text-align: center;
+}
+
+#np-art-frame {
+    width: 140px;
+    height: 140px;
+    border: 3px solid #1A1A1A;
+    background: #D0D0D0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+#np-art-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+}
+
+#np-art-icon {
+    font-size: 56px;
+    color: #4A4A4A;
+}
+
+#np-title {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    max-width: 280px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#np-artist {
+    font-size: 13px;
+    opacity: 0.65;
+    margin-bottom: 2px;
+    max-width: 280px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#np-album {
+    font-size: 12px;
+    opacity: 0.45;
+    margin-bottom: 12px;
+    max-width: 280px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#np-progress-wrap {
+    width: 240px;
+    margin-bottom: 4px;
+}
+
+#np-bar-bg {
+    height: 8px;
+    background: #C0C0C0;
+    position: relative;
+}
+
+#np-bar-fill {
+    height: 8px;
+    background: #2A2A2A;
+    width: 0%;
+    transition: width 0.3s linear;
+}
+
+#np-times {
+    display: flex;
+    justify-content: space-between;
+    width: 240px;
+    font-size: 11px;
+    margin-bottom: 14px;
+    opacity: 0.6;
+}
+
+#np-controls {
+    display: flex;
+    gap: 28px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+#np-controls span {
+    cursor: default;
+}
+
+#np-play {
+    min-width: 28px;
+    text-align: center;
+}
+
+#np-modes {
+    display: flex;
+    gap: 16px;
+    font-size: 11px;
+    opacity: 0.5;
+}
+
+.mode-active {
+    opacity: 1 !important;
+    font-weight: bold;
+}
+
+/* ── Volume OSD ── */
+#volume-osd {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #2A2A2A;
+    color: #E8E8E8;
+    border: 3px solid #1A1A1A;
+    padding: 12px 20px;
+    text-align: center;
+    z-index: 100;
+    min-width: 180px;
+}
+
+#vol-label {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+#vol-bar-bg {
+    width: 140px;
+    height: 10px;
+    background: #1A1A1A;
+    margin: 0 auto 6px;
+}
+
+#vol-bar-fill {
+    height: 10px;
+    background: #E8E8E8;
+}
+
+#vol-pct {
+    font-size: 12px;
+}
+
+/* ── Utility ── */
+.hidden {
+    display: none !important;
 }

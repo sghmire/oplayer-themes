@@ -1,47 +1,65 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
-    <title>Classic 8bit</title>
+    <title>8-Bit iPod</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
     <div id="screen">
-
         <div id="header">
-            <span>oPlayer</span>
+            <div id="header-left">
+                <span id="play-icon" class="hidden">&#9835;</span>
+                <span id="header-title">oPlayer</span>
+            </div>
+            <div id="header-right">
+                <span id="battery"></span>
+            </div>
         </div>
 
-        <ul id="menu">
-            <li class="selected">Music</li>
-            <li>Radio</li>
-            <li>Podcasts</li>
-            <li>Exit</li>
-        </ul>
-
-        <div id="songlist" class="hidden">
-            <ul id="songlist-items"></ul>
-        </div>
-
-        <div id="nowplaying" class="hidden">
-            <div id="trackTitle">Nothing Playing</div>
-            <div id="trackArtist"></div>
-
-            <div id="progress">
-                <div id="bar"></div>
+        <div id="content">
+            <div id="list-view">
+                <ul id="list-items"></ul>
+                <div id="scrollbar" class="hidden">
+                    <div id="scrollbar-thumb"></div>
+                </div>
             </div>
 
-            <div id="time">0:00 / 0:00</div>
-        </div>
+            <div id="np-view" class="hidden">
+                <div id="np-art-frame">
+                    <img id="np-art-img" class="hidden" alt="">
+                    <span id="np-art-icon">&#9835;</span>
+                </div>
+                <div id="np-title">---</div>
+                <div id="np-artist">---</div>
+                <div id="np-album">---</div>
+                <div id="np-progress-wrap">
+                    <div id="np-bar-bg"><div id="np-bar-fill"></div></div>
+                </div>
+                <div id="np-times">
+                    <span id="np-time-cur">0:00</span>
+                    <span id="np-time-tot">0:00</span>
+                </div>
+                <div id="np-controls">
+                    <span id="np-prev">&#9664;&#9664;</span>
+                    <span id="np-play">&#9654;</span>
+                    <span id="np-next">&#9654;&#9654;</span>
+                </div>
+                <div id="np-modes">
+                    <span id="np-shuffle">Shuffle:Off</span>
+                    <span id="np-repeat">Repeat:Off</span>
+                </div>
+            </div>
 
+            <div id="volume-osd" class="hidden">
+                <div id="vol-label">Volume</div>
+                <div id="vol-bar-bg"><div id="vol-bar-fill"></div></div>
+                <div id="vol-pct">50%</div>
+            </div>
+        </div>
     </div>
 
     <script src="https://app-theme.local/assets/core/oplayer-bridge.js"></script>
     <script src="theme.js"></script>
-
 </body>
-
 </html>

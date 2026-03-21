@@ -1,13 +1,13 @@
 [
   {
     "id": "8bitTheme",
-    "name": "8-Bit Theme",
-    "version": "1.0.0",
+    "name": "8-Bit iPod",
+    "version": "1.1.0",
     "url": "https://raw.githubusercontent.com/sghmire/oplayer-themes/main/builds/8bitTheme/8bitTheme.zip",
-    "sha256": "79729A0AA19E87DD72A32A03164C5E52C3F06CEB5B719F135F56E9977CB3648C",
+    "sha256": "7faa4b6cb6fe207cfa425a1ee92e67e3ac2255fed54a6ad75a329158d289b0f6",
     "min_app_version": "1.0.0",
     "author": "GFS",
-    "description": "Retro pixel look."
+    "description": "Classic iPod navigation with Game Boy 8-bit pixel aesthetics."
   },
   {
     "id": "ubuntuTheme",
