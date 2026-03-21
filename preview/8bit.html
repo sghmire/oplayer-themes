@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=320"/>
+<style>body{margin:0;width:320px;height:480px;overflow:hidden;}</style>
+<link rel="stylesheet" href="../builds/8bitTheme/src/style.css"/>
+<script src="mock-bridge.js"></script>
+<script src="../builds/8bitTheme/src/theme.js" defer></script>
+</head>
+<body>
+  <div id="header"><span id="title">8-BIT PLAYER</span></div>
+  <div id="menu">
+    <ul><li>Music</li><li>Now Playing</li><li>Exit</li></ul>
+  </div>
+  <div id="songlist" class="hidden">
+    <ul id="songlist-items"></ul>
+  </div>
+  <div id="nowplaying" class="hidden">
+    <div id="trackTitle">---</div>
+    <div id="trackArtist">---</div>
+    <div id="progressContainer"><div id="bar"></div></div>
+    <div id="time">0:00 / 0:00</div>
+  </div>
+</body></html>

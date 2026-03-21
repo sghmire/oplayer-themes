@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Spotify Green</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://app-theme.local/assets/core/oplayer-bridge.js"></script>
+  <script src="theme.js" defer></script>
+</head>
+<body>
+
+  <!-- Status Bar -->
+  <header id="statusbar">
+    <span id="sb-brand">oPlayer</span>
+    <span id="sb-clock"></span>
+    <span id="sb-battery"></span>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main">
+
+    <!-- Home View -->
+    <div id="view-home" class="view">
+      <div id="greeting"></div>
+      <ul id="home-list"></ul>
+    </div>
+
+    <!-- List View -->
+    <div id="view-list" class="view hidden">
+      <div id="list-header"></div>
+      <ul id="list-items" class="scroll-list"></ul>
+      <div id="list-hint"></div>
+    </div>
+
+    <!-- Grid View (Albums, Podcasts) -->
+    <div id="view-grid" class="view hidden">
+      <div id="grid-header"></div>
+      <ul id="grid-items"></ul>
+      <div id="grid-hint"></div>
+    </div>
+
+    <!-- Search View -->
+    <div id="view-search" class="view hidden">
+      <div id="search-bar">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="#B3B3B3"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <span id="search-query">Search...</span>
+      </div>
+      <ul id="search-results" class="scroll-list"></ul>
+      <div id="search-hint"></div>
+    </div>
+
+    <!-- Now Playing View -->
+    <div id="view-np" class="view hidden">
+      <div class="np-bg"></div>
+      <div class="np-content">
+        <div class="np-art-wrap">
+          <img id="np-art" src="" alt="" />
+          <div class="np-art-placeholder">
+            <svg viewBox="0 0 24 24" fill="#535353"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+          </div>
+        </div>
+        <div id="np-title" class="np-title">Not Playing</div>
+        <div id="np-artist" class="np-artist">---</div>
+        <div class="np-progress-wrap">
+          <div id="np-progress" class="np-progress"></div>
+        </div>
+        <div class="np-time-row">
+          <span id="np-elapsed">0:00</span>
+          <span id="np-duration">0:00</span>
+        </div>
+        <div class="np-controls">
+          <span id="np-shuffle" class="np-ctrl">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
+          </span>
+          <span id="np-repeat" class="np-ctrl">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lyrics View -->
+    <div id="view-lyrics" class="view hidden">
+      <div id="lyrics-header">Lyrics</div>
+      <div id="lyrics-body">
+        <p id="lyrics-text">No lyrics loaded.</p>
+      </div>
+    </div>
+
+    <!-- Settings View -->
+    <div id="view-settings" class="view hidden">
+      <div id="settings-header">Settings</div>
+      <ul id="settings-list" class="scroll-list"></ul>
+    </div>
+
+  </main>
+
+  <!-- Mini Player -->
+  <footer id="mini-player" class="hidden">
+    <div class="mp-progress-wrap">
+      <div id="mp-progress" class="mp-progress"></div>
+    </div>
+    <div class="mp-content">
+      <img id="mp-art" src="" alt="" class="mp-art" />
+      <div class="mp-info">
+        <div id="mp-title" class="mp-title">---</div>
+        <div id="mp-artist" class="mp-artist">---</div>
+      </div>
+      <div id="mp-play-indicator" class="mp-play-indicator">
+        <svg viewBox="0 0 24 24" fill="#1DB954"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Volume OSD -->
+  <div id="volume-osd" class="hidden">
+    <div class="vol-inner">
+      <svg class="vol-icon" viewBox="0 0 24 24" fill="#fff"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      <div class="vol-bar-wrap"><div id="vol-fill" class="vol-fill"></div></div>
+      <span id="vol-pct" class="vol-pct">50%</span>
+    </div>
+  </div>
+
+</body>
+</html>
