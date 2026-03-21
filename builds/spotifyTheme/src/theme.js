@@ -77,6 +77,7 @@ window.addEventListener("DOMContentLoaded", () => {
   startTicker();
   startVolumeWatcher();
   refreshNP();
+  $("search-query").addEventListener("input", (e) => handleSearchInput(e.target.value));
 });
 
 function startClock() {
@@ -290,7 +291,8 @@ function updateGridHighlight() {
 function normalize(payload) {
   const rows = Array.isArray(payload) ? payload : (payload && Array.isArray(payload.items) ? payload.items : []);
   return rows.map(r => {
-    let name = r.name || r.title || r.album;
+    if (typeof r === 'string') return { name: r, isDirectory: false, _original: r };
+    let name = r.name || r.title || r.album || r.artist || r.genre;
     if (!name && r.path) { const p = r.path.split("/"); name = p.pop() || p.pop(); }
     return { ...r, name: name || "Untitled", isDirectory: r.type === "folder" || r.isDirectory === true };
   });
@@ -423,17 +425,16 @@ function openSearch() {
   state.search.results = [];
   state.search.index = 0;
   showView("search");
-  $("search-query").innerText = "Search...";
+  $("search-query").value = "";
   $("search-results").innerHTML = "";
   $("search-hint").innerText = "Type to search your library";
   $("search-bar").classList.add("active");
   updateMiniPlayer();
-  if (Bridge.showKeyboard) Bridge.showKeyboard();
+  $("search-query").focus();
 }
 
 function handleSearchInput(text) {
   state.search.query = text;
-  $("search-query").innerText = text || "Search...";
   if (!text || text.length < 2) {
     state.search.results = [];
     $("search-results").innerHTML = "";
@@ -441,14 +442,16 @@ function handleSearchInput(text) {
     return;
   }
   try {
-    const raw = Bridge.searchAll(text);
+    const raw = Bridge.searchSongs ? Bridge.searchSongs(text) : (Bridge.searchAll ? Bridge.searchAll(text) : "[]");
     const parsed = typeof raw === "string" ? JSON.parse(raw) : raw;
-    // Flatten results: searchAll returns {songs:[], albums:[], artists:[], podcasts:[]}
     let flat = [];
-    if (parsed.songs) flat = flat.concat(parsed.songs.map(s => ({ ...s, _type: "song" })));
-    if (parsed.albums) flat = flat.concat(parsed.albums.map(a => ({ ...a, _type: "album" })));
-    if (parsed.artists) flat = flat.concat(parsed.artists.map(a => ({ ...a, _type: "artist" })));
-    if (parsed.podcasts) flat = flat.concat(parsed.podcasts.map(p => ({ ...p, _type: "podcast" })));
+    if (Array.isArray(parsed)) {
+      // Bridge.searchSongs returns an array
+      flat = parsed.map(s => ({ ...s, _type: "song" }));
+    } else if (parsed && parsed.songs) {
+      // Bridge.searchAll returns {songs: [...]}
+      flat = parsed.songs.map(s => ({ ...s, _type: "song" }));
+    }
     state.search.results = flat;
     state.search.index = 0;
     renderSearchResults();
@@ -774,8 +777,6 @@ function clamp(val, max) {
 }
 
 function handleScroll(delta) {
-  Bridge.triggerHaptic("tick");
-
   if (state.view === "HOME") {
     state.homeIndex = clamp(state.homeIndex + delta, HOME_SELECTABLE.length);
     renderHome();
@@ -809,7 +810,7 @@ function handleScroll(delta) {
 }
 
 function handleSelect() {
-  Bridge.triggerHaptic("heavy");
+  Bridge.triggerHaptic("tick");
 
   if (state.view === "HOME") {
     const item = HOME_MENU[HOME_SELECTABLE[state.homeIndex]];
@@ -827,7 +828,11 @@ function handleSelect() {
   } else if (state.view === "SETTINGS") {
     selectSettings();
   } else if (state.view === "NP") {
-    Bridge.togglePlayPause();
+    if (state.np && state.np.playback && state.np.playback.isPlaying) {
+      if (Bridge.pause) Bridge.pause(); else Bridge.togglePlayPause();
+    } else {
+      if (Bridge.play) Bridge.play(); else Bridge.togglePlayPause();
+    }
     refreshNP();
   } else if (state.view === "LYRICS") {
     // Back to NP
@@ -848,7 +853,13 @@ function handleLongSelect() {
 }
 
 function handleBack() {
-  if (state.view === "HOME") return;
+  if (state.view === "HOME") {
+    if (state.np && state.np.track) {
+      state.npSource = "HOME";
+      openNowPlaying();
+    }
+    return;
+  }
 
   if (state.view === "NP" || state.view === "LYRICS") {
     // Return to source view
@@ -906,7 +917,6 @@ function handleBack() {
   renderHome();
 }
 
-function handlePlayPause() { Bridge.togglePlayPause(); refreshNP(); }
 function handleNext() { Bridge.next(); setTimeout(refreshNP, 300); }
 function handlePrevious() { Bridge.previous(); setTimeout(refreshNP, 300); }
 function handleUp() { handleScroll(-1); }
@@ -920,7 +930,6 @@ window.handleScroll = handleScroll;
 window.handleSelect = handleSelect;
 window.handleLongSelect = handleLongSelect;
 window.handleBack = handleBack;
-window.handlePlayPause = handlePlayPause;
 window.handleNext = handleNext;
 window.handlePrevious = handlePrevious;
 window.handleUp = handleUp;
@@ -929,5 +938,9 @@ window.handleLeft = handleLeft;
 window.handleRight = handleRight;
 window.onPlaybackUpdate = onPlaybackUpdate;
 
-// Keyboard input for search
-window.onKeyboardInput = function(text) { handleSearchInput(text); };
+  
+// Expose focus handling for native callbacks if needed
+window.onKeyboardInput = function(text) { 
+  $("search-query").value = text;
+  handleSearchInput(text); 
+};
