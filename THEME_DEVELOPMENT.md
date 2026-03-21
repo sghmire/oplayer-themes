@@ -163,11 +163,6 @@ Most data methods have an `Async` version (e.g., `getSongsPaginatedAsync`) which
 | `Bridge.useEqPreset(index)` | Applies an EQ preset by index. |
 | `Bridge.getEqBandsAsync()` | Fetches current EQ band levels. |
 | `Bridge.setEqBand(index, level)` | Sets a specific EQ band level. |
-| `Bridge.resetEqBands()` | Resets EQ to flat. |
-| `Bridge.saveEqCustom(name)` | Saves current EQ as a custom preset. |
-| `Bridge.applyEqCustom(name)` | Applies a saved custom preset. |
-| `Bridge.getSavedEqCustom()` | Gets list of saved custom presets. |
-| `Bridge.deleteEqCustom(name)` | Deletes a custom EQ preset. |
 
 #### ── Themes ──
 | Method | Description |
@@ -198,13 +193,6 @@ Most data methods have an `Async` version (e.g., `getSongsPaginatedAsync`) which
 | `Bridge.getQueueInfo()` | Returns `{position, length}` of the current playback queue. |
 | `Bridge.isPlaying()` / `Bridge.isBuffering()` | Direct boolean state checks. |
 | `Bridge.getPosition()` / `Bridge.getDuration()` | Direct position/duration in ms. |
-
----
-
-> **⚠️ APIs intentionally excluded from documentation:**
-> The following methods exist in the native layer but are **not recommended for third-party themes** due to destructive or security-sensitive behavior:
-> `deleteTheme`, `deletePlaylist`, `removePodcast`, `deleteEpisodeDownload`, `removeRadioStation`, `removeSongFromPlaylist`, `excludeFolder`, `includeFolder`, `clearLyricsCache`, `showNativeSplash`, `hideNativeSplash`, `requestPermissionsAndSync`, `requestAppReview`, `openPlayStoreListing`, `contactDeveloper`, `requestVideoPermissions`.
-> These are used internally by the built-in themes and should not be called by community themes.
 
 ---
 
