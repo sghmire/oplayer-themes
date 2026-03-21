@@ -151,6 +151,24 @@
 
     .btn:hover { opacity: 0.85; }
 
+    .btn-donate {
+      background: #ffdd00;
+      color: #1a1a1a;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    .dev-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
     /* Install Section */
     .install {
       max-width: 640px;
@@ -244,6 +262,10 @@
   <div class="dev">
     <p>Want to build your own theme? oPlayer themes are standard HTML, CSS, and JavaScript.</p>
     <a href="THEME_DEVELOPMENT.md">Theme Development Guide &rarr;</a>
+    <div class="dev-buttons">
+      <a class="btn btn-outline" href="https://github.com/sghmire/oplayer-themes">Contribute</a>
+      <a class="btn btn-donate" href="https://buymeacoffee.com/sghmire">Donate</a>
+    </div>
   </div>
 
   <div class="footer">
