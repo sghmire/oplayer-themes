@@ -189,10 +189,78 @@ Most data methods have an `Async` version (e.g., `getSongsPaginatedAsync`) which
 | Method | Description |
 | :--- | :--- |
 | `Bridge.getPlaybackState()` | Returns `{isPlaying, position, duration, isBuffering, shuffle, repeat, mediaType}`. |
-| `Bridge.getCurrentTrack()` | Returns `{type, id, title, artist, album, art, duration, format, bitrate, sampleRate}`. |
+| `Bridge.getCurrentTrack()` | Returns `{type, id, title, artist, album, art, duration, format, bitrate, sampleRate, trackNumber, discNumber, genre, year}`. |
 | `Bridge.getQueueInfo()` | Returns `{position, length}` of the current playback queue. |
 | `Bridge.isPlaying()` / `Bridge.isBuffering()` | Direct boolean state checks. |
 | `Bridge.getPosition()` / `Bridge.getDuration()` | Direct position/duration in ms. |
+
+### Track Object Fields
+
+The object returned by `Bridge.getCurrentTrack()` contains different fields depending on the media type:
+
+#### Song (`type: "song"`)
+| Field | Type | Example |
+| :--- | :--- | :--- |
+| `type` | string | `"song"` |
+| `id` | number | `12345` |
+| `title` | string | `"Bohemian Rhapsody"` |
+| `artist` | string | `"Queen"` |
+| `album` | string | `"A Night at the Opera"` |
+| `art` | string/null | Album art URL or null |
+| `duration` | number | `354000` (ms) |
+| `folderPath` | string | `"/storage/emulated/0/Music"` |
+| `format` | string | `"FLAC"`, `"MP3"`, `"M4A"`, `"OGG"`, `"WAV"`, `"AAC"`, `"Opus"` |
+| `bitrate` | string | `"320 kbps"` |
+| `sampleRate` | string | `"44.1 kHz"` |
+| `trackNumber` | number | `11` (0 if unknown) |
+| `discNumber` | number | `1` (0 if unknown) |
+| `genre` | string | `"Rock"` |
+| `year` | number | `1975` (0 if unknown) |
+
+#### Podcast (`type: "podcast"`)
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `type` | string | `"podcast"` |
+| `id` | string | Episode ID |
+| `title` | string | Episode title |
+| `artist` | string | Podcast name |
+| `description` | string | Episode description |
+| `art` | string | Episode/podcast artwork URL |
+| `duration` | number | Duration in ms |
+| `podcastId` | string | Parent podcast ID |
+
+#### Radio (`type: "radio"`)
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `type` | string | `"radio"` |
+| `id` | string | Station ID |
+| `title` | string | Station name |
+| `artist` | string | `"Live Radio"` |
+| `genre` | string | Station genre |
+| `art` | string | Station logo URL |
+
+### Playback State Object
+
+Returned by `Bridge.getPlaybackState()`:
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `isPlaying` | boolean | Whether audio is currently playing |
+| `position` | number | Current position in ms |
+| `duration` | number | Total duration in ms |
+| `isBuffering` | boolean | Whether stream is buffering |
+| `shuffle` | boolean | Shuffle enabled |
+| `repeat` | string | `"OFF"`, `"ALL"`, or `"ONE"` |
+| `mediaType` | string | `"MUSIC"`, `"PODCAST"`, or `"RADIO"` |
+
+### Queue Info
+
+Returned by `Bridge.getQueueInfo()`:
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `position` | number | Current index in queue (0-based) |
+| `length` | number | Total tracks in queue |
 
 ---
 
