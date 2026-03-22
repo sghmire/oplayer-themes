@@ -39,11 +39,20 @@ Most data methods have an `Async` version (e.g., `getSongsPaginatedAsync`) which
 | :--- | :--- |
 | `Bridge.getAppVersion()` | Returns the app version string. |
 | `Bridge.getSongCount()` | Returns total number of songs in the library. |
+| `Bridge.getArtistCount()` | Returns the number of unique artists. |
+| `Bridge.getAlbumCount()` | Returns the number of unique albums. |
+| `Bridge.getGenreCount()` | Returns the number of unique genres. |
+| `Bridge.getVideoCount()` | Returns the number of videos in the library. |
 | `Bridge.getBatteryLevel()` | Returns current battery percentage (0-100). |
 | `Bridge.isCharging()` | Returns boolean charging status. |
+| `Bridge.getTime()` | Returns the current time as `"HH:mm"` (24-hour). |
+| `Bridge.getTime12()` | Returns the current time as `"h:mm a"` (12-hour). |
+| `Bridge.getDate()` | Returns the current date as `"EEE, MMM d"`. |
+| `Bridge.getDeviceModel()` | Returns the current device model/skin setting. |
 | `Bridge.triggerClick()` | Triggers a click sound/haptic. |
 | `Bridge.triggerHaptic(style)` | Vibrates device (`"tick"`, `"heavy"`). |
 | `Bridge.getSettings()` | Returns all app settings as a JSON object. |
+| `Bridge.getSetting(key)` | Returns a single setting value by key. |
 | `Bridge.setSetting(key, val)` | Updates a specific setting. |
 | `Bridge.getDeviceModels()` | Returns available device model skins. |
 | `Bridge.getFrameColors()` | Returns available frame color options. |
@@ -51,6 +60,10 @@ Most data methods have an `Async` version (e.g., `getSongsPaginatedAsync`) which
 | `Bridge.showToast(msg)` | Shows a native Android toast message. |
 | `Bridge.openBrowser(url)` | Opens a URL in the device's browser. |
 | `Bridge.formatDuration(ms)` | Formats milliseconds into `m:ss` or `h:mm:ss` string. |
+| `Bridge.log(msg)` | Logs a message from JavaScript to Android Logcat. |
+| `Bridge.requestAppReview()` | Triggers the Google Play in-app review dialog. |
+| `Bridge.openPlayStoreListing()` | Opens the app's Play Store page. |
+| `Bridge.contactDeveloper()` | Opens an email intent to the developer with device info. |
 
 #### ── Volume Control ──
 | Method | Description |
@@ -74,6 +87,27 @@ Most data methods have an `Async` version (e.g., `getSongsPaginatedAsync`) which
 | `Bridge.getYearsAsync()` | Fetches all available years. |
 | `Bridge.getFolderListingAsync(path)` | Returns files/folders at specified path. |
 | `Bridge.getCoverFlowData()` | Returns album art data for cover flow display. |
+| `Bridge.getSongById(id)` | Returns a single song's metadata by ID. |
+
+#### ── Data Discovery (Sync Fallbacks) ──
+These are synchronous versions of the async methods above. Use async versions when possible.
+
+| Method | Description |
+| :--- | :--- |
+| `Bridge.getArtists()` | Returns all unique artists as a JSON array. |
+| `Bridge.getAlbums()` | Returns all albums as a JSON array. |
+| `Bridge.getGenres()` | Returns all genres as a JSON array. |
+| `Bridge.getYears()` | Returns all years as a JSON array. |
+| `Bridge.getPlaylists()` | Returns all playlists as a JSON array. |
+| `Bridge.getPlaylistSongs(id)` | Returns playlist songs from cache. |
+| `Bridge.getRecentSongs()` | Returns recently played songs. |
+| `Bridge.getMostPlayed()` | Returns most played songs. |
+| `Bridge.getFavorites()` | Returns favorite songs. |
+| `Bridge.getFolderListing(path)` | Returns folder listing at path. |
+| `Bridge.getFolderSongs(path)` | Returns songs in a specific folder. |
+| `Bridge.getSongsByArtist(artist)` | Returns songs by a specific artist. |
+| `Bridge.getSongsByAlbum(albumId)` | Returns songs in an album. |
+| `Bridge.getSongsByGenre(genre)` | Returns songs for a genre. |
 
 #### ── Search ──
 | Method | Description |
@@ -122,14 +156,21 @@ Most data methods have an `Async` version (e.g., `getSongsPaginatedAsync`) which
 | `Bridge.getPodcastEpisodesAsync(id)` | Fetches episodes for a podcast. |
 | `Bridge.getRecentEpisodes()` | Fetches recently played episodes. |
 | `Bridge.addPodcastAsync(url)` | Subscribes to a podcast by URL. |
-| `Bridge.refreshPodcast(id)` | Refreshes a podcast's episode list. |
+| `Bridge.refreshPodcast(id)` | Refreshes a single podcast's episode list. |
+| `Bridge.refreshPodcasts()` | Refreshes all subscribed podcast feeds. |
+| `Bridge.removePodcast(id)` | Unsubscribes/deletes a podcast. |
 | `Bridge.downloadEpisode(id)` | Downloads a podcast episode. |
+| `Bridge.deleteEpisodeDownload(id)` | Deletes a downloaded episode's local file. |
 | `Bridge.markEpisodePlayed(id, played)` | Marks an episode as played/unplayed. |
 | `Bridge.playEpisode(id)` | Plays a podcast episode. |
+| `Bridge.getResumeEpisodeForPodcast(id)` | Returns the most recently played episode with playback position. |
+| `Bridge.getPodcastArt(title)` | Returns the cached artwork path for a podcast. |
 | `Bridge.getRadioStationsAsync()` | Fetches saved radio stations. |
 | `Bridge.searchRadioAsync(query)` | Searches for radio stations online. |
 | `Bridge.searchPodcastAsync(query)` | Searches for podcasts online. |
 | `Bridge.addRadioStationAsync(url)` | Adds a radio station by URL. |
+| `Bridge.addRadioStation(name, url, genre)` | Adds a radio station with explicit metadata. Returns new ID. |
+| `Bridge.removeRadioStation(id)` | Deletes a saved radio station. |
 | `Bridge.renameRadioStation(id, name)` | Renames a radio station. |
 | `Bridge.playRadio(id)` | Starts a radio stream. |
 
@@ -139,6 +180,7 @@ Most data methods have an `Async` version (e.g., `getSongsPaginatedAsync`) which
 | `Bridge.getVideosAsync()` | Fetches video library. |
 | `Bridge.playVideo(id)` | Plays a video. |
 | `Bridge.refreshVideoLibrary()` | Refreshes the video library. |
+| `Bridge.requestVideoPermissions()` | Triggers the native video permissions request dialog. |
 
 #### ── Favorites & Playlists ──
 | Method | Description |
@@ -147,14 +189,18 @@ Most data methods have an `Async` version (e.g., `getSongsPaginatedAsync`) which
 | `Bridge.isFavorite(id)` | Returns whether a song is favorited. |
 | `Bridge.addCurrentToFavorites()` | Adds currently playing track to favorites. |
 | `Bridge.addToPlaylist(playlistId, songId)` | Adds a song to a playlist. |
+| `Bridge.removeSongFromPlaylist(pid, sid)` | Removes a song from a playlist. |
 | `Bridge.createPlaylistAsync(name)` | Creates a new playlist. |
 | `Bridge.renamePlaylistAsync(id, name)` | Renames a playlist. |
+| `Bridge.deletePlaylist(id)` | Deletes an entire playlist. |
 
 #### ── Lyrics ──
 | Method | Description |
 | :--- | :--- |
 | `Bridge.fetchLyricsAsync(title, artist)` | Fetches lyrics from online (result via `onLyricsLoaded` callback). |
 | `Bridge.refetchLyrics(title, artist)` | Forces a fresh lyrics fetch, clearing cache. |
+| `Bridge.clearLyricsCache()` | Clears the entire lyrics cache. |
+| `Bridge.searchLyrics(title, artist)` | Opens a Google search for lyrics in the device browser. |
 
 #### ── Equalizer ──
 | Method | Description |
@@ -163,15 +209,29 @@ Most data methods have an `Async` version (e.g., `getSongsPaginatedAsync`) which
 | `Bridge.useEqPreset(index)` | Applies an EQ preset by index. |
 | `Bridge.getEqBandsAsync()` | Fetches current EQ band levels. |
 | `Bridge.setEqBand(index, level)` | Sets a specific EQ band level. |
+| `Bridge.resetEqBands()` | Resets all EQ bands to flat/zero. |
+| `Bridge.saveEqCustom(name)` | Saves current EQ settings as a named custom preset. |
+| `Bridge.applyEqCustom(name)` | Applies a previously saved custom EQ preset. |
+| `Bridge.getSavedEqCustom()` | Returns a JSON list of all saved custom EQ presets. |
+| `Bridge.deleteEqCustom(name)` | Deletes a saved custom EQ preset by name. |
 
 #### ── Themes ──
 | Method | Description |
 | :--- | :--- |
 | `Bridge.getAvailableThemes()` | Returns list of installed themes. |
+| `Bridge.getTheme()` | Returns the ID of the currently active theme. |
 | `Bridge.setTheme(id)` | Switches the active theme. |
 | `Bridge.getThemeInfo()` | Returns metadata for the current theme (title, author, version). |
+| `Bridge.deleteTheme(id)` | Deletes a user-imported theme. Returns `{success: true/false}`. |
 | `Bridge.requestImportTheme()` | Opens the theme import dialog. |
 | `Bridge.refreshLibrary()` | Refreshes the music library. |
+
+#### ── Folder Management ──
+| Method | Description |
+| :--- | :--- |
+| `Bridge.excludeFolder(path)` | Excludes a folder from the music library scan. |
+| `Bridge.includeFolder(path)` | Re-includes a previously excluded folder. |
+| `Bridge.getExcludedFoldersAsync()` | Fetches the list of excluded folders. |
 
 #### ── Sleep Timer ──
 | Method | Description |
